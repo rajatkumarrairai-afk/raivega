@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Custom Clearance | RAIVEGA</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --border:rgba(10,22,68,0.10);
+      --blue:#0A1644;--blue2:#15307a;--teal:#18b7a1;
+      --muted:rgba(10,22,68,0.72);--muted2:rgba(10,22,68,0.55);
+      --shadow:0 18px 50px rgba(10,22,68,0.10);--radius:18px;
+    }
+    body{margin:0;font-family:"Titillium Web",sans-serif;background:#fff;color:var(--blue);font-weight:400;}
+    a{text-decoration:none;color:inherit;}
+    .container{width:min(1200px,calc(100% - 40px));margin:0 auto;}
+
+    .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.94);border-bottom:1px solid var(--border);backdrop-filter:blur(10px);}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:16px;}
+    .brand{display:flex;flex-direction:column;gap:4px;}
+    .logo-img{height:44px;object-fit:contain;}
+    .brand-sub{font-size:11px;font-weight:500;letter-spacing:1px;color:var(--muted2);text-transform:uppercase;}
+    .nav-links{display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end;}
+    .nav-links a{font-size:14px;color:var(--muted);padding:9px 12px;border-radius:12px;transition:180ms ease;font-weight:500;}
+    .nav-links a:hover{color:var(--blue);background:rgba(10,22,68,0.05);}
+    .cta{padding:10px 14px;border-radius:14px;background:linear-gradient(135deg, rgba(10,22,68,0.10), rgba(24,183,161,0.14));border:1px solid rgba(10,22,68,0.16);box-shadow:0 16px 40px rgba(10,22,68,0.08);font-weight:600;color:var(--blue);}
+
+    .page-hero{padding:48px 0;border-bottom:1px solid rgba(10,22,68,0.08);background:linear-gradient(180deg, rgba(10,22,68,0.02), #fff);}
+    h1{margin:0 0 10px;font-size:34px;font-weight:600;}
+    p{margin:0;color:var(--muted);font-size:15px;line-height:1.85;max-width:920px;}
+
+    .content{padding:34px 0;}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    @media(max-width:900px){.grid{grid-template-columns:1fr;}}
+    .card{border:1px solid rgba(10,22,68,0.10);border-radius:18px;box-shadow:var(--shadow);background:#fff;padding:18px;}
+    .card h3{margin:0 0 10px;font-size:18px;font-weight:600;}
+    ul{margin:0;padding-left:18px;color:var(--muted);line-height:1.9;}
+    .btn{display:inline-flex;margin-top:14px;padding:12px 14px;border-radius:14px;border:1px solid rgba(10,22,68,0.14);background:rgba(10,22,68,0.04);font-weight:600;color:var(--blue2);}
+
+    footer{border-top:1px solid rgba(10,22,68,0.10);padding:38px 0;background:#fff;}
+    .foot-grid{display:grid;grid-template-columns:1.2fr 0.7fr 0.7fr;gap:18px;}
+    @media(max-width:880px){.foot-grid{grid-template-columns:1fr;}}
+    .footer-logo-img{height:46px;margin-bottom:6px;object-fit:contain;}
+    .foot h5{margin:0 0 10px;font-size:13px;letter-spacing:0.9px;text-transform:uppercase;color:var(--muted2);font-weight:600;}
+    .foot p,.foot a{margin:0;font-size:14px;color:var(--muted);line-height:1.9;}
+  </style>
+</head>
+
+<body>
+  <div class="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a class="brand" href="../index.html">
+          <img class="logo-img" src="../images/RV LOGO.png" alt="RAIVEGA Logo">
+          <div class="brand-sub">MULTIMODAL FREIGHT FORWARDING</div>
+        </a>
+        <div class="nav-links">
+          <a href="../index.html#services">Services</a>
+          <a href="get-a-quote.html">Get a Quote</a>
+          <a href="contact.html">Contact</a>
+          <a class="cta" href="get-a-quote.html">Quick Quote</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="page-hero">
+    <div class="container">
+      <h1>Custom Clearance</h1>
+      <p>
+        RAIVEGA supports customs clearance with documentation coordination and compliance-first execution.
+        We help reduce delays and keep your shipments moving smoothly.
+      </p>
+    </div>
+  </section>
+
+  <section class="content">
+    <div class="container">
+      <div class="grid">
+
+        <div class="card">
+          <h3>Custom Clearance Services</h3>
+          <ul>
+            <li>Import customs clearance</li>
+            <li>Export customs clearance</li>
+            <li>Documentation support</li>
+            <li>Compliance and coordination assistance</li>
+            <li>Shipment status support</li>
+          </ul>
+          <a class="btn" href="get-a-quote.html">Request a Quote →</a>
+        </div>
+
+        <div class="card">
+          <h3>Why Choose RAIVEGA</h3>
+          <ul>
+            <li>Compliance-first approach</li>
+            <li>Reduced clearance delays</li>
+            <li>Transparent communication</li>
+            <li>Professional coordination</li>
+            <li>Customer-centric support</li>
+          </ul>
+          <a class="btn" href="contact.html">Contact Us →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="foot-grid">
+        <div class="foot">
+          <img class="footer-logo-img" src="../images/RV LOGO.png" alt="RAIVEGA Logo" />
+          <div class="brand-sub">MULTIMODAL FREIGHT FORWARDING</div>
+          <p style="margin-top:10px;">Ocean • Air • Ground • Customs • Warehousing</p>
+          <p style="margin-top:12px;color:rgba(10,22,68,0.55);font-size:12.5px;">© 2025 RAIVEGA. All Rights Reserved.</p>
+        </div>
+
+        <div class="foot">
+          <h5>Quick Links</h5>
+          <p><a href="../index.html">Home</a></p>
+          <p><a href="../index.html#services">Services</a></p>
+          <p><a href="get-a-quote.html">Get a Quote</a></p>
+          <p><a href="contact.html">Contact</a></p>
+        </div>
+
+        <div class="foot">
+          <h5>Get in Touch</h5>
+          <p>Email: <a href="mailto:mgt@raivega.in">mgt@raivega.in</a></p>
+          <p>Share shipment details and we will support with routing and pricing.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
