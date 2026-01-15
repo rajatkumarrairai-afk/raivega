@@ -236,19 +236,27 @@
     }
 
     .marquee{position:absolute;inset:0;display:flex;align-items:stretch;}
-    .marquee-track{display:flex;width:max-content;animation:marquee 40s linear infinite;}
+    .marquee-track{display:flex;width:max-content;animation:marquee 42s linear infinite;}
     .marquee:hover .marquee-track{animation-play-state:paused;}
     @keyframes marquee{from{transform:translateX(-50%);}to{transform:translateX(0%);} }
 
     .slide{
-      width:min(74vw,820px);height:100%;
-      position:relative;flex:0 0 auto;
-      display:flex;align-items:flex-end;overflow:hidden;
+      width:min(74vw,820px);
+      height:100%;
+      position:relative;
+      flex:0 0 auto;
+      display:flex;
+      align-items:flex-end;
+      overflow:hidden;
     }
     @media (max-width:920px){.slide{width:92vw;min-height:420px;}}
     .slide img{
-      position:absolute;inset:0;width:100%;height:100%;
-      object-fit:cover;transform:scale(1.02);
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:fill;
+      transform:scale(1);
       filter:saturate(1.05) contrast(1.05);
     }
     .slide:before{
@@ -337,7 +345,7 @@
     section{padding:54px 0;}
     .section-title{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:18px;}
     .section-title h3{margin:0;font-size:26px;letter-spacing:-0.2px;color:var(--blue);font-weight:600;}
-    .section-title p{margin:0;color:var(--muted);font-size:14px;max-width:680px;line-height:1.75;font-weight:400;}
+    .section-title p{margin:0;color:var(--muted);font-size:14px;max-width:720px;line-height:1.75;font-weight:400;}
 
     .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
     @media (max-width:980px){.services-grid{grid-template-columns:repeat(2,1fr);}}
@@ -393,7 +401,7 @@
       margin:0 0 12px 0;
       color:var(--muted);
       font-size:14.5px;
-      line-height:1.75;
+      line-height:1.8;
       font-weight:400;
     }
     .about-split{display:grid;gap:12px;}
@@ -416,7 +424,7 @@
     .about-mini span{
       color:var(--muted);
       font-size:14px;
-      line-height:1.7;
+      line-height:1.75;
       display:block;
       font-weight:400;
     }
@@ -430,8 +438,46 @@
       display:grid;
       grid-template-columns:1.2fr 0.7fr 0.7fr;
       gap:18px;
+      align-items:flex-start;
     }
     @media (max-width:880px){.foot-grid{grid-template-columns:1fr;}}
+    .footer-logo{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:10px;
+    }
+    .footer-logo img{
+      width:46px;height:46px;
+      border-radius:16px;
+      border:1px solid rgba(10,22,68,0.10);
+      padding:10px;
+      background:#fff;
+      box-shadow:0 12px 32px rgba(10,22,68,0.08);
+      object-fit:contain;
+    }
+    .footer-logo .footer-name{
+      display:flex;
+      flex-direction:column;
+      line-height:1;
+      gap:4px;
+    }
+    .footer-logo .footer-name strong{
+      font-size:18px;
+      font-weight:600;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      color:var(--blue);
+    }
+    .footer-logo .footer-name strong .v{color:var(--gold);}
+    .footer-logo .footer-name span{
+      font-size:11px;
+      font-weight:400;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      color:var(--muted2);
+    }
+
     .foot h5{
       margin:0 0 10px;
       font-size:13px;
@@ -450,7 +496,7 @@
     .foot a:hover{color:var(--blue2);text-decoration:underline;text-underline-offset:3px;}
     .copyright{margin-top:18px;color:rgba(10,22,68,0.50);font-size:12.5px;font-weight:400;}
 
-    /* Footer Road Animation */
+    /* FOOTER TRUCK */
     .road-wrap{
       margin-top:22px;
       border-top:1px solid rgba(10,22,68,0.08);
@@ -467,28 +513,6 @@
       align-items:center;
       padding:0 14px;
       overflow:hidden;
-    }
-    .bg-move{
-      position:absolute;
-      left:0; right:0; top:0; bottom:0;
-      display:flex;
-      align-items:center;
-      gap:36px;
-      opacity:0.95;
-      animation:bgMove 7s linear infinite;
-      pointer-events:none;
-    }
-    @keyframes bgMove{
-      from{transform:translateX(0);}
-      to{transform:translateX(-50%);}
-    }
-    .bg-item{
-      display:flex; align-items:center; gap:18px;
-      flex:0 0 auto;
-    }
-    .bg-item img{
-      width:34px; height:34px; object-fit:contain;
-      opacity:0.95;
     }
     .truck-fixed{
       position:relative;
@@ -562,9 +586,8 @@
         <div class="nav-links">
           <a href="#services">Services</a>
           <a href="#about">About Us</a>
-          <a href="pages/get-a-quote.html">Get a Quote</a>
           <a href="pages/contact.html">Contact</a>
-          <a class="cta" href="#about">About Us</a>
+          <a class="cta" href="pages/get-a-quote.html">Get a Quote</a>
         </div>
       </div>
     </div>
@@ -588,7 +611,7 @@
                   <div class="slide-content">
                     <div class="slide-text">
                       <h1>Ocean Freight built for global cargo movement</h1>
-                      <p>LCL, FCL, Project, Break Bulk, Bulk, RORO, Reefer solutions with reliable routing.</p>
+                      <p>LCL, FCL, Project, Break Bulk, Bulk, RORO, Reefer solutions with reliable routing and strong execution.</p>
                     </div>
                     <div class="slide-action">
                       <a class="btn primary" href="pages/ocean-freight.html">Ocean Freight</a>
@@ -602,7 +625,7 @@
                   <div class="slide-content">
                     <div class="slide-text">
                       <h1>Air Freight for urgent and priority shipments</h1>
-                      <p>Fast global delivery, secure handling, and transit planning for high-priority cargo.</p>
+                      <p>Fast global delivery, secure handling, and transit planning for time-sensitive cargo and critical movements.</p>
                     </div>
                     <div class="slide-action">
                       <a class="btn primary" href="pages/air-freight.html">Air Freight</a>
@@ -616,7 +639,7 @@
                   <div class="slide-content">
                     <div class="slide-text">
                       <h1>Ground Freight with road + rail connectivity</h1>
-                      <p>Stable schedules, cost-optimised routing, and smooth distribution support.</p>
+                      <p>Stable schedules, cost-optimised routing, and smooth inland distribution support for seamless cargo movement.</p>
                     </div>
                     <div class="slide-action">
                       <a class="btn primary" href="pages/ground-freight.html">Ground Freight</a>
@@ -630,7 +653,7 @@
                   <div class="slide-content">
                     <div class="slide-text">
                       <h1>Project & specialised cargo handled with precision</h1>
-                      <p>Heavy-lift planning and execution for special shipments and oversized cargo.</p>
+                      <p>Heavy-lift planning, route surveys and coordinated execution for oversized cargo and complex logistics.</p>
                     </div>
                     <div class="slide-action">
                       <a class="btn primary" href="pages/get-a-quote.html">Project Logistics</a>
@@ -644,7 +667,7 @@
                   <div class="slide-content">
                     <div class="slide-text">
                       <h1>Bulk cargo and terminal operations</h1>
-                      <p>Bulk movements supported with strong coordination and smooth execution.</p>
+                      <p>Reliable coordination for bulk movements with clear documentation, timely planning and controlled delivery execution.</p>
                     </div>
                     <div class="slide-action">
                       <a class="btn primary" href="pages/get-a-quote.html">Bulk Cargo</a>
@@ -658,7 +681,7 @@
                   <div class="slide-content">
                     <div class="slide-text">
                       <h1>RORO & vehicle cargo movement made simple</h1>
-                      <p>Seamless handling for automobiles and rolling cargo through proven shipping options.</p>
+                      <p>Seamless handling for automobiles and rolling cargo through proven shipping options and clear process control.</p>
                     </div>
                     <div class="slide-action">
                       <a class="btn primary" href="pages/get-a-quote.html">RORO Cargo</a>
@@ -672,7 +695,7 @@
                   <div class="slide-content">
                     <div class="slide-text">
                       <h1>Bulk logistics with smart execution</h1>
-                      <p>High-volume cargo handled with compliance-first documentation and planning.</p>
+                      <p>High-volume cargo handled with compliance-first documentation, proper planning and continuous shipment monitoring.</p>
                     </div>
                     <div class="slide-action">
                       <a class="btn primary" href="pages/get-a-quote.html">Bulk Logistics</a>
@@ -686,7 +709,7 @@
                   <div class="slide-content">
                     <div class="slide-text">
                       <h1>Air cargo planning with global network</h1>
-                      <p>Priority uplift and routing guidance for time-critical movements.</p>
+                      <p>Priority uplift and routing guidance backed by reliable coordination for time-critical and high-value shipments.</p>
                     </div>
                     <div class="slide-action">
                       <a class="btn primary" href="pages/air-freight.html">Air Network</a>
@@ -700,7 +723,7 @@
                   <div class="slide-content">
                     <div class="slide-text">
                       <h1>Ocean Freight built for global cargo movement</h1>
-                      <p>LCL, FCL, Project, Break Bulk, Bulk, RORO, Reefer solutions with reliable routing.</p>
+                      <p>LCL, FCL, Project, Break Bulk, Bulk, RORO, Reefer solutions with reliable routing and strong execution.</p>
                     </div>
                     <div class="slide-action">
                       <a class="btn primary" href="pages/ocean-freight.html">Ocean Freight</a>
@@ -716,7 +739,11 @@
           <div class="hero-side">
             <div class="glass-card">
               <h2>Reliable & Innovative</h2>
-              <p>RAIVEGA delivers smooth multimodal freight forwarding with integrity, transparency and strong execution.</p>
+              <p>
+                RAIVEGA delivers professional multimodal freight forwarding with integrity, transparency and strong execution.
+                We focus on smooth planning, consistent follow-ups and dependable service — ensuring every shipment moves with
+                clarity, control and confidence.
+              </p>
               <div class="quick-actions">
                 <a class="mini" href="#services"><strong>Our Services</strong><span>Ocean • Air • Ground • Customs</span></a>
                 <a class="mini" href="#about"><strong>About Us</strong><span>Know RAIVEGA better</span></a>
@@ -727,9 +754,9 @@
               <h2>We Move Anything, Anywhere</h2>
               <p>
                 From standard commercial cargo to specialised and complex movements, RAIVEGA delivers complete end-to-end freight
-                solutions with reliable execution. Our operations focus on secure handling, compliant documentation, smart routing,
-                and consistent coordination across Ocean, Air, Road and Rail — ensuring your shipments move efficiently, on time,
-                and with full accountability.
+                solutions with consistent execution. Our operations are designed around secure handling, compliance-focused documentation,
+                smart routing, and proactive coordination across Ocean, Air, Road and Rail. We support your supply chain with timely updates,
+                clear accountability and a customer-first approach — ensuring your shipments move efficiently, safely, and on schedule.
               </p>
             </div>
           </div>
@@ -835,7 +862,7 @@
           <h3>About RAIVEGA</h3>
           <p>
             RAIVEGA is committed to delivering dependable, transparent and cost-effective freight forwarding solutions
-            that help businesses move cargo smoothly across international and domestic networks.
+            that support smooth cargo movement across domestic and international networks.
           </p>
         </div>
       </div>
@@ -844,16 +871,21 @@
         <div class="about-card">
           <h4>Who We Are</h4>
           <p>
-            RAIVEGA is a growing multimodal freight forwarding company focused on providing practical logistics solutions
-            with strong execution. We support global trade by connecting Ocean, Air and Ground freight with efficient
-            documentation, reliable coordination and end-to-end service control.
+            RAIVEGA is a growing multimodal freight forwarding company focused on providing professional logistics solutions with strong execution.
+            We support global trade by connecting Ocean, Air and Ground freight with efficient documentation, reliable coordination and end-to-end service control.
           </p>
 
-          <h4>What We Believe In</h4>
+          <h4>Our Approach</h4>
           <p>
-            We operate with integrity, accountability and a customer-first approach. Every shipment is handled with
-            attention to compliance, safety and on-time delivery. Our priority is to provide consistent communication,
-            dependable routing and professional support for every client.
+            We operate with integrity, accountability and a customer-first mindset. Every shipment is handled with attention to compliance, safety
+            and time-bound delivery. Our objective is to provide consistent communication, dependable routing and professional support so clients
+            can plan their supply chain confidently.
+          </p>
+
+          <h4>What You Can Expect</h4>
+          <p>
+            Clear process visibility, accurate documentation, practical routing guidance and dedicated shipment coordination — supported by a team
+            that values responsiveness and long-term customer relationships.
           </p>
         </div>
 
@@ -864,11 +896,11 @@
           </div>
           <div class="about-mini">
             <strong>Our Vision</strong>
-            <span>To grow as a trusted logistics partner known for innovation, customer-centric execution and reliable performance across global trade routes.</span>
+            <span>To grow as a trusted logistics partner known for innovation, customer-centric execution and reliable performance across trade routes.</span>
           </div>
           <div class="about-mini">
-            <strong>End-to-End Capability</strong>
-            <span>Complete support across Ocean, Air, Transportation, Rail, Customs Clearance and Warehousing for smooth cargo movement.</span>
+            <strong>Complete Capability</strong>
+            <span>Ocean Freight, Air Freight, Ground Freight, Transportation, Customs Clearance and Warehousing — all under one reliable operational framework.</span>
           </div>
         </div>
       </div>
@@ -881,10 +913,20 @@
       <div class="foot-grid">
 
         <div class="foot">
-          <h5>RAIVEGA</h5>
-          <p style="margin-top:10px;">
-            Multimodal freight forwarding solutions across Ocean, Air and Ground freight — with customs and warehousing support.
+          <div class="footer-logo">
+            <img src="images/rv-icon.svg" alt="
+                                               VEGA Logo" />
+            <div class="footer-name">
+              <strong>RAI<span class="v">V</span>EGA</strong>
+              <span>MULTIMODAL FREIGHT FORWARDING</span>
+            </div>
+          </div>
+
+          <p style="margin-top:6px;">
+            Multimodal freight forwarding solutions across Ocean, Air and Ground freight — supported by customs clearance and warehousing services.
+            RAIVEGA focuses on reliable execution, clear communication and end-to-end movement control for every shipment.
           </p>
+
           <div class="copyright">© 2025 RAIVEGA. All Rights Reserved.</div>
         </div>
 
@@ -900,7 +942,7 @@
         <div class="foot">
           <h5>Get in Touch</h5>
           <p>Email: <a href="mailto:mgt@raivega.in">mgt@raivega.in</a></p>
-          <p>Share shipment details and we will support with routing and pricing.</p>
+          <p>For rates, routing guidance or shipment planning — connect with our team anytime.</p>
           <p style="margin-top:10px;"><a class="cta" href="pages/get-a-quote.html">Get a Quote</a></p>
         </div>
 
@@ -908,25 +950,10 @@
 
       <div class="road-wrap">
         <div class="road">
-
-          <div class="bg-move" aria-hidden="true">
-            <div class="bg-item">
-              <img src="images/tree1.png" alt="">
-              <img src="images/tree2.png" alt="">
-              <img src="images/tree3.png" alt="">
-            </div>
-            <div class="bg-item">
-              <img src="images/tree1.png" alt="">
-              <img src="images/tree2.png" alt="">
-              <img src="images/tree3.png" alt="">
-            </div>
-          </div>
-
           <div class="truck-fixed">
             <img src="images/truck.gif" alt="Truck">
             <span>Moving forward with RAIVEGA</span>
           </div>
-
         </div>
       </div>
 
@@ -934,7 +961,7 @@
   </footer>
 
   <div class="float-wrap">
-    <a class="float-btn float-wa" href="https://wa.me/9199155215906" aria-label="WhatsApp">
+    <a class="float-btn float-wa" href="https://wa.me/919915521506" aria-label="WhatsApp">
       <svg viewBox="0 0 32 32"><path d="M19.11 17.7c-.28-.14-1.66-.82-1.91-.91-.26-.09-.45-.14-.64.14-.19.28-.73.91-.89 1.1-.16.19-.33.21-.61.07-.28-.14-1.2-.44-2.28-1.4-.84-.75-1.4-1.68-1.57-1.96-.16-.28-.02-.43.12-.57.12-.12.28-.33.42-.49.14-.16.19-.28.28-.47.09-.19.05-.35-.02-.49-.07-.14-.64-1.54-.87-2.11-.23-.56-.47-.48-.64-.49-.16-.01-.35-.01-.54-.01-.19 0-.49.07-.75.35-.26.28-.98.96-.98 2.34 0 1.38 1 2.71 1.14 2.9.14.19 1.97 3.01 4.77 4.22.66.29 1.18.46 1.58.59.66.21 1.26.18 1.73.11.53-.08 1.66-.68 1.89-1.33.23-.65.23-1.21.16-1.33-.07-.12-.26-.19-.54-.33zM16 3C8.83 3 3 8.83 3 16c0 2.27.6 4.41 1.64 6.27L3 29l6.9-1.81A12.9 12.9 0 0016 29c7.17 0 13-5.83 13-13S23.17 3 16 3z"/></svg>
     </a>
 
