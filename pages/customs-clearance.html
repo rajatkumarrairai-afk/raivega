@@ -3,62 +3,114 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Custom Clearance | RAIVEGA</title>
+  <title>RAIVEGA | Customs Clearance</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="icon" type="image/svg+xml" href="../images/rv-icon.svg" />
 
   <style>
     :root{
-      --border:rgba(10,22,68,0.10);
-      --blue:#0A1644;--blue2:#15307a;--teal:#18b7a1;
-      --muted:rgba(10,22,68,0.72);--muted2:rgba(10,22,68,0.55);
-      --shadow:0 18px 50px rgba(10,22,68,0.10);--radius:18px;
-    }
-    body{margin:0;font-family:"Titillium Web",sans-serif;background:#fff;color:var(--blue);font-weight:400;}
-    a{text-decoration:none;color:inherit;}
-    .container{width:min(1200px,calc(100% - 40px));margin:0 auto;}
+      --bg:#ffffff;
+      --border:rgba(10, 22, 68, 0.10);
+      --blue:#0A1644;
+      --blue2:#15307a;
+      --teal:#18b7a1;
+      --wa:#25D366;
+      --li:#0A66C2;
 
-    .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.94);border-bottom:1px solid var(--border);backdrop-filter:blur(10px);}
+      --muted:rgba(10, 22, 68, 0.72);
+      --muted2:rgba(10, 22, 68, 0.55);
+
+      --shadow:0 18px 50px rgba(10, 22, 68, 0.10);
+      --radius:18px;
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      font-family:"Titillium Web", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:var(--bg);
+      color:var(--blue);
+      overflow-x:hidden;
+      font-weight:400;
+    }
+    a{color:inherit;text-decoration:none;}
+    .container{width:min(1200px, calc(100% - 40px));margin:0 auto;}
+
+    .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.94);border-bottom:1px solid var(--border);backdrop-filter: blur(10px);}
     .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:16px;}
-    .brand{display:flex;flex-direction:column;gap:4px;}
-    .logo-img{height:44px;object-fit:contain;}
-    .brand-sub{font-size:11px;font-weight:500;letter-spacing:1px;color:var(--muted2);text-transform:uppercase;}
-    .nav-links{display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end;}
+    .brand{display:flex;align-items:center;gap:12px;}
+    .brand-icon{width:44px;height:44px;display:block;object-fit:contain;border-radius:12px;border:1px solid rgba(10,22,68,0.10);padding:6px;background:#fff;}
+    .brand-text{display:flex;flex-direction:column;gap:3px;}
+    .brand-wordmark{font-weight:600;font-size:22px;letter-spacing:0.2px;color:var(--blue);line-height:1;}
+    .brand-wordmark .v{color:#F1B81E;font-weight:600;}
+    .brand-sub{font-size:11px;font-weight:400;letter-spacing:1px;color:var(--muted2);text-transform:uppercase;line-height:1.2;}
+    .nav-links{display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:flex-end;}
     .nav-links a{font-size:14px;color:var(--muted);padding:9px 12px;border-radius:12px;transition:180ms ease;font-weight:500;}
     .nav-links a:hover{color:var(--blue);background:rgba(10,22,68,0.05);}
-    .cta{padding:10px 14px;border-radius:14px;background:linear-gradient(135deg, rgba(10,22,68,0.10), rgba(24,183,161,0.14));border:1px solid rgba(10,22,68,0.16);box-shadow:0 16px 40px rgba(10,22,68,0.08);font-weight:600;color:var(--blue);}
+    .cta{padding:10px 14px;border-radius:14px;background:linear-gradient(135deg, rgba(10,22,68,0.10), rgba(24,183,161,0.14));border:1px solid rgba(10,22,68,0.16);box-shadow:0 16px 40px rgba(10,22,68,0.08);font-size:14px;font-weight:600;color:var(--blue);transition:transform 180ms ease;white-space:nowrap;}
+    .cta:hover{transform:translateY(-1px);}
+    @media (max-width:640px){
+      .nav-inner{flex-direction:column;align-items:flex-start;}
+      .nav-links{width:100%;justify-content:flex-start;gap:8px;}
+      .brand-wordmark{font-size:20px;}
+    }
 
-    .page-hero{padding:48px 0;border-bottom:1px solid rgba(10,22,68,0.08);background:linear-gradient(180deg, rgba(10,22,68,0.02), #fff);}
-    h1{margin:0 0 10px;font-size:34px;font-weight:600;}
-    p{margin:0;color:var(--muted);font-size:15px;line-height:1.85;max-width:920px;}
+    .page-wrap{padding:26px 0 44px;}
+    .page-title{margin:0 0 10px;font-size:28px;font-weight:600;letter-spacing:-0.2px;color:var(--blue);}
+    .page-sub{margin:0 0 18px;color:var(--muted);font-size:14.5px;line-height:1.75;font-weight:400;max-width:920px;}
 
-    .content{padding:34px 0;}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    .hero-box{border-radius:18px;border:1px solid rgba(10,22,68,0.10);box-shadow:var(--shadow);overflow:hidden;background:#fff;margin-top:14px;}
+    .hero-content{padding:18px;}
+    .hero-content h2{margin:0 0 10px;font-size:20px;font-weight:600;color:var(--blue);}
+    .hero-content p{margin:0 0 10px;font-size:14.5px;line-height:1.8;color:var(--muted);font-weight:400;}
+
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
     @media(max-width:900px){.grid{grid-template-columns:1fr;}}
-    .card{border:1px solid rgba(10,22,68,0.10);border-radius:18px;box-shadow:var(--shadow);background:#fff;padding:18px;}
-    .card h3{margin:0 0 10px;font-size:18px;font-weight:600;}
-    ul{margin:0;padding-left:18px;color:var(--muted);line-height:1.9;}
-    .btn{display:inline-flex;margin-top:14px;padding:12px 14px;border-radius:14px;border:1px solid rgba(10,22,68,0.14);background:rgba(10,22,68,0.04);font-weight:600;color:var(--blue2);}
+    .card{border-radius:18px;border:1px solid rgba(10,22,68,0.10);box-shadow:var(--shadow);background:#fff;padding:18px;}
+    .card h3{margin:0 0 10px;font-size:18px;font-weight:600;color:var(--blue);}
+    .card ul{margin:0;padding-left:18px;color:var(--muted);font-size:14.5px;line-height:1.75;font-weight:400;}
+    .card ul li{margin-bottom:6px;}
 
-    footer{border-top:1px solid rgba(10,22,68,0.10);padding:38px 0;background:#fff;}
+    footer{border-top:1px solid rgba(10,22,68,0.10);background:#fff;padding:38px 0;margin-top:26px;}
     .foot-grid{display:grid;grid-template-columns:1.2fr 0.7fr 0.7fr;gap:18px;}
-    @media(max-width:880px){.foot-grid{grid-template-columns:1fr;}}
-    .footer-logo-img{height:46px;margin-bottom:6px;object-fit:contain;}
+    @media (max-width:880px){.foot-grid{grid-template-columns:1fr;}}
+    .footer-logo{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+    .footer-logo img{width:44px;height:44px;object-fit:contain;border-radius:12px;border:1px solid rgba(10,22,68,0.10);padding:6px;background:#fff;}
+    .footer-name{display:flex;flex-direction:column;gap:3px;}
+    .footer-name strong{font-weight:600;font-size:22px;letter-spacing:0.2px;color:var(--blue);line-height:1;}
+    .footer-name strong .v{color:#F1B81E;}
+    .footer-name span{font-size:11px;font-weight:400;letter-spacing:1px;color:var(--muted2);text-transform:uppercase;line-height:1.2;}
     .foot h5{margin:0 0 10px;font-size:13px;letter-spacing:0.9px;text-transform:uppercase;color:var(--muted2);font-weight:600;}
-    .foot p,.foot a{margin:0;font-size:14px;color:var(--muted);line-height:1.9;}
+    .foot p, .foot a{margin:0;font-size:14px;color:var(--muted);line-height:1.9;font-weight:400;}
+    .foot a:hover{color:var(--blue2);text-decoration:underline;text-underline-offset:3px;}
+    .copyright{margin-top:18px;color:rgba(10,22,68,0.55);font-size:12.5px;font-weight:400;}
+
+    .float-wrap{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:10px;z-index:9999;}
+    .float-btn{width:52px;height:52px;border-radius:999px;display:flex;align-items:center;justify-content:center;box-shadow:0 18px 50px rgba(10,22,68,0.20);border:1px solid rgba(255,255,255,0.35);transition:transform 180ms ease;background:#fff;}
+    .float-btn:hover{transform:translateY(-2px);}
+    .float-btn svg{width:24px;height:24px;display:block;}
+    .float-wa{background:var(--wa);}
+    .float-li{background:var(--li);}
+    .float-wa svg, .float-li svg{fill:#fff;}
   </style>
 </head>
 
 <body>
+
   <div class="nav">
     <div class="container">
       <div class="nav-inner">
         <a class="brand" href="../index.html">
-          <img class="logo-img" src="../images/RV LOGO.png" alt="RAIVEGA Logo">
-          <div class="brand-sub">MULTIMODAL FREIGHT FORWARDING</div>
+          <img class="brand-icon" src="../images/rv-icon.svg" alt="RAIVEGA Icon">
+          <div class="brand-text">
+            <div class="brand-wordmark">RAI<span class="v">V</span>EGA</div>
+            <div class="brand-sub">MULTIMODAL FREIGHT FORWARDING</div>
+          </div>
         </a>
+
         <div class="nav-links">
           <a href="../index.html#services">Services</a>
           <a href="get-a-quote.html">Get a Quote</a>
@@ -69,56 +121,69 @@
     </div>
   </div>
 
-  <section class="page-hero">
+  <main class="page-wrap">
     <div class="container">
-      <h1>Custom Clearance</h1>
-      <p>
-        RAIVEGA supports customs clearance with documentation coordination and compliance-first execution.
-        We help reduce delays and keep your shipments moving smoothly.
+      <h1 class="page-title">Customs Clearance</h1>
+      <p class="page-sub">
+        RAIVEGA provides professional customs clearance support for import and export shipments with a compliance-first
+        approach. We ensure correct documentation, accurate filing, and smooth coordination to reduce delays and ensure
+        reliable cargo movement across borders.
       </p>
-    </div>
-  </section>
 
-  <section class="content">
-    <div class="container">
+      <div class="hero-box">
+        <div class="hero-content">
+          <h2>Compliance-First Customs Handling for Smooth Trade</h2>
+          <p>
+            Customs clearance is one of the most critical elements of global trade. RAIVEGA ensures your shipments are
+            processed with the correct classification, documentation, and regulatory compliance to avoid penalties and delays.
+            Our goal is to provide structured support that strengthens your cargo execution and improves overall shipment reliability.
+          </p>
+          <p>
+            We assist with both import and export clearance, document review, coordination with relevant authorities,
+            and professional guidance to simplify the customs process.
+          </p>
+        </div>
+      </div>
+
       <div class="grid">
-
         <div class="card">
-          <h3>Custom Clearance Services</h3>
+          <h3>Customs Clearance Services</h3>
           <ul>
-            <li>Import customs clearance</li>
-            <li>Export customs clearance</li>
-            <li>Documentation support</li>
-            <li>Compliance and coordination assistance</li>
-            <li>Shipment status support</li>
+            <li>Import and Export customs clearance support</li>
+            <li>Documentation and invoice verification</li>
+            <li>HS classification guidance and review</li>
+            <li>Regulatory compliance assistance</li>
+            <li>Clearance coordination and shipment release</li>
           </ul>
-          <a class="btn" href="get-a-quote.html">Request a Quote →</a>
         </div>
 
         <div class="card">
           <h3>Why Choose RAIVEGA</h3>
           <ul>
-            <li>Compliance-first approach</li>
-            <li>Reduced clearance delays</li>
-            <li>Transparent communication</li>
-            <li>Professional coordination</li>
-            <li>Customer-centric support</li>
+            <li>Accurate documentation and compliance-first processes</li>
+            <li>Reduced clearance delays and smoother cargo movement</li>
+            <li>Professional communication and shipment assistance</li>
+            <li>Reliable operational coordination with strong execution</li>
+            <li>Customer-first support for long-term business growth</li>
           </ul>
-          <a class="btn" href="contact.html">Contact Us →</a>
         </div>
-
       </div>
     </div>
-  </section>
+  </main>
 
   <footer>
     <div class="container">
       <div class="foot-grid">
         <div class="foot">
-          <img class="footer-logo-img" src="../images/RV LOGO.png" alt="RAIVEGA Logo" />
-          <div class="brand-sub">MULTIMODAL FREIGHT FORWARDING</div>
-          <p style="margin-top:10px;">Ocean • Air • Ground • Customs • Warehousing</p>
-          <p style="margin-top:12px;color:rgba(10,22,68,0.55);font-size:12.5px;">© 2025 RAIVEGA. All Rights Reserved.</p>
+          <div class="footer-logo">
+            <img src="../images/rv-icon.svg" alt="RAIVEGA Icon">
+            <div class="footer-name">
+              <strong>RAI<span class="v">V</span>EGA</strong>
+              <span>MULTIMODAL FREIGHT FORWARDING</span>
+            </div>
+          </div>
+          <p>Multimodal freight forwarding solutions across Ocean, Air and Ground freight — with customs and warehousing support.</p>
+          <div class="copyright">© 2025 RAIVEGA. All Rights Reserved.</div>
         </div>
 
         <div class="foot">
@@ -132,10 +197,21 @@
         <div class="foot">
           <h5>Get in Touch</h5>
           <p>Email: <a href="mailto:mgt@raivega.in">mgt@raivega.in</a></p>
-          <p>Share shipment details and we will support with routing and pricing.</p>
+          <p>Phone: <a href="tel:+9199155215906">+91 99155215906</a></p>
         </div>
       </div>
     </div>
   </footer>
+
+  <div class="float-wrap">
+    <a class="float-btn float-wa" href="https://wa.me/9199155215906" aria-label="WhatsApp">
+      <svg viewBox="0 0 32 32"><path d="M19.11 17.7c-.28-.14-1.66-.82-1.91-.91-.26-.09-.45-.14-.64.14-.19.28-.73.91-.89 1.1-.16.19-.33.21-.61.07-.28-.14-1.2-.44-2.28-1.4-.84-.75-1.4-1.68-1.57-1.96-.16-.28-.02-.43.12-.57.12-.12.28-.33.42-.49.14-.16.19-.28.28-.47.09-.19.05-.35-.02-.49-.07-.14-.64-1.54-.87-2.11-.23-.56-.47-.48-.64-.49-.16-.01-.35-.01-.54-.01-.19 0-.49.07-.75.35-.26.28-.98.96-.98 2.34 0 1.38 1 2.71 1.14 2.9.14.19 1.97 3.01 4.77 4.22.66.29 1.18.46 1.58.59.66.21 1.26.18 1.73.11.53-.08 1.66-.68 1.89-1.33.23-.65.23-1.21.16-1.33-.07-.12-.26-.19-.54-.33zM16 3C8.83 3 3 8.83 3 16c0 2.27.6 4.41 1.64 6.27L3 29l6.9-1.81A12.9 12.9 0 0016 29c7.17 0 13-5.83 13-13S23.17 3 16 3z"/></svg>
+    </a>
+
+    <a class="float-btn float-li" href="https://www.linkedin.com/company/raivega/" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.95v5.66H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.27 2.38 4.27 5.47v6.27zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+    </a>
+  </div>
+
 </body>
 </html>
