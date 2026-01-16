@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <link rel="icon" type="image/svg+xml" href="../images/rv-icon.svg" />
+  <link rel="icon" type="image/svg+xml" href="../images/rv-icon.svg">
 
   <style>
     :root{
@@ -17,17 +17,21 @@
       --border:rgba(10, 22, 68, 0.10);
       --blue:#0A1644;
       --blue2:#15307a;
+      --gold:#f0b400;
       --teal:#18b7a1;
-      --wa:#25D366;
-      --li:#0A66C2;
 
       --muted:rgba(10, 22, 68, 0.72);
       --muted2:rgba(10, 22, 68, 0.55);
 
       --shadow:0 18px 50px rgba(10, 22, 68, 0.10);
       --radius:18px;
+
+      --wa:#25D366;
+      --li:#0A66C2;
     }
+
     *{box-sizing:border-box;}
+    html,body{height:100%;}
     body{
       margin:0;
       font-family:"Titillium Web", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
@@ -39,62 +43,275 @@
     a{color:inherit;text-decoration:none;}
     .container{width:min(1200px, calc(100% - 40px));margin:0 auto;}
 
-    .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.94);border-bottom:1px solid var(--border);backdrop-filter: blur(10px);}
-    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:16px;}
-    .brand{display:flex;align-items:center;gap:12px;}
-    .brand-icon{width:44px;height:44px;display:block;object-fit:contain;border-radius:12px;border:1px solid rgba(10,22,68,0.10);padding:6px;background:#fff;}
-    .brand-text{display:flex;flex-direction:column;gap:3px;}
-    .brand-wordmark{font-weight:600;font-size:22px;letter-spacing:0.2px;color:var(--blue);line-height:1;}
-    .brand-wordmark .v{color:#F1B81E;font-weight:600;}
-    .brand-sub{font-size:11px;font-weight:400;letter-spacing:1px;color:var(--muted2);text-transform:uppercase;line-height:1.2;}
-    .nav-links{display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:flex-end;}
-    .nav-links a{font-size:14px;color:var(--muted);padding:9px 12px;border-radius:12px;transition:180ms ease;font-weight:500;}
-    .nav-links a:hover{color:var(--blue);background:rgba(10,22,68,0.05);}
-    .cta{padding:10px 14px;border-radius:14px;background:linear-gradient(135deg, rgba(10,22,68,0.10), rgba(24,183,161,0.14));border:1px solid rgba(10,22,68,0.16);box-shadow:0 16px 40px rgba(10,22,68,0.08);font-size:14px;font-weight:600;color:var(--blue);transition:transform 180ms ease;white-space:nowrap;}
+    /* NAV */
+    .nav{
+      position:sticky;top:0;z-index:50;
+      background:rgba(255,255,255,0.94);
+      border-bottom:1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+    .nav-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 0;
+      gap:16px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .brand-icon{
+      width:46px;height:46px;
+      border-radius:16px;
+      border:1px solid rgba(10,22,68,0.10);
+      box-shadow:0 12px 32px rgba(10,22,68,0.08);
+      padding:10px;
+      background:#fff;
+      object-fit:contain;
+      flex:0 0 auto;
+    }
+    .brand-text{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      line-height:1;
+    }
+    .brand-wordmark{
+      font-size:22px;
+      font-weight:600;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      color:var(--blue);
+    }
+    .brand-wordmark .v{color:var(--gold);}
+    .brand-sub{
+      font-size:11px;
+      font-weight:400;
+      letter-spacing:1px;
+      color:var(--muted2);
+      text-transform:uppercase;
+    }
+    .nav-links{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .nav-links a{
+      font-size:14px;
+      color:var(--muted);
+      padding:9px 12px;
+      border-radius:12px;
+      transition:180ms ease;
+      font-weight:500;
+    }
+    .nav-links a:hover{
+      color:var(--blue);
+      background:rgba(10,22,68,0.05);
+    }
+    .cta{
+      padding:10px 14px;
+      border-radius:14px;
+      background:linear-gradient(135deg, rgba(10,22,68,0.10), rgba(240,180,0,0.18));
+      border:1px solid rgba(10,22,68,0.16);
+      box-shadow:0 16px 40px rgba(10,22,68,0.08);
+      font-size:14px;
+      font-weight:600;
+      color:var(--blue);
+      transition:transform 180ms ease;
+      white-space:nowrap;
+    }
     .cta:hover{transform:translateY(-1px);}
-    @media (max-width:640px){
+    @media (max-width:740px){
       .nav-inner{flex-direction:column;align-items:flex-start;}
       .nav-links{width:100%;justify-content:flex-start;gap:8px;}
-      .brand-wordmark{font-size:20px;}
     }
 
-    .page-wrap{padding:26px 0 44px;}
-    .page-title{margin:0 0 10px;font-size:28px;font-weight:600;letter-spacing:-0.2px;color:var(--blue);}
-    .page-sub{margin:0 0 18px;color:var(--muted);font-size:14.5px;line-height:1.75;font-weight:400;max-width:920px;}
+    /* PAGE HERO */
+    .page-hero{
+      padding:34px 0 18px;
+    }
+    .hero-card{
+      border-radius:var(--radius);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      background:#fff;
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:0;
+      min-height:380px;
+    }
+    @media(max-width:920px){
+      .hero-card{grid-template-columns:1fr;min-height:unset;}
+    }
+    .hero-img{
+      position:relative;
+      min-height:320px;
+    }
+    .hero-img img{
+      position:absolute;inset:0;width:100%;height:100%;
+      object-fit:cover;
+      object-position:center;
+      display:block;
+    }
+    .hero-img:after{
+      content:"";
+      position:absolute;inset:0;
+      background:linear-gradient(to top, rgba(10,22,68,0.60), rgba(10,22,68,0.10));
+    }
+    .hero-info{
+      padding:22px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:12px;
+    }
+    .hero-info h1{
+      margin:0;
+      font-size:32px;
+      font-weight:600;
+      letter-spacing:-0.3px;
+      color:var(--blue);
+    }
+    .hero-info p{
+      margin:0;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.85;
+      font-weight:400;
+    }
+    .pill-row{
+      display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;
+    }
+    .pill{
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(10,22,68,0.12);
+      background:rgba(10,22,68,0.03);
+      color:var(--blue);
+      font-size:12.5px;
+      font-weight:500;
+    }
 
-    .hero-box{border-radius:18px;border:1px solid rgba(10,22,68,0.10);box-shadow:var(--shadow);overflow:hidden;background:#fff;margin-top:14px;}
-    .hero-content{padding:18px;}
-    .hero-content h2{margin:0 0 10px;font-size:20px;font-weight:600;color:var(--blue);}
-    .hero-content p{margin:0 0 10px;font-size:14.5px;line-height:1.8;color:var(--muted);font-weight:400;}
+    section{padding:24px 0 54px;}
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+    }
+    @media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr);}}
+    @media(max-width:620px){.grid{grid-template-columns:1fr;}}
+    .card{
+      border-radius:var(--radius);
+      border:1px solid rgba(10,22,68,0.10);
+      background:#fff;
+      box-shadow:var(--shadow);
+      padding:18px;
+      min-height:180px;
+    }
+    .card h3{
+      margin:0 0 10px 0;
+      font-size:18px;
+      font-weight:600;
+      color:var(--blue);
+    }
+    .card ul{
+      margin:0;
+      padding-left:18px;
+      color:var(--muted);
+      font-size:14.5px;
+      line-height:1.8;
+      font-weight:400;
+    }
 
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
-    @media(max-width:900px){.grid{grid-template-columns:1fr;}}
-    .card{border-radius:18px;border:1px solid rgba(10,22,68,0.10);box-shadow:var(--shadow);background:#fff;padding:18px;}
-    .card h3{margin:0 0 10px;font-size:18px;font-weight:600;color:var(--blue);}
-    .card ul{margin:0;padding-left:18px;color:var(--muted);font-size:14.5px;line-height:1.75;font-weight:400;}
-    .card ul li{margin-bottom:6px;}
-
-    footer{border-top:1px solid rgba(10,22,68,0.10);background:#fff;padding:38px 0;margin-top:26px;}
-    .foot-grid{display:grid;grid-template-columns:1.2fr 0.7fr 0.7fr;gap:18px;}
+    /* FOOTER */
+    footer{
+      border-top:1px solid rgba(10,22,68,0.10);
+      background:#fff;
+      padding:38px 0 18px;
+    }
+    .foot-grid{
+      display:grid;
+      grid-template-columns:1.2fr 0.7fr 0.7fr;
+      gap:18px;
+      align-items:flex-start;
+    }
     @media (max-width:880px){.foot-grid{grid-template-columns:1fr;}}
-    .footer-logo{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
-    .footer-logo img{width:44px;height:44px;object-fit:contain;border-radius:12px;border:1px solid rgba(10,22,68,0.10);padding:6px;background:#fff;}
-    .footer-name{display:flex;flex-direction:column;gap:3px;}
-    .footer-name strong{font-weight:600;font-size:22px;letter-spacing:0.2px;color:var(--blue);line-height:1;}
-    .footer-name strong .v{color:#F1B81E;}
-    .footer-name span{font-size:11px;font-weight:400;letter-spacing:1px;color:var(--muted2);text-transform:uppercase;line-height:1.2;}
-    .foot h5{margin:0 0 10px;font-size:13px;letter-spacing:0.9px;text-transform:uppercase;color:var(--muted2);font-weight:600;}
-    .foot p, .foot a{margin:0;font-size:14px;color:var(--muted);line-height:1.9;font-weight:400;}
+    .footer-logo{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:10px;
+    }
+    .footer-logo img{
+      width:46px;height:46px;
+      border-radius:16px;
+      border:1px solid rgba(10,22,68,0.10);
+      padding:10px;
+      background:#fff;
+      box-shadow:0 12px 32px rgba(10,22,68,0.08);
+      object-fit:contain;
+    }
+    .footer-logo .footer-name{
+      display:flex;
+      flex-direction:column;
+      line-height:1;
+      gap:4px;
+    }
+    .footer-logo .footer-name strong{
+      font-size:22px;
+      font-weight:600;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      color:var(--blue);
+    }
+    .footer-logo .footer-name strong .v{color:var(--gold);}
+    .footer-logo .footer-name span{
+      font-size:11px;
+      font-weight:400;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      color:var(--muted2);
+    }
+    .foot h5{
+      margin:0 0 10px;
+      font-size:13px;
+      letter-spacing:0.9px;
+      text-transform:uppercase;
+      color:var(--muted2);
+      font-weight:600;
+    }
+    .foot p,.foot a{
+      margin:0;
+      font-size:14px;
+      color:var(--muted);
+      line-height:1.9;
+      font-weight:400;
+    }
     .foot a:hover{color:var(--blue2);text-decoration:underline;text-underline-offset:3px;}
-    .copyright{margin-top:18px;color:rgba(10,22,68,0.55);font-size:12.5px;font-weight:400;}
+    .copyright{margin-top:18px;color:rgba(10,22,68,0.50);font-size:12.5px;font-weight:400;}
 
-    .float-wrap{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:10px;z-index:9999;}
-    .float-btn{width:52px;height:52px;border-radius:999px;display:flex;align-items:center;justify-content:center;box-shadow:0 18px 50px rgba(10,22,68,0.20);border:1px solid rgba(255,255,255,0.35);transition:transform 180ms ease;background:#fff;}
+    /* FLOATING */
+    .float-wrap{
+      position:fixed;right:18px;bottom:18px;
+      display:flex;flex-direction:column;gap:10px;z-index:9999;
+    }
+    .float-btn{
+      width:52px;height:52px;border-radius:999px;
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 18px 50px rgba(10,22,68,0.20);
+      border:1px solid rgba(255,255,255,0.35);
+      transition:transform 180ms ease;background:#fff;
+    }
     .float-btn:hover{transform:translateY(-2px);}
     .float-btn svg{width:24px;height:24px;display:block;}
     .float-wa{background:var(--wa);}
     .float-li{background:var(--li);}
-    .float-wa svg, .float-li svg{fill:#fff;}
+    .float-wa svg,.float-li svg{fill:#fff;}
   </style>
 </head>
 
@@ -104,7 +321,7 @@
     <div class="container">
       <div class="nav-inner">
         <a class="brand" href="../index.html">
-          <img class="brand-icon" src="../images/rv-icon.svg" alt="RAIVEGA Icon">
+          <img class="brand-icon" src="../images/rv-icon.svg" alt="RAIVEGA Icon" />
           <div class="brand-text">
             <div class="brand-wordmark">RAI<span class="v">V</span>EGA</div>
             <div class="brand-sub">MULTIMODAL FREIGHT FORWARDING</div>
@@ -113,76 +330,98 @@
 
         <div class="nav-links">
           <a href="../index.html#services">Services</a>
-          <a href="get-a-quote.html">Get a Quote</a>
+          <a href="../index.html#about">About Us</a>
           <a href="contact.html">Contact</a>
-          <a class="cta" href="get-a-quote.html">Quick Quote</a>
+          <a class="cta" href="get-a-quote.html">Get a Quote</a>
         </div>
       </div>
     </div>
   </div>
 
-  <main class="page-wrap">
+  <main class="page-hero">
     <div class="container">
-      <h1 class="page-title">Customs Clearance</h1>
-      <p class="page-sub">
-        RAIVEGA provides professional customs clearance support for import and export shipments with a compliance-first
-        approach. We ensure correct documentation, accurate filing, and smooth coordination to reduce delays and ensure
-        reliable cargo movement across borders.
-      </p>
-
-      <div class="hero-box">
-        <div class="hero-content">
-          <h2>Compliance-First Customs Handling for Smooth Trade</h2>
-          <p>
-            Customs clearance is one of the most critical elements of global trade. RAIVEGA ensures your shipments are
-            processed with the correct classification, documentation, and regulatory compliance to avoid penalties and delays.
-            Our goal is to provide structured support that strengthens your cargo execution and improves overall shipment reliability.
-          </p>
-          <p>
-            We assist with both import and export clearance, document review, coordination with relevant authorities,
-            and professional guidance to simplify the customs process.
-          </p>
+      <div class="hero-card">
+        <div class="hero-img">
+          <img src="../images/cc.jpg" alt="Customs Clearance" />
         </div>
-      </div>
-
-      <div class="grid">
-        <div class="card">
-          <h3>Customs Clearance Services</h3>
-          <ul>
-            <li>Import and Export customs clearance support</li>
-            <li>Documentation and invoice verification</li>
-            <li>HS classification guidance and review</li>
-            <li>Regulatory compliance assistance</li>
-            <li>Clearance coordination and shipment release</li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <h3>Why Choose RAIVEGA</h3>
-          <ul>
-            <li>Accurate documentation and compliance-first processes</li>
-            <li>Reduced clearance delays and smoother cargo movement</li>
-            <li>Professional communication and shipment assistance</li>
-            <li>Reliable operational coordination with strong execution</li>
-            <li>Customer-first support for long-term business growth</li>
-          </ul>
+        <div class="hero-info">
+          <h1>Customs Clearance</h1>
+          <p>
+            RAIVEGA provides structured customs clearance support for import and export shipments, ensuring strong compliance,
+            accurate filing and smooth coordination with authorities. Our processes reduce delays, control documentation risk and
+            keep your cargo moving with confidence across international borders.
+          </p>
+          <div class="pill-row">
+            <span class="pill">Import / Export</span>
+            <span class="pill">Documentation Support</span>
+            <span class="pill">Compliance First</span>
+            <span class="pill">Reduced Delays</span>
+          </div>
         </div>
       </div>
     </div>
   </main>
 
+  <section>
+    <div class="container">
+      <div class="grid">
+
+        <div class="card">
+          <h3>Customs Clearance Support</h3>
+          <ul>
+            <li>Import and export customs clearance coordination</li>
+            <li>Invoice, packing list and document verification</li>
+            <li>HS classification assistance and compliance checks</li>
+            <li>Regulatory filing and clearance planning</li>
+            <li>Shipment release coordination and follow-up</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Documentation & Compliance</h3>
+          <ul>
+            <li>Structured documentation flow for accuracy</li>
+            <li>Timely updates and proactive coordination</li>
+            <li>Minimised risk of penalties and query delays</li>
+            <li>Support for standard and specialised shipments</li>
+            <li>Clear communication from start to finish</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Why RAIVEGA</h3>
+          <ul>
+            <li>Compliance-driven handling with strong execution</li>
+            <li>Reliable coordination for smooth cargo movement</li>
+            <li>Transparent communication and client support</li>
+            <li>Reduced clearance delays and improved predictability</li>
+            <li>Professional service aligned with business growth</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <footer>
     <div class="container">
+
       <div class="foot-grid">
+
         <div class="foot">
           <div class="footer-logo">
-            <img src="../images/rv-icon.svg" alt="RAIVEGA Icon">
+            <img src="../images/rv-icon.svg" alt="RAIVEGA Logo" />
             <div class="footer-name">
               <strong>RAI<span class="v">V</span>EGA</strong>
               <span>MULTIMODAL FREIGHT FORWARDING</span>
             </div>
           </div>
-          <p>Multimodal freight forwarding solutions across Ocean, Air and Ground freight — with customs and warehousing support.</p>
+
+          <p style="margin-top:6px;">
+            Multimodal freight forwarding solutions across Ocean, Air and Ground freight — supported by customs clearance and warehousing services.
+            RAIVEGA focuses on reliable execution, professional coordination and end-to-end movement control for every shipment.
+          </p>
+
           <div class="copyright">© 2025 RAIVEGA. All Rights Reserved.</div>
         </div>
 
@@ -190,6 +429,7 @@
           <h5>Quick Links</h5>
           <p><a href="../index.html">Home</a></p>
           <p><a href="../index.html#services">Services</a></p>
+          <p><a href="../index.html#about">About Us</a></p>
           <p><a href="get-a-quote.html">Get a Quote</a></p>
           <p><a href="contact.html">Contact</a></p>
         </div>
@@ -197,14 +437,17 @@
         <div class="foot">
           <h5>Get in Touch</h5>
           <p>Email: <a href="mailto:mgt@raivega.in">mgt@raivega.in</a></p>
-          <p>Phone: <a href="tel:+9199155215906">+91 99155215906</a></p>
+          <p>Phone: <a href="tel:+9199155215906">+91 9915521506</a></p>
+          <p style="margin-top:10px;"><a class="cta" href="get-a-quote.html">Get a Quote</a></p>
         </div>
+
       </div>
+
     </div>
   </footer>
 
   <div class="float-wrap">
-    <a class="float-btn float-wa" href="https://wa.me/9199155215906" aria-label="WhatsApp">
+    <a class="float-btn float-wa" href="https://wa.me/919915521506" aria-label="WhatsApp">
       <svg viewBox="0 0 32 32"><path d="M19.11 17.7c-.28-.14-1.66-.82-1.91-.91-.26-.09-.45-.14-.64.14-.19.28-.73.91-.89 1.1-.16.19-.33.21-.61.07-.28-.14-1.2-.44-2.28-1.4-.84-.75-1.4-1.68-1.57-1.96-.16-.28-.02-.43.12-.57.12-.12.28-.33.42-.49.14-.16.19-.28.28-.47.09-.19.05-.35-.02-.49-.07-.14-.64-1.54-.87-2.11-.23-.56-.47-.48-.64-.49-.16-.01-.35-.01-.54-.01-.19 0-.49.07-.75.35-.26.28-.98.96-.98 2.34 0 1.38 1 2.71 1.14 2.9.14.19 1.97 3.01 4.77 4.22.66.29 1.18.46 1.58.59.66.21 1.26.18 1.73.11.53-.08 1.66-.68 1.89-1.33.23-.65.23-1.21.16-1.33-.07-.12-.26-.19-.54-.33zM16 3C8.83 3 3 8.83 3 16c0 2.27.6 4.41 1.64 6.27L3 29l6.9-1.81A12.9 12.9 0 0016 29c7.17 0 13-5.83 13-13S23.17 3 16 3z"/></svg>
     </a>
 
