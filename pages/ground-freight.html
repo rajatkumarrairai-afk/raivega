@@ -39,10 +39,19 @@
     a{color:inherit;text-decoration:none;}
     .container{width:min(1200px, calc(100% - 40px));margin:0 auto;}
 
-    .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.94);border-bottom:1px solid var(--border);backdrop-filter: blur(10px);}
+    .nav{
+      position:sticky;top:0;z-index:50;
+      background:rgba(255,255,255,0.94);
+      border-bottom:1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
     .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:16px;}
     .brand{display:flex;align-items:center;gap:12px;}
-    .brand-icon{width:44px;height:44px;display:block;object-fit:contain;border-radius:12px;border:1px solid rgba(10,22,68,0.10);padding:6px;background:#fff;}
+    .brand-icon{
+      width:44px;height:44px;display:block;object-fit:contain;
+      border-radius:12px;border:1px solid rgba(10,22,68,0.10);
+      padding:6px;background:#fff;
+    }
     .brand-text{display:flex;flex-direction:column;gap:3px;}
     .brand-wordmark{font-weight:600;font-size:22px;letter-spacing:0.2px;color:var(--blue);line-height:1;}
     .brand-wordmark .v{color:#F1B81E;font-weight:600;}
@@ -50,7 +59,14 @@
     .nav-links{display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:flex-end;}
     .nav-links a{font-size:14px;color:var(--muted);padding:9px 12px;border-radius:12px;transition:180ms ease;font-weight:500;}
     .nav-links a:hover{color:var(--blue);background:rgba(10,22,68,0.05);}
-    .cta{padding:10px 14px;border-radius:14px;background:linear-gradient(135deg, rgba(10,22,68,0.10), rgba(24,183,161,0.14));border:1px solid rgba(10,22,68,0.16);box-shadow:0 16px 40px rgba(10,22,68,0.08);font-size:14px;font-weight:600;color:var(--blue);transition:transform 180ms ease;white-space:nowrap;}
+    .cta{
+      padding:10px 14px;border-radius:14px;
+      background:linear-gradient(135deg, rgba(10,22,68,0.10), rgba(24,183,161,0.14));
+      border:1px solid rgba(10,22,68,0.16);
+      box-shadow:0 16px 40px rgba(10,22,68,0.08);
+      font-size:14px;font-weight:600;color:var(--blue);
+      transition:transform 180ms ease;white-space:nowrap;
+    }
     .cta:hover{transform:translateY(-1px);}
     @media (max-width:640px){
       .nav-inner{flex-direction:column;align-items:flex-start;}
@@ -62,12 +78,52 @@
     .page-title{margin:0 0 10px;font-size:28px;font-weight:600;letter-spacing:-0.2px;color:var(--blue);}
     .page-sub{margin:0 0 18px;color:var(--muted);font-size:14.5px;line-height:1.75;font-weight:400;max-width:920px;}
 
-    .hero-box{border-radius:18px;border:1px solid rgba(10,22,68,0.10);box-shadow:var(--shadow);overflow:hidden;background:#fff;margin-top:14px;}
-    .hero-img{height:320px;width:100%;position:relative;overflow:hidden;background:#fff;}
-    .hero-img img{width:100%;height:100%;object-fit:cover;display:block;}
-    .hero-content{padding:18px;}
+    /* ✅ HERO BOX LAYOUT (PC = 50% IMAGE + 50% TEXT) */
+    .hero-box{
+      border-radius:18px;
+      border:1px solid rgba(10,22,68,0.10);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      background:#fff;
+      margin-top:14px;
+    }
+
+    .hero-split{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      align-items:stretch;
+    }
+
+    .hero-img{
+      width:100%;
+      height:100%;
+      min-height: 360px;
+      position:relative;
+      overflow:hidden;
+      background:#fff;
+    }
+    .hero-img img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .hero-content{
+      padding:22px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
     .hero-content h2{margin:0 0 10px;font-size:20px;font-weight:600;color:var(--blue);}
     .hero-content p{margin:0 0 10px;font-size:14.5px;line-height:1.8;color:var(--muted);font-weight:400;}
+
+    /* ✅ MOBILE = IMAGE TOP + TEXT BELOW */
+    @media(max-width:900px){
+      .hero-split{grid-template-columns:1fr;}
+      .hero-img{min-height:260px;}
+      .hero-content{padding:18px;}
+    }
 
     .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
     @media(max-width:900px){.grid{grid-template-columns:1fr;}}
@@ -127,26 +183,29 @@
     <div class="container">
       <h1 class="page-title">Ground Freight</h1>
       <p class="page-sub">
-        RAIVEGA Ground Freight solutions combine road and rail connectivity to support smooth inland movement,
-        stable scheduling, and efficient distribution. Our approach focuses on safe execution, cost optimisation,
-        and dependable delivery coordination for domestic and cross-border logistics requirements.
+        RAIVEGA Ground Freight services support stable inland logistics through road and rail connectivity.
+        We manage container movement, domestic transportation, and distribution planning with strong execution,
+        transparent coordination, and reliable service support.
       </p>
 
       <div class="hero-box">
-        <div class="hero-img">
-          <img src="../images/ground freight.jpg" alt="RAIVEGA Ground Freight">
-        </div>
-        <div class="hero-content">
-          <h2>Road and Rail Connectivity for Complete Inland Movement</h2>
-          <p>
-            From pickup to final delivery, our ground freight planning ensures reliable scheduling, proper transit
-            coordination, and consistent service quality. We support businesses with both full truck load and partial
-            load options, along with rail connectivity wherever applicable.
-          </p>
-          <p>
-            With RAIVEGA, clients receive professional handling, clear communication, and structured execution support
-            for their inland logistics needs.
-          </p>
+        <div class="hero-split">
+          <div class="hero-img">
+            <img src="../images/ground freight.jpg" alt="RAIVEGA Ground Freight">
+          </div>
+
+          <div class="hero-content">
+            <h2>Inland Logistics with Reliable Road & Rail Movement</h2>
+            <p>
+              RAIVEGA provides complete ground freight support for domestic and intercity cargo movement,
+              ensuring stable transit planning and execution. Our inland solutions are designed to support
+              efficient pickup, delivery, and distribution with controlled scheduling and transparent coordination.
+            </p>
+            <p>
+              We support both containerized movements and general cargo transportation, helping businesses
+              improve supply chain stability through dependable inland execution and structured logistics handling.
+            </p>
+          </div>
         </div>
       </div>
 
@@ -154,25 +213,26 @@
         <div class="card">
           <h3>Ground Freight Services</h3>
           <ul>
-            <li>Domestic transportation and distribution</li>
-            <li>FTL / LTL movement options</li>
-            <li>Rail connectivity support where required</li>
-            <li>Pickup and delivery planning</li>
-            <li>Cost-optimised transit routing</li>
+            <li>Road transportation for pickup & delivery</li>
+            <li>Rail connectivity for inland container movement</li>
+            <li>FTL / LTL distribution support</li>
+            <li>Transit scheduling and routing planning</li>
+            <li>Cost-optimised inland logistics execution</li>
           </ul>
         </div>
 
         <div class="card">
           <h3>Why Choose RAIVEGA</h3>
           <ul>
-            <li>Reliable scheduling and operational planning</li>
-            <li>Stable transit coordination and updates</li>
-            <li>Secure cargo handling with strong execution</li>
-            <li>Customer-focused service delivery</li>
-            <li>Support for long-term logistics partnerships</li>
+            <li>Stable inland movement with strong coordination</li>
+            <li>Professional execution for pickup & final delivery</li>
+            <li>Reliable planning for time-sensitive shipments</li>
+            <li>Transparent service support and communication</li>
+            <li>Customer-first approach for logistics efficiency</li>
           </ul>
         </div>
       </div>
+
     </div>
   </main>
 
