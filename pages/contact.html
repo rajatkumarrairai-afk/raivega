@@ -86,6 +86,57 @@
     .page-title{margin:0 0 10px;font-size:28px;font-weight:600;letter-spacing:-0.2px;color:var(--blue);}
     .page-sub{margin:0 0 18px;color:var(--muted);font-size:14.5px;line-height:1.75;font-weight:400;max-width:980px;}
 
+    /* ✅ UPDATED: 50% IMAGE + 50% TEXT (PC), MOBILE STACK */
+    .hero-split{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+      margin-top:16px;
+      align-items:stretch;
+    }
+    @media (max-width:980px){
+      .hero-split{grid-template-columns:1fr;}
+    }
+
+    .hero-media{
+      border-radius:18px;
+      border:1px solid rgba(10,22,68,0.10);
+      box-shadow:var(--shadow);
+      background:#fff;
+      overflow:hidden;
+      min-height: 420px;
+    }
+    @media (max-width:980px){
+      .hero-media{min-height:260px;}
+    }
+    .hero-media img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover;
+    }
+
+    .hero-text{
+      border-radius:18px;
+      border:1px solid rgba(10,22,68,0.10);
+      box-shadow:var(--shadow);
+      background:#fff;
+      padding:18px;
+    }
+    .hero-text h2{
+      margin:0 0 10px;
+      font-size:18px;
+      font-weight:600;
+      color:var(--blue);
+    }
+    .hero-text p{
+      margin:0 0 10px;
+      font-size:14.5px;
+      line-height:1.8;
+      color:var(--muted);
+      font-weight:400;
+    }
+
     .grid{
       display:grid;
       grid-template-columns:1fr 1fr;
@@ -266,6 +317,25 @@
         Share your shipment details and we will respond with the most suitable solution.
       </p>
 
+      <!-- ✅ UPDATED PC LAYOUT: 50% IMAGE + 50% TEXT -->
+      <div class="hero-split">
+        <div class="hero-media">
+          <img src="../images/plane.jpg" alt="RAIVEGA Contact Support">
+        </div>
+
+        <div class="hero-text">
+          <h2>Professional Support for Pricing, Routing & Execution</h2>
+          <p>
+            Connect with RAIVEGA for quotation support, shipment planning, documentation guidance, and end-to-end logistics execution.
+            Our team ensures structured communication, quick response, and reliable coordination across international and domestic movements.
+          </p>
+          <p>
+            Share your shipment details such as POL, POD, cargo description, weight/volume and readiness timeline — we will guide you with suitable routing
+            and competitive pricing based on your requirement.
+          </p>
+        </div>
+      </div>
+
       <div class="grid">
         <div class="card">
           <h2>Business Contacts</h2>
@@ -297,7 +367,6 @@
               <span>Email: mgt@raivega.in</span>
               <div class="contact-actions">
                 <a class="pill primary" href="mailto:mgt@raivega.in">Email</a>
-
               </div>
             </li>
           </ul>
