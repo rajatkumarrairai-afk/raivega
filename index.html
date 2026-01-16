@@ -21,6 +21,7 @@
       --blue2:#15307a;
       --teal:#18b7a1;
       --gold:#F1B81E;
+
       --wa:#25D366;
       --li:#0A66C2;
 
@@ -32,6 +33,7 @@
     }
 
     *{box-sizing:border-box;}
+
     body{
       margin:0;
       font-family:"Titillium Web", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
@@ -39,9 +41,30 @@
       color:var(--blue);
       overflow-x:hidden;
       font-weight:400;
+      cursor:none;
     }
+
     a{color:inherit;text-decoration:none;}
     .container{width:min(1200px, calc(100% - 40px));margin:0 auto;}
+
+    /* CUSTOM CURSOR */
+    .cursor-dot, .cursor-ring{
+      position:fixed;
+      top:0; left:0;
+      pointer-events:none;
+      z-index:999999;
+      transform:translate(-50%,-50%);
+    }
+    .cursor-dot{
+      width:8px;height:8px;border-radius:50%;
+      background:var(--blue);
+    }
+    .cursor-ring{
+      width:36px;height:36px;border-radius:50%;
+      border:2px solid rgba(241,184,30,0.75);
+      background:transparent;
+      transition:transform 0.12s ease-out;
+    }
 
     /* LOADER */
     #loader{
@@ -97,45 +120,37 @@
       padding:14px 0;gap:16px;
     }
 
+    /* HEADER BRAND (LOGO + RAIVEGA TEXT) */
     .brand{
       display:flex;
       align-items:center;
       gap:12px;
     }
-
-    .brand-icon{
-      width:50px;   /* 10% bigger */
-      height:50px;  /* 10% bigger */
-      border-radius:14px;
-      border:1px solid rgba(10,22,68,0.10);
-      padding:7px;
-      background:#fff;
-      object-fit:contain;
+    .logo-img{
+      height:58px;
+      width:auto;
       display:block;
+      object-fit:contain;
     }
 
-    .brand-text{
+    .brand-title{
       display:flex;
       flex-direction:column;
       gap:3px;
       line-height:1.05;
     }
-
-    /* TWO-COLOR RAIVEGA TEXT */
-    .brand-name{
+    .brand-title .name{
       font-size:22px;
       font-weight:700;
       letter-spacing:0.2px;
-      color:var(--blue);
-    }
-    .brand-name .v{ color:var(--gold); }
-
-    .brand-sub{
-      font-size:11px;
-      font-weight:500;
-      letter-spacing:1px;
-      color:var(--muted2);
       text-transform:uppercase;
+    }
+    .brand-title .name .rai{color:var(--blue);}
+    .brand-title .name .v{color:var(--gold);}
+    .brand-title .name .ega{color:var(--blue);}
+    .brand-sub{
+      font-size:11px;font-weight:500;letter-spacing:1px;
+      color:var(--muted2);text-transform:uppercase;
     }
 
     .nav-links{
@@ -148,13 +163,12 @@
       transition:180ms ease;font-weight:500;
     }
     .nav-links a:hover{color:var(--blue);background:rgba(10,22,68,0.05);}
-
     .cta{
       padding:10px 14px;border-radius:14px;
       background:linear-gradient(135deg, rgba(10,22,68,0.10), rgba(24,183,161,0.14));
       border:1px solid rgba(10,22,68,0.16);
       box-shadow:0 16px 40px rgba(10,22,68,0.08);
-      font-size:14px;font-weight:700;color:var(--blue);
+      font-size:14px;font-weight:600;color:var(--blue);
       transition:transform 180ms ease;
       white-space:nowrap;
     }
@@ -164,28 +178,51 @@
       .nav-inner{flex-direction:column;align-items:flex-start;}
       .nav-links{width:100%;justify-content:flex-start;gap:8px;}
       .nav-links a{padding:8px 10px;}
-      .brand-icon{width:48px;height:48px;}
-      .brand-name{font-size:21px;}
+      .logo-img{height:54px;}
+      .brand-title .name{font-size:21px;}
     }
 
     /* HERO */
-    .hero-wrap{width:100%;min-height:100vh;display:flex;flex-direction:column;padding:18px 0 28px;}
-    .hero-top{height:70vh;min-height:520px;position:relative;}
-    .hero-shell{height:100%;display:grid;grid-template-columns:1.2fr 0.8fr;gap:16px;align-items:stretch;}
+    .hero-wrap{
+      width:100%;
+      display:flex;
+      flex-direction:column;
+      padding:18px 0 28px;
+    }
+
+    /* ✅ FIX FOR PC OVERLAP:
+       Desktop hero becomes auto height so it never cuts the feature strip */
+    .hero-top{
+      position:relative;
+      height:auto;
+      min-height:520px;
+    }
+
+    .hero-shell{
+      height:auto;
+      display:grid;
+      grid-template-columns:1.2fr 0.8fr;
+      gap:16px;
+      align-items:stretch;
+    }
+
     @media (max-width:920px){
       .hero-shell{grid-template-columns:1fr;}
       .hero-top{height:auto;min-height:unset;}
     }
 
-    /* SQUARE BORDER LOOK */
     .carousel-panel{
       position:relative;
-      border-radius:0;                 /* square border */
+      border-radius:0;
       border:1px solid var(--border);
       background:#fff;
       box-shadow:var(--shadow);
       overflow:hidden;
-      min-height:420px;
+      min-height:520px;
+    }
+
+    @media (min-width:921px){
+      .carousel-panel{min-height:540px;}
     }
 
     .carousel-header{
@@ -199,7 +236,7 @@
       padding:10px 12px;background:rgba(255,255,255,0.94);
       border:1px solid rgba(10,22,68,0.12);
       border-radius:999px;color:var(--muted);
-      font-size:12px;font-weight:600;
+      font-size:12px;font-weight:500;
     }
     .hero-badge i{
       width:9px;height:9px;border-radius:50%;
@@ -208,7 +245,7 @@
     }
 
     .marquee{position:absolute;inset:0;display:flex;align-items:stretch;}
-    .marquee-track{display:flex;width:max-content;animation:marquee 28s linear infinite;}
+    .marquee-track{display:flex;width:max-content;animation:marquee 30s linear infinite;}
     .marquee:hover .marquee-track{animation-play-state:paused;}
     @keyframes marquee{from{transform:translateX(-50%);}to{transform:translateX(0%);} }
 
@@ -225,7 +262,7 @@
       .slide{width:92vw;min-height:420px;}
     }
 
-    /* IMAGE FIXED PERFECT FIT/FILL */
+    /* IMAGE FILL PERFECTLY */
     .slide img{
       position:absolute;
       inset:0;
@@ -255,23 +292,19 @@
       margin:0 0 8px;
       font-size:clamp(22px,2.6vw,34px);
       letter-spacing:-0.3px;
-      font-weight:700;
+      font-weight:600;
     }
     .slide-text p{
-      margin:0;
-      font-size:14px;
-      line-height:1.7;
-      opacity:0.95;
-      font-weight:400;
+      margin:0;font-size:14px;line-height:1.65;
+      opacity:0.95;font-weight:400;
     }
-
     .slide-action{display:flex;flex-direction:column;align-items:flex-end;gap:10px;}
     .btn{
       display:inline-flex;align-items:center;justify-content:center;gap:10px;
       padding:12px 14px;border-radius:14px;
       border:1px solid rgba(255,255,255,0.22);
       background:rgba(255,255,255,0.14);
-      color:#fff;font-size:13px;font-weight:700;
+      color:#fff;font-size:13px;font-weight:600;
       transition:transform 180ms ease, background 180ms ease;
       white-space:nowrap;
     }
@@ -290,7 +323,7 @@
       margin:0 0 10px;
       font-size:15.5px;
       letter-spacing:0.4px;
-      font-weight:700;
+      font-weight:600;
       color:var(--blue);
       text-transform:uppercase;
     }
@@ -307,8 +340,66 @@
       transition:transform 180ms ease, background 180ms ease;
     }
     .mini:hover{transform:translateY(-2px);background:rgba(10,22,68,0.055);}
-    .mini strong{display:block;font-size:14px;margin-bottom:4px;color:var(--blue);font-weight:700;}
-    .mini span{font-size:12.5px;color:var(--muted2);font-weight:500;}
+    .mini strong{display:block;font-size:14px;margin-bottom:4px;color:var(--blue);font-weight:600;}
+    .mini span{font-size:12.5px;color:var(--muted2);font-weight:400;}
+
+    /* TRACK BOX */
+    .track-card{
+      border-radius:var(--radius);
+      border:1px solid rgba(10,22,68,0.10);
+      background:rgba(241,184,30,0.06);
+      box-shadow:var(--shadow);
+      padding:16px 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .track-left{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      flex:1;
+    }
+    .track-left strong{
+      font-size:15px;
+      font-weight:700;
+      color:var(--blue);
+      letter-spacing:0.3px;
+      text-transform:uppercase;
+    }
+    .track-input-row{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      width:100%;
+    }
+    .track-input{
+      flex:1;
+      height:44px;
+      padding:0 14px;
+      border-radius:14px;
+      border:1px solid rgba(10,22,68,0.14);
+      background:#fff;
+      outline:none;
+      font-family:"Titillium Web", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      font-size:14px;
+      color:var(--blue);
+      font-weight:400;
+    }
+    .track-input::placeholder{color:rgba(10,22,68,0.45);}
+    .track-search{
+      width:44px;height:44px;
+      border-radius:14px;
+      border:1px solid rgba(10,22,68,0.12);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#fff;
+      flex:0 0 auto;
+      font-size:18px;
+      color:var(--blue);
+    }
 
     .hero-bottom{margin-top:18px;padding:8px 0 0 0;}
     .feature-strip{
@@ -329,12 +420,12 @@
       min-height:98px;
     }
     .feature:hover{transform:translateY(-2px);background:rgba(10,22,68,0.05);}
-    .feature strong{display:block;font-size:14px;margin-bottom:4px;color:var(--blue);font-weight:700;}
-    .feature span{font-size:12.5px;color:var(--muted2);line-height:1.35;font-weight:500;}
+    .feature strong{display:block;font-size:14px;margin-bottom:4px;color:var(--blue);font-weight:600;}
+    .feature span{font-size:12.5px;color:var(--muted2);line-height:1.35;font-weight:400;}
 
     section{padding:54px 0;}
     .section-title{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:18px;}
-    .section-title h3{margin:0;font-size:26px;letter-spacing:-0.2px;color:var(--blue);font-weight:800;}
+    .section-title h3{margin:0;font-size:26px;letter-spacing:-0.2px;color:var(--blue);font-weight:600;}
     .section-title p{margin:0;color:var(--muted);font-size:14px;max-width:680px;line-height:1.85;font-weight:400;}
 
     .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
@@ -347,17 +438,20 @@
       box-shadow:var(--shadow);
       padding:18px;
       transition:transform 220ms ease, border 220ms ease;
-      min-height:220px;
+      min-height:230px;
+      position:relative;
+      overflow:hidden;
     }
     .service-card:hover{transform:scale(1.03);border-color:rgba(10,22,68,0.18);}
+
     .service-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:10px;}
-    .service-top h4{margin:0;font-size:18px;font-weight:800;color:var(--blue);}
+    .service-top h4{margin:0;font-size:18px;font-weight:600;color:var(--blue);}
     .tag{
       font-size:11.5px;color:var(--blue);
       padding:7px 10px;border-radius:999px;
       border:1px solid rgba(24,183,161,0.25);
       background:rgba(24,183,161,0.10);
-      white-space:nowrap;font-weight:700;
+      white-space:nowrap;font-weight:500;
     }
     .points{margin:0;padding-left:18px;color:var(--muted);font-size:14px;line-height:1.85;font-weight:400;}
     .service-card .go{
@@ -365,7 +459,30 @@
       display:inline-flex;align-items:center;gap:10px;
       font-size:14px;color:var(--blue2);
       text-decoration:underline;text-underline-offset:4px;
-      font-weight:700;
+      font-weight:500;
+    }
+
+    /* SERVICE ICON BOTTOM RIGHT */
+    .service-ico{
+      position:absolute;
+      right:14px;
+      bottom:14px;
+      width:50px;
+      height:50px;
+      border-radius:0;
+      border:1px solid rgba(10,22,68,0.10);
+      background:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 12px 30px rgba(10,22,68,0.10);
+      overflow:hidden;
+    }
+    .service-ico img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
     }
 
     /* ABOUT */
@@ -378,8 +495,8 @@
       box-shadow:var(--shadow);
       padding:22px;
     }
-    .about-card h4{margin:0 0 10px 0;font-size:20px;font-weight:800;color:var(--blue);}
-    .about-card p{margin:0 0 12px 0;color:var(--muted);font-size:14.5px;line-height:1.95;font-weight:400;}
+    .about-card h4{margin:0 0 10px 0;font-size:20px;font-weight:600;color:var(--blue);}
+    .about-card p{margin:0 0 12px 0;color:var(--muted);font-size:14.5px;line-height:1.9;font-weight:400;}
     .about-split{display:grid;gap:12px;}
     .about-mini{
       padding:16px;border-radius:var(--radius);
@@ -387,59 +504,51 @@
       background:rgba(10,22,68,0.03);
       box-shadow:0 14px 40px rgba(10,22,68,0.06);
     }
-    .about-mini strong{display:block;margin-bottom:6px;font-size:16px;font-weight:800;color:var(--blue);}
-    .about-mini span{color:var(--muted);font-size:14px;line-height:1.95;display:block;font-weight:400;}
+    .about-mini strong{display:block;margin-bottom:6px;font-size:16px;font-weight:600;color:var(--blue);}
+    .about-mini span{color:var(--muted);font-size:14px;line-height:1.9;display:block;font-weight:400;}
 
     /* FOOTER */
     footer{border-top:1px solid rgba(10,22,68,0.10);background:#fff;padding:38px 0;}
     .foot-grid{display:grid;grid-template-columns:1.2fr 0.7fr 0.7fr;gap:18px;}
     @media (max-width:880px){.foot-grid{grid-template-columns:1fr;}}
+
     .footer-brand{
       display:flex;
       align-items:center;
       gap:12px;
-      margin-bottom:10px;
+      margin-bottom:8px;
     }
-    .footer-icon{
-      width:50px;   /* 10% bigger */
-      height:50px;  /* 10% bigger */
-      border-radius:14px;
-      border:1px solid rgba(10,22,68,0.10);
-      padding:7px;
-      background:#fff;
-      object-fit:contain;
+    .footer-logo-img{
+      height:58px;
+      width:auto;
       display:block;
+      object-fit:contain;
     }
-    .footer-name{
+    .footer-title{
       display:flex;
       flex-direction:column;
       gap:3px;
       line-height:1.05;
     }
-    .footer-name strong{
+    .footer-title .name{
       font-size:22px;
-      font-weight:800;
-      color:var(--blue);
+      font-weight:700;
       letter-spacing:0.2px;
-    }
-    .footer-name strong .v{color:var(--gold);}
-    .footer-name span{
-      font-size:11px;
-      font-weight:600;
-      letter-spacing:1px;
-      color:var(--muted2);
       text-transform:uppercase;
     }
+    .footer-title .name .rai{color:var(--blue);}
+    .footer-title .name .v{color:var(--gold);}
+    .footer-title .name .ega{color:var(--blue);}
 
     .foot h5{
       margin:0 0 10px;
       font-size:13px;letter-spacing:0.9px;
       text-transform:uppercase;color:var(--muted2);
-      font-weight:800;
+      font-weight:600;
     }
     .foot p, .foot a{margin:0;font-size:14px;color:var(--muted);line-height:1.95;font-weight:400;}
     .foot a:hover{color:var(--blue2);text-decoration:underline;text-underline-offset:3px;}
-    .copyright{margin-top:18px;color:rgba(10,22,68,0.55);font-size:12.5px;font-weight:600;}
+    .copyright{margin-top:18px;color:rgba(10,22,68,0.55);font-size:12.5px;font-weight:400;}
 
     /* FLOATING */
     .float-wrap{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:10px;z-index:9999;}
@@ -461,6 +570,9 @@
 
 <body>
 
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
   <!-- LOADER -->
   <div id="loader">
     <div class="loader-box">
@@ -475,11 +587,12 @@
   <div class="nav">
     <div class="container">
       <div class="nav-inner">
-
         <a class="brand" href="index.html">
-          <img class="brand-icon" src="images/rv-icon.svg" alt="RAIVEGA Icon" />
-          <div class="brand-text">
-            <div class="brand-name">RAI<span class="v">V</span>EGA</div>
+          <img class="logo-img" src="images/RV LOGO.png" alt="RAIVEGA Logo" />
+          <div class="brand-title">
+            <div class="name">
+              <span class="rai">RAI</span><span class="v">V</span><span class="ega">EGA</span>
+            </div>
             <div class="brand-sub">MULTIMODAL FREIGHT FORWARDING</div>
           </div>
         </a>
@@ -490,7 +603,6 @@
           <a href="pages/contact.html">Contact</a>
           <a class="cta" href="pages/get-a-quote.html">Get a Quote</a>
         </div>
-
       </div>
     </div>
   </div>
@@ -498,10 +610,10 @@
   <!-- HERO -->
   <main class="hero-wrap" id="home">
     <div class="container">
-
       <div class="hero-top">
         <div class="hero-shell">
 
+          <!-- CAROUSEL -->
           <div class="carousel-panel">
             <div class="carousel-header">
               <div class="hero-badge"><i></i><span>Reliable • Innovative • Customer Centric</span></div>
@@ -613,6 +725,7 @@
             </div>
           </div>
 
+          <!-- RIGHT SIDE -->
           <div class="hero-side">
             <div class="glass-card">
               <h2>Reliable & Innovative</h2>
@@ -626,12 +739,23 @@
               </div>
             </div>
 
+            <!-- TRACK YOUR SHIPMENT BOX -->
+            <div class="track-card">
+              <div class="track-left">
+                <strong>TRACK YOUR SHIPMENT</strong>
+                <div class="track-input-row">
+                  <input class="track-input" type="text" placeholder="Enter reference number" />
+                  <div class="track-search">🔍</div>
+                </div>
+              </div>
+            </div>
+
             <div class="glass-card">
               <h2>We Move Anything, Anywhere</h2>
               <p>
                 Standard cargo to specialised shipments — RAIVEGA supports end-to-end movement with reliable operations,
                 structured planning and compliance-focused execution. From pickup coordination to final delivery,
-                we ensure smooth transit management with professional service, accountability and consistent updates.
+                we ensure smooth transit management with professional service and clear accountability at every stage.
               </p>
             </div>
           </div>
@@ -639,6 +763,7 @@
         </div>
       </div>
 
+      <!-- FEATURES -->
       <div class="hero-bottom">
         <div class="feature-strip">
           <div class="feature-grid">
@@ -655,6 +780,7 @@
     </div>
   </main>
 
+  <!-- SERVICES -->
   <section id="services">
     <div class="container">
       <div class="section-title">
@@ -674,6 +800,7 @@
             <li>LCL / FCL</li><li>Project / Break Bulk</li><li>Bulk / RORO</li><li>Reefer Cargo</li>
           </ul>
           <a class="go" href="pages/ocean-freight.html">Explore →</a>
+          <div class="service-ico"><img src="images/ship.jpg" alt="Ocean Icon"></div>
         </div>
 
         <div class="service-card">
@@ -684,6 +811,7 @@
             <li>Express Air</li><li>Time Critical</li><li>Priority Handling</li><li>Secure Movement</li>
           </ul>
           <a class="go" href="pages/air-freight.html">Explore →</a>
+          <div class="service-ico"><img src="images/plane.jpg" alt="Air Icon"></div>
         </div>
 
         <div class="service-card">
@@ -694,6 +822,7 @@
             <li>Rail Connectivity</li><li>Container Movement</li><li>Transit Planning</li><li>Cost Optimised</li>
           </ul>
           <a class="go" href="pages/ground-freight.html">Explore →</a>
+          <div class="service-ico"><img src="images/ground freight.jpg" alt="Rail Icon"></div>
         </div>
 
         <div class="service-card">
@@ -704,6 +833,7 @@
             <li>Pickup & Delivery</li><li>FTL / LTL Options</li><li>Domestic Distribution</li><li>Scheduling</li>
           </ul>
           <a class="go" href="pages/ground-freight.html">Explore →</a>
+          <div class="service-ico"><img src="images/ground freight.jpg" alt="Transport Icon"></div>
         </div>
 
         <div class="service-card">
@@ -714,6 +844,7 @@
             <li>Import / Export</li><li>Documentation</li><li>Compliance-first</li><li>Reduced Delays</li>
           </ul>
           <a class="go" href="pages/customs-clearance.html">Explore →</a>
+          <div class="service-ico"><img src="images/project 2.jpg" alt="Customs Icon"></div>
         </div>
 
         <div class="service-card">
@@ -724,12 +855,14 @@
             <li>Storage & Handling</li><li>Inventory Support</li><li>Fulfilment</li><li>Distribution</li>
           </ul>
           <a class="go" href="pages/warehousing.html">Explore →</a>
+          <div class="service-ico"><img src="images/project.jpg" alt="Warehouse Icon"></div>
         </div>
 
       </div>
     </div>
   </section>
 
+  <!-- ABOUT -->
   <section id="about">
     <div class="container">
       <div class="section-title">
@@ -772,20 +905,23 @@
     </div>
   </section>
 
+  <!-- FOOTER -->
   <footer>
     <div class="container">
       <div class="foot-grid">
 
         <div class="foot">
           <div class="footer-brand">
-            <img class="footer-icon" src="images/rv-icon.svg" alt="RAIVEGA Icon" />
-            <div class="footer-name">
-              <strong>RAI<span class="v">V</span>EGA</strong>
-              <span>MULTIMODAL FREIGHT FORWARDING</span>
+            <img class="footer-logo-img" src="images/RV LOGO.png" alt="RAIVEGA Logo" />
+            <div class="footer-title">
+              <div class="name">
+                <span class="rai">RAI</span><span class="v">V</span><span class="ega">EGA</span>
+              </div>
+              <div class="brand-sub">MULTIMODAL FREIGHT FORWARDING</div>
             </div>
           </div>
 
-          <p>
+          <p style="margin-top:10px;">
             Multimodal freight forwarding solutions across Ocean, Air and Ground freight — supported with customs clearance,
             warehousing and reliable end-to-end execution for international cargo movement.
           </p>
@@ -805,7 +941,6 @@
           <h5>Get in Touch</h5>
           <p>Email: <a href="mailto:mgt@raivega.in">mgt@raivega.in</a></p>
           <p>Phone: <a href="tel:+9199155215906">+91 99155215906</a></p>
-          <p>Share shipment details and we will support with routing, compliance and competitive pricing.</p>
           <p style="margin-top:10px;"><a class="cta" href="pages/get-a-quote.html">Get a Quote</a></p>
         </div>
 
@@ -815,16 +950,19 @@
 
   <!-- FLOATING BUTTONS -->
   <div class="float-wrap">
+    <!-- WhatsApp -->
     <a class="float-btn float-wa" href="https://wa.me/9199155215906" aria-label="WhatsApp">
       <svg viewBox="0 0 32 32"><path d="M19.11 17.7c-.28-.14-1.66-.82-1.91-.91-.26-.09-.45-.14-.64.14-.19.28-.73.91-.89 1.1-.16.19-.33.21-.61.07-.28-.14-1.2-.44-2.28-1.4-.84-.75-1.4-1.68-1.57-1.96-.16-.28-.02-.43.12-.57.12-.12.28-.33.42-.49.14-.16.19-.28.28-.47.09-.19.05-.35-.02-.49-.07-.14-.64-1.54-.87-2.11-.23-.56-.47-.48-.64-.49-.16-.01-.35-.01-.54-.01-.19 0-.49.07-.75.35-.26.28-.98.96-.98 2.34 0 1.38 1 2.71 1.14 2.9.14.19 1.97 3.01 4.77 4.22.66.29 1.18.46 1.58.59.66.21 1.26.18 1.73.11.53-.08 1.66-.68 1.89-1.33.23-.65.23-1.21.16-1.33-.07-.12-.26-.19-.54-.33zM16 3C8.83 3 3 8.83 3 16c0 2.27.6 4.41 1.64 6.27L3 29l6.9-1.81A12.9 12.9 0 0016 29c7.17 0 13-5.83 13-13S23.17 3 16 3z"/></svg>
     </a>
 
+    <!-- LinkedIn -->
     <a class="float-btn float-li" href="https://www.linkedin.com/company/raivega/" aria-label="LinkedIn">
       <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.95v5.66H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.27 2.38 4.27 5.47v6.27zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
     </a>
   </div>
 
   <script>
+    // LOADER
     window.addEventListener("load", () => {
       const loader = document.getElementById("loader");
       if(loader){
@@ -832,6 +970,32 @@
         setTimeout(()=> loader.remove(), 500);
       }
     });
+
+    // CUSTOM CURSOR
+    (function(){
+      const dot = document.getElementById("cursorDot");
+      const ring = document.getElementById("cursorRing");
+      if(!dot || !ring) return;
+
+      let mouseX = 0, mouseY = 0;
+      let ringX = 0, ringY = 0;
+
+      window.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        dot.style.left = mouseX + "px";
+        dot.style.top  = mouseY + "px";
+      });
+
+      function animate(){
+        ringX += (mouseX - ringX) * 0.12;
+        ringY += (mouseY - ringY) * 0.12;
+        ring.style.left = ringX + "px";
+        ring.style.top  = ringY + "px";
+        requestAnimationFrame(animate);
+      }
+      animate();
+    })();
   </script>
 
 </body>
