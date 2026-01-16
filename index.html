@@ -20,6 +20,7 @@
       --blue:#0A1644;
       --blue2:#15307a;
       --teal:#18b7a1;
+      --gold:#F1B81E;
       --wa:#25D366;
       --li:#0A66C2;
 
@@ -62,11 +63,11 @@
       padding:8px;background:#fff;object-fit:contain;
     }
     .loader-title{
-      margin:0 0 6px;font-weight:600;font-size:16px;
+      margin:0 0 6px;font-weight:700;font-size:16px;
       color:var(--blue);letter-spacing:0.6px;text-transform:uppercase;
     }
     .loader-sub{
-      margin:0 0 14px;font-weight:400;font-size:12.5px;
+      margin:0 0 14px;font-weight:500;font-size:12.5px;
       color:var(--muted2);letter-spacing:0.8px;text-transform:uppercase;
     }
     .loader-bar{
@@ -95,17 +96,48 @@
       display:flex;align-items:center;justify-content:space-between;
       padding:14px 0;gap:16px;
     }
-    .brand{display:flex;flex-direction:column;gap:4px;}
-    .logo-img{
-      height:49px;  /* 10% bigger */
-      width:auto;
-      display:block;
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .brand-icon{
+      width:50px;   /* 10% bigger */
+      height:50px;  /* 10% bigger */
+      border-radius:14px;
+      border:1px solid rgba(10,22,68,0.10);
+      padding:7px;
+      background:#fff;
       object-fit:contain;
+      display:block;
     }
+
+    .brand-text{
+      display:flex;
+      flex-direction:column;
+      gap:3px;
+      line-height:1.05;
+    }
+
+    /* TWO-COLOR RAIVEGA TEXT */
+    .brand-name{
+      font-size:22px;
+      font-weight:700;
+      letter-spacing:0.2px;
+      color:var(--blue);
+    }
+    .brand-name .v{ color:var(--gold); }
+
     .brand-sub{
-      font-size:11px;font-weight:500;letter-spacing:1px;
-      color:var(--muted2);text-transform:uppercase;
+      font-size:11px;
+      font-weight:500;
+      letter-spacing:1px;
+      color:var(--muted2);
+      text-transform:uppercase;
     }
+
     .nav-links{
       display:flex;gap:12px;align-items:center;
       flex-wrap:wrap;justify-content:flex-end;
@@ -116,12 +148,13 @@
       transition:180ms ease;font-weight:500;
     }
     .nav-links a:hover{color:var(--blue);background:rgba(10,22,68,0.05);}
+
     .cta{
       padding:10px 14px;border-radius:14px;
       background:linear-gradient(135deg, rgba(10,22,68,0.10), rgba(24,183,161,0.14));
       border:1px solid rgba(10,22,68,0.16);
       box-shadow:0 16px 40px rgba(10,22,68,0.08);
-      font-size:14px;font-weight:600;color:var(--blue);
+      font-size:14px;font-weight:700;color:var(--blue);
       transition:transform 180ms ease;
       white-space:nowrap;
     }
@@ -131,7 +164,8 @@
       .nav-inner{flex-direction:column;align-items:flex-start;}
       .nav-links{width:100%;justify-content:flex-start;gap:8px;}
       .nav-links a{padding:8px 10px;}
-      .logo-img{height:46px;} /* mobile bigger */
+      .brand-icon{width:48px;height:48px;}
+      .brand-name{font-size:21px;}
     }
 
     /* HERO */
@@ -143,12 +177,17 @@
       .hero-top{height:auto;min-height:unset;}
     }
 
+    /* SQUARE BORDER LOOK */
     .carousel-panel{
-      position:relative;border-radius:0;
+      position:relative;
+      border-radius:0;                 /* square border */
       border:1px solid var(--border);
-      background:#fff;box-shadow:var(--shadow);
-      overflow:hidden;min-height:420px;
+      background:#fff;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      min-height:420px;
     }
+
     .carousel-header{
       position:absolute;top:14px;left:14px;right:14px;z-index:3;
       display:flex;justify-content:space-between;gap:12px;align-items:flex-start;
@@ -160,7 +199,7 @@
       padding:10px 12px;background:rgba(255,255,255,0.94);
       border:1px solid rgba(10,22,68,0.12);
       border-radius:999px;color:var(--muted);
-      font-size:12px;font-weight:500;
+      font-size:12px;font-weight:600;
     }
     .hero-badge i{
       width:9px;height:9px;border-radius:50%;
@@ -186,7 +225,7 @@
       .slide{width:92vw;min-height:420px;}
     }
 
-    /* IMAGE FILL PERFECTLY */
+    /* IMAGE FIXED PERFECT FIT/FILL */
     .slide img{
       position:absolute;
       inset:0;
@@ -216,19 +255,23 @@
       margin:0 0 8px;
       font-size:clamp(22px,2.6vw,34px);
       letter-spacing:-0.3px;
-      font-weight:600;
+      font-weight:700;
     }
     .slide-text p{
-      margin:0;font-size:14px;line-height:1.55;
-      opacity:0.92;font-weight:400;
+      margin:0;
+      font-size:14px;
+      line-height:1.7;
+      opacity:0.95;
+      font-weight:400;
     }
+
     .slide-action{display:flex;flex-direction:column;align-items:flex-end;gap:10px;}
     .btn{
       display:inline-flex;align-items:center;justify-content:center;gap:10px;
       padding:12px 14px;border-radius:14px;
       border:1px solid rgba(255,255,255,0.22);
       background:rgba(255,255,255,0.14);
-      color:#fff;font-size:13px;font-weight:600;
+      color:#fff;font-size:13px;font-weight:700;
       transition:transform 180ms ease, background 180ms ease;
       white-space:nowrap;
     }
@@ -247,7 +290,7 @@
       margin:0 0 10px;
       font-size:15.5px;
       letter-spacing:0.4px;
-      font-weight:600;
+      font-weight:700;
       color:var(--blue);
       text-transform:uppercase;
     }
@@ -264,8 +307,8 @@
       transition:transform 180ms ease, background 180ms ease;
     }
     .mini:hover{transform:translateY(-2px);background:rgba(10,22,68,0.055);}
-    .mini strong{display:block;font-size:14px;margin-bottom:4px;color:var(--blue);font-weight:600;}
-    .mini span{font-size:12.5px;color:var(--muted2);font-weight:400;}
+    .mini strong{display:block;font-size:14px;margin-bottom:4px;color:var(--blue);font-weight:700;}
+    .mini span{font-size:12.5px;color:var(--muted2);font-weight:500;}
 
     .hero-bottom{margin-top:18px;padding:8px 0 0 0;}
     .feature-strip{
@@ -286,12 +329,12 @@
       min-height:98px;
     }
     .feature:hover{transform:translateY(-2px);background:rgba(10,22,68,0.05);}
-    .feature strong{display:block;font-size:14px;margin-bottom:4px;color:var(--blue);font-weight:600;}
-    .feature span{font-size:12.5px;color:var(--muted2);line-height:1.35;font-weight:400;}
+    .feature strong{display:block;font-size:14px;margin-bottom:4px;color:var(--blue);font-weight:700;}
+    .feature span{font-size:12.5px;color:var(--muted2);line-height:1.35;font-weight:500;}
 
     section{padding:54px 0;}
     .section-title{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:18px;}
-    .section-title h3{margin:0;font-size:26px;letter-spacing:-0.2px;color:var(--blue);font-weight:600;}
+    .section-title h3{margin:0;font-size:26px;letter-spacing:-0.2px;color:var(--blue);font-weight:800;}
     .section-title p{margin:0;color:var(--muted);font-size:14px;max-width:680px;line-height:1.85;font-weight:400;}
 
     .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
@@ -308,13 +351,13 @@
     }
     .service-card:hover{transform:scale(1.03);border-color:rgba(10,22,68,0.18);}
     .service-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:10px;}
-    .service-top h4{margin:0;font-size:18px;font-weight:600;color:var(--blue);}
+    .service-top h4{margin:0;font-size:18px;font-weight:800;color:var(--blue);}
     .tag{
       font-size:11.5px;color:var(--blue);
       padding:7px 10px;border-radius:999px;
       border:1px solid rgba(24,183,161,0.25);
       background:rgba(24,183,161,0.10);
-      white-space:nowrap;font-weight:500;
+      white-space:nowrap;font-weight:700;
     }
     .points{margin:0;padding-left:18px;color:var(--muted);font-size:14px;line-height:1.85;font-weight:400;}
     .service-card .go{
@@ -322,7 +365,7 @@
       display:inline-flex;align-items:center;gap:10px;
       font-size:14px;color:var(--blue2);
       text-decoration:underline;text-underline-offset:4px;
-      font-weight:500;
+      font-weight:700;
     }
 
     /* ABOUT */
@@ -335,8 +378,8 @@
       box-shadow:var(--shadow);
       padding:22px;
     }
-    .about-card h4{margin:0 0 10px 0;font-size:20px;font-weight:600;color:var(--blue);}
-    .about-card p{margin:0 0 12px 0;color:var(--muted);font-size:14.5px;line-height:1.9;font-weight:400;}
+    .about-card h4{margin:0 0 10px 0;font-size:20px;font-weight:800;color:var(--blue);}
+    .about-card p{margin:0 0 12px 0;color:var(--muted);font-size:14.5px;line-height:1.95;font-weight:400;}
     .about-split{display:grid;gap:12px;}
     .about-mini{
       padding:16px;border-radius:var(--radius);
@@ -344,29 +387,59 @@
       background:rgba(10,22,68,0.03);
       box-shadow:0 14px 40px rgba(10,22,68,0.06);
     }
-    .about-mini strong{display:block;margin-bottom:6px;font-size:16px;font-weight:600;color:var(--blue);}
-    .about-mini span{color:var(--muted);font-size:14px;line-height:1.9;display:block;font-weight:400;}
+    .about-mini strong{display:block;margin-bottom:6px;font-size:16px;font-weight:800;color:var(--blue);}
+    .about-mini span{color:var(--muted);font-size:14px;line-height:1.95;display:block;font-weight:400;}
 
     /* FOOTER */
     footer{border-top:1px solid rgba(10,22,68,0.10);background:#fff;padding:38px 0;}
     .foot-grid{display:grid;grid-template-columns:1.2fr 0.7fr 0.7fr;gap:18px;}
     @media (max-width:880px){.foot-grid{grid-template-columns:1fr;}}
-    .footer-logo-img{
-      height:51px; /* 10% bigger */
-      width:auto;
-      display:block;
-      object-fit:contain;
-      margin-bottom:6px;
+    .footer-brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:10px;
     }
+    .footer-icon{
+      width:50px;   /* 10% bigger */
+      height:50px;  /* 10% bigger */
+      border-radius:14px;
+      border:1px solid rgba(10,22,68,0.10);
+      padding:7px;
+      background:#fff;
+      object-fit:contain;
+      display:block;
+    }
+    .footer-name{
+      display:flex;
+      flex-direction:column;
+      gap:3px;
+      line-height:1.05;
+    }
+    .footer-name strong{
+      font-size:22px;
+      font-weight:800;
+      color:var(--blue);
+      letter-spacing:0.2px;
+    }
+    .footer-name strong .v{color:var(--gold);}
+    .footer-name span{
+      font-size:11px;
+      font-weight:600;
+      letter-spacing:1px;
+      color:var(--muted2);
+      text-transform:uppercase;
+    }
+
     .foot h5{
       margin:0 0 10px;
       font-size:13px;letter-spacing:0.9px;
       text-transform:uppercase;color:var(--muted2);
-      font-weight:600;
+      font-weight:800;
     }
     .foot p, .foot a{margin:0;font-size:14px;color:var(--muted);line-height:1.95;font-weight:400;}
     .foot a:hover{color:var(--blue2);text-decoration:underline;text-underline-offset:3px;}
-    .copyright{margin-top:18px;color:rgba(10,22,68,0.55);font-size:12.5px;font-weight:400;}
+    .copyright{margin-top:18px;color:rgba(10,22,68,0.55);font-size:12.5px;font-weight:600;}
 
     /* FLOATING */
     .float-wrap{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:10px;z-index:9999;}
@@ -402,18 +475,22 @@
   <div class="nav">
     <div class="container">
       <div class="nav-inner">
+
         <a class="brand" href="index.html">
-          <img class="logo-img" src="images/RV LOGO.png" alt="RAIVEGA Logo" />
-          <div class="brand-sub">MULTIMODAL FREIGHT FORWARDING</div>
+          <img class="brand-icon" src="images/rv-icon.svg" alt="RAIVEGA Icon" />
+          <div class="brand-text">
+            <div class="brand-name">RAI<span class="v">V</span>EGA</div>
+            <div class="brand-sub">MULTIMODAL FREIGHT FORWARDING</div>
+          </div>
         </a>
 
         <div class="nav-links">
           <a href="#services">Services</a>
           <a href="#about">About Us</a>
-          <a href="pages/get-a-quote.html">Get a Quote</a>
           <a href="pages/contact.html">Contact</a>
           <a class="cta" href="pages/get-a-quote.html">Get a Quote</a>
         </div>
+
       </div>
     </div>
   </div>
@@ -421,10 +498,10 @@
   <!-- HERO -->
   <main class="hero-wrap" id="home">
     <div class="container">
+
       <div class="hero-top">
         <div class="hero-shell">
 
-          <!-- CAROUSEL -->
           <div class="carousel-panel">
             <div class="carousel-header">
               <div class="hero-badge"><i></i><span>Reliable • Innovative • Customer Centric</span></div>
@@ -536,7 +613,6 @@
             </div>
           </div>
 
-          <!-- RIGHT SIDE -->
           <div class="hero-side">
             <div class="glass-card">
               <h2>Reliable & Innovative</h2>
@@ -555,7 +631,7 @@
               <p>
                 Standard cargo to specialised shipments — RAIVEGA supports end-to-end movement with reliable operations,
                 structured planning and compliance-focused execution. From pickup coordination to final delivery,
-                we ensure smooth transit management with professional service and clear accountability.
+                we ensure smooth transit management with professional service, accountability and consistent updates.
               </p>
             </div>
           </div>
@@ -563,7 +639,6 @@
         </div>
       </div>
 
-      <!-- FEATURES -->
       <div class="hero-bottom">
         <div class="feature-strip">
           <div class="feature-grid">
@@ -580,7 +655,6 @@
     </div>
   </main>
 
-  <!-- SERVICES -->
   <section id="services">
     <div class="container">
       <div class="section-title">
@@ -656,7 +730,6 @@
     </div>
   </section>
 
-  <!-- ABOUT -->
   <section id="about">
     <div class="container">
       <div class="section-title">
@@ -699,15 +772,20 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <div class="container">
       <div class="foot-grid">
 
         <div class="foot">
-          <img class="footer-logo-img" src="images/RV LOGO.png" alt="RAIVEGA Logo" />
-          <div class="brand-sub">MULTIMODAL FREIGHT FORWARDING</div>
-          <p style="margin-top:10px;">
+          <div class="footer-brand">
+            <img class="footer-icon" src="images/rv-icon.svg" alt="RAIVEGA Icon" />
+            <div class="footer-name">
+              <strong>RAI<span class="v">V</span>EGA</strong>
+              <span>MULTIMODAL FREIGHT FORWARDING</span>
+            </div>
+          </div>
+
+          <p>
             Multimodal freight forwarding solutions across Ocean, Air and Ground freight — supported with customs clearance,
             warehousing and reliable end-to-end execution for international cargo movement.
           </p>
@@ -737,7 +815,7 @@
 
   <!-- FLOATING BUTTONS -->
   <div class="float-wrap">
-    <a class="float-btn float-wa" href="https://wa.me/919915521506" aria-label="WhatsApp">
+    <a class="float-btn float-wa" href="https://wa.me/9199155215906" aria-label="WhatsApp">
       <svg viewBox="0 0 32 32"><path d="M19.11 17.7c-.28-.14-1.66-.82-1.91-.91-.26-.09-.45-.14-.64.14-.19.28-.73.91-.89 1.1-.16.19-.33.21-.61.07-.28-.14-1.2-.44-2.28-1.4-.84-.75-1.4-1.68-1.57-1.96-.16-.28-.02-.43.12-.57.12-.12.28-.33.42-.49.14-.16.19-.28.28-.47.09-.19.05-.35-.02-.49-.07-.14-.64-1.54-.87-2.11-.23-.56-.47-.48-.64-.49-.16-.01-.35-.01-.54-.01-.19 0-.49.07-.75.35-.26.28-.98.96-.98 2.34 0 1.38 1 2.71 1.14 2.9.14.19 1.97 3.01 4.77 4.22.66.29 1.18.46 1.58.59.66.21 1.26.18 1.73.11.53-.08 1.66-.68 1.89-1.33.23-.65.23-1.21.16-1.33-.07-.12-.26-.19-.54-.33zM16 3C8.83 3 3 8.83 3 16c0 2.27.6 4.41 1.64 6.27L3 29l6.9-1.81A12.9 12.9 0 0016 29c7.17 0 13-5.83 13-13S23.17 3 16 3z"/></svg>
     </a>
 
