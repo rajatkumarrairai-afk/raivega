@@ -5,10 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RAIVEGA | Ocean Freight</title>
 
+  <!-- FONT -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;500;600&display=swap" rel="stylesheet">
 
+  <!-- FAVICON -->
   <link rel="icon" type="image/svg+xml" href="../images/rv-icon.svg" />
 
   <style>
@@ -18,6 +20,8 @@
       --blue:#0A1644;
       --blue2:#15307a;
       --teal:#18b7a1;
+      --gold:#F1B81E;
+
       --wa:#25D366;
       --li:#0A66C2;
 
@@ -27,6 +31,7 @@
       --shadow:0 18px 50px rgba(10, 22, 68, 0.10);
       --radius:18px;
     }
+
     *{box-sizing:border-box;}
     body{
       margin:0;
@@ -39,73 +44,187 @@
     a{color:inherit;text-decoration:none;}
     .container{width:min(1200px, calc(100% - 40px));margin:0 auto;}
 
+    /* NAV */
     .nav{
       position:sticky;top:0;z-index:50;
       background:rgba(255,255,255,0.94);
       border-bottom:1px solid var(--border);
       backdrop-filter: blur(10px);
     }
-    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:16px;}
+    .nav-inner{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:14px 0;gap:16px;
+    }
+
     .brand{display:flex;align-items:center;gap:12px;}
     .brand-icon{
-      width:44px;height:44px;display:block;object-fit:contain;
+      width:48px;height:48px;object-fit:contain;
       border-radius:12px;border:1px solid rgba(10,22,68,0.10);
       padding:6px;background:#fff;
     }
-    .brand-text{display:flex;flex-direction:column;gap:3px;}
-    .brand-wordmark{font-weight:600;font-size:22px;letter-spacing:0.2px;color:var(--blue);line-height:1;}
-    .brand-wordmark .v{color:#F1B81E;font-weight:600;}
-    .brand-sub{font-size:11px;font-weight:400;letter-spacing:1px;color:var(--muted2);text-transform:uppercase;line-height:1.2;}
-    .nav-links{display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:flex-end;}
-    .nav-links a{font-size:14px;color:var(--muted);padding:9px 12px;border-radius:12px;transition:180ms ease;font-weight:500;}
-    .nav-links a:hover{color:var(--blue);background:rgba(10,22,68,0.05);}
+    .brand-text{display:flex;flex-direction:column;gap:3px;line-height:1.05;}
+    .brand-wordmark{
+      font-size:22px;font-weight:600;letter-spacing:0.2px;
+      text-transform:uppercase;
+    }
+    .brand-wordmark .rai{color:var(--blue);}
+    .brand-wordmark .v{color:var(--gold);}
+    .brand-wordmark .ega{color:var(--blue);}
+    .brand-sub{
+      font-size:11px;font-weight:400;letter-spacing:1px;
+      color:var(--muted2);text-transform:uppercase;
+    }
+
+    .nav-links{
+      display:flex;gap:12px;align-items:center;flex-wrap:wrap;
+    }
+    .nav-links a{
+      font-size:14px;color:var(--muted);
+      padding:9px 12px;border-radius:12px;
+      transition:180ms ease;font-weight:500;
+    }
+    .nav-links a:hover{
+      color:var(--blue);background:rgba(10,22,68,0.05);
+    }
     .cta{
       padding:10px 14px;border-radius:14px;
-      background:linear-gradient(135deg, rgba(10,22,68,0.10), rgba(24,183,161,0.14));
+      background:linear-gradient(135deg, rgba(10,22,68,0.10), rgba(241,184,30,0.18));
       border:1px solid rgba(10,22,68,0.16);
       box-shadow:0 16px 40px rgba(10,22,68,0.08);
       font-size:14px;font-weight:600;color:var(--blue);
       transition:transform 180ms ease;white-space:nowrap;
     }
     .cta:hover{transform:translateY(-1px);}
+
     @media (max-width:640px){
       .nav-inner{flex-direction:column;align-items:flex-start;}
-      .nav-links{width:100%;justify-content:flex-start;gap:8px;}
-      .brand-wordmark{font-size:20px;}
+      .nav-links{width:100%;justify-content:flex-start;}
     }
 
+    /* PAGE */
     .page-wrap{padding:26px 0 44px;}
-    .page-title{margin:0 0 10px;font-size:28px;font-weight:600;letter-spacing:-0.2px;color:var(--blue);}
-    .page-sub{margin:0 0 18px;color:var(--muted);font-size:14.5px;line-height:1.75;font-weight:400;max-width:920px;}
+    .page-title{
+      margin:0 0 10px;
+      font-size:28px;font-weight:600;letter-spacing:-0.2px;color:var(--blue);
+    }
+    .page-sub{
+      margin:0 0 18px;
+      color:var(--muted);
+      font-size:14.5px;
+      line-height:1.75;
+      font-weight:400;
+      max-width:920px;
+    }
 
-    .hero-box{border-radius:18px;border:1px solid rgba(10,22,68,0.10);box-shadow:var(--shadow);overflow:hidden;background:#fff;margin-top:14px;}
-    .hero-img{height:320px;width:100%;position:relative;overflow:hidden;background:#fff;}
-    .hero-img img{width:100%;height:100%;object-fit:cover;display:block;}
-    .hero-content{padding:18px;}
-    .hero-content h2{margin:0 0 10px;font-size:20px;font-weight:600;color:var(--blue);}
-    .hero-content p{margin:0 0 10px;font-size:14.5px;line-height:1.8;color:var(--muted);font-weight:400;}
+    /* HERO BOX */
+    .hero-box{
+      border-radius:18px;
+      border:1px solid rgba(10,22,68,0.10);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      background:#fff;
+      margin-top:14px;
+    }
 
+    /* ✅ PC = IMAGE 50% + TEXT 50%  | MOBILE = SAME AS BEFORE */
+    .hero-split{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      min-height:360px;
+    }
+    .hero-img{
+      position:relative;
+      width:100%;
+      height:100%;
+      overflow:hidden;
+      background:#fff;
+    }
+    .hero-img img{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center;
+      display:block;
+    }
+    .hero-content{
+      padding:22px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+    .hero-content h2{
+      margin:0 0 10px;
+      font-size:20px;
+      font-weight:600;
+      color:var(--blue);
+    }
+    .hero-content p{
+      margin:0 0 12px;
+      font-size:14.5px;
+      line-height:1.8;
+      color:var(--muted);
+      font-weight:400;
+    }
+
+    @media(max-width:900px){
+      .hero-split{
+        grid-template-columns:1fr;
+      }
+      .hero-img{
+        height:320px;
+      }
+      .hero-img img{
+        position:relative;
+        height:320px;
+      }
+    }
+
+    /* GRID */
     .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
     @media(max-width:900px){.grid{grid-template-columns:1fr;}}
-    .card{border-radius:18px;border:1px solid rgba(10,22,68,0.10);box-shadow:var(--shadow);background:#fff;padding:18px;}
-    .card h3{margin:0 0 10px;font-size:18px;font-weight:600;color:var(--blue);}
-    .card ul{margin:0;padding-left:18px;color:var(--muted);font-size:14.5px;line-height:1.75;font-weight:400;}
+    .card{
+      border-radius:18px;
+      border:1px solid rgba(10,22,68,0.10);
+      box-shadow:var(--shadow);
+      background:#fff;
+      padding:18px;
+    }
+    .card h3{
+      margin:0 0 10px;
+      font-size:18px;
+      font-weight:600;
+      color:var(--blue);
+    }
+    .card ul{
+      margin:0;
+      padding-left:18px;
+      color:var(--muted);
+      font-size:14.5px;
+      line-height:1.75;
+      font-weight:400;
+    }
     .card ul li{margin-bottom:6px;}
 
+    /* FOOTER */
     footer{border-top:1px solid rgba(10,22,68,0.10);background:#fff;padding:38px 0;margin-top:26px;}
     .foot-grid{display:grid;grid-template-columns:1.2fr 0.7fr 0.7fr;gap:18px;}
     @media (max-width:880px){.foot-grid{grid-template-columns:1fr;}}
     .footer-logo{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
-    .footer-logo img{width:44px;height:44px;object-fit:contain;border-radius:12px;border:1px solid rgba(10,22,68,0.10);padding:6px;background:#fff;}
+    .footer-logo img{width:48px;height:48px;object-fit:contain;border-radius:12px;border:1px solid rgba(10,22,68,0.10);padding:6px;background:#fff;}
     .footer-name{display:flex;flex-direction:column;gap:3px;}
-    .footer-name strong{font-weight:600;font-size:22px;letter-spacing:0.2px;color:var(--blue);line-height:1;}
-    .footer-name strong .v{color:#F1B81E;}
+    .footer-name strong{font-weight:600;font-size:22px;letter-spacing:0.2px;line-height:1;text-transform:uppercase;}
+    .footer-name strong .rai{color:var(--blue);}
+    .footer-name strong .v{color:var(--gold);}
+    .footer-name strong .ega{color:var(--blue);}
     .footer-name span{font-size:11px;font-weight:400;letter-spacing:1px;color:var(--muted2);text-transform:uppercase;line-height:1.2;}
     .foot h5{margin:0 0 10px;font-size:13px;letter-spacing:0.9px;text-transform:uppercase;color:var(--muted2);font-weight:600;}
     .foot p, .foot a{margin:0;font-size:14px;color:var(--muted);line-height:1.9;font-weight:400;}
     .foot a:hover{color:var(--blue2);text-decoration:underline;text-underline-offset:3px;}
     .copyright{margin-top:18px;color:rgba(10,22,68,0.55);font-size:12.5px;font-weight:400;}
 
+    /* FLOAT */
     .float-wrap{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:10px;z-index:9999;}
     .float-btn{width:52px;height:52px;border-radius:999px;display:flex;align-items:center;justify-content:center;box-shadow:0 18px 50px rgba(10,22,68,0.20);border:1px solid rgba(255,255,255,0.35);transition:transform 180ms ease;background:#fff;}
     .float-btn:hover{transform:translateY(-2px);}
@@ -124,7 +243,9 @@
         <a class="brand" href="../index.html">
           <img class="brand-icon" src="../images/rv-icon.svg" alt="RAIVEGA Icon">
           <div class="brand-text">
-            <div class="brand-wordmark">RAI<span class="v">V</span>EGA</div>
+            <div class="brand-wordmark">
+              <span class="rai">RAI</span><span class="v">V</span><span class="ega">EGA</span>
+            </div>
             <div class="brand-sub">MULTIMODAL FREIGHT FORWARDING</div>
           </div>
         </a>
@@ -133,7 +254,7 @@
           <a href="../index.html#services">Services</a>
           <a href="get-a-quote.html">Get a Quote</a>
           <a href="contact.html">Contact</a>
-          <a class="cta" href="get-a-quote.html">Quick Quote</a>
+          <a class="cta" href="get-a-quote.html">Get a Quote</a>
         </div>
       </div>
     </div>
@@ -149,20 +270,23 @@
       </p>
 
       <div class="hero-box">
-        <div class="hero-img">
-          <img src="../images/ship.jpg" alt="RAIVEGA Ocean Freight">
-        </div>
-        <div class="hero-content">
-          <h2>Global Sea Freight Solutions with Strong Execution</h2>
-          <p>
-            We provide complete sea freight forwarding support for LCL and FCL shipments, including project cargo,
-            break bulk, bulk, RORO and reefer movements. Our focus is to ensure correct routing selection,
-            cost-effective planning, and smooth coordination across ports and shipping lines.
-          </p>
-          <p>
-            With RAIVEGA, clients get reliable operational control, accurate documentation assistance,
-            and professional support from booking to final delivery.
-          </p>
+        <div class="hero-split">
+          <div class="hero-img">
+            <img src="../images/ship.jpg" alt="RAIVEGA Ocean Freight">
+          </div>
+
+          <div class="hero-content">
+            <h2>End-to-End Sea Freight Solutions</h2>
+            <p>
+              Our ocean freight capabilities cover a full spectrum of cargo requirements including FCL, LCL, project cargo,
+              break bulk, bulk commodities, RORO and reefer shipments. Each movement is planned with attention to routing efficiency,
+              transit stability, and cost control.
+            </p>
+            <p>
+              RAIVEGA ensures strong coordination with shipping lines, ports, and agents to deliver smooth execution
+              from booking through final discharge.
+            </p>
+          </div>
         </div>
       </div>
 
@@ -199,7 +323,7 @@
           <div class="footer-logo">
             <img src="../images/rv-icon.svg" alt="RAIVEGA Icon">
             <div class="footer-name">
-              <strong>RAI<span class="v">V</span>EGA</strong>
+              <strong><span class="rai">RAI</span><span class="v">V</span><span class="ega">EGA</span></strong>
               <span>MULTIMODAL FREIGHT FORWARDING</span>
             </div>
           </div>
@@ -218,14 +342,14 @@
         <div class="foot">
           <h5>Get in Touch</h5>
           <p>Email: <a href="mailto:mgt@raivega.in">mgt@raivega.in</a></p>
-          <p>Phone: <a href="tel:+9199155215906">+91 99155215906</a></p>
+          <p>Phone: <a href="tel:+919915521506">+91 9915521506</a></p>
         </div>
       </div>
     </div>
   </footer>
 
   <div class="float-wrap">
-    <a class="float-btn float-wa" href="https://wa.me/9199155215906" aria-label="WhatsApp">
+    <a class="float-btn float-wa" href="https://wa.me/919915521506" aria-label="WhatsApp">
       <svg viewBox="0 0 32 32"><path d="M19.11 17.7c-.28-.14-1.66-.82-1.91-.91-.26-.09-.45-.14-.64.14-.19.28-.73.91-.89 1.1-.16.19-.33.21-.61.07-.28-.14-1.2-.44-2.28-1.4-.84-.75-1.4-1.68-1.57-1.96-.16-.28-.02-.43.12-.57.12-.12.28-.33.42-.49.14-.16.19-.28.28-.47.09-.19.05-.35-.02-.49-.07-.14-.64-1.54-.87-2.11-.23-.56-.47-.48-.64-.49-.16-.01-.35-.01-.54-.01-.19 0-.49.07-.75.35-.26.28-.98.96-.98 2.34 0 1.38 1 2.71 1.14 2.9.14.19 1.97 3.01 4.77 4.22.66.29 1.18.46 1.58.59.66.21 1.26.18 1.73.11.53-.08 1.66-.68 1.89-1.33.23-.65.23-1.21.16-1.33-.07-.12-.26-.19-.54-.33zM16 3C8.83 3 3 8.83 3 16c0 2.27.6 4.41 1.64 6.27L3 29l6.9-1.81A12.9 12.9 0 0016 29c7.17 0 13-5.83 13-13S23.17 3 16 3z"/></svg>
     </a>
 
