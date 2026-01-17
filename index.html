@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RAIVEGA | Multimodal Freight Forwarding</title>
-<meta name="google-site-verification" content="GyhxezXuB1nSu6Ad0sVW0Fhw3z4h8xECJU3ROw0NAaU" />
+  <meta name="google-site-verification" content="GyhxezXuB1nSu6Ad0sVW0Fhw3z4h8xECJU3ROw0NAaU" />
+
   <!-- FONT -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -190,8 +191,7 @@
       padding:18px 0 28px;
     }
 
-    /* ✅ FIX FOR PC OVERLAP:
-       Desktop hero becomes auto height so it never cuts the feature strip */
+    /* FIX FOR PC OVERLAP */
     .hero-top{
       position:relative;
       height:auto;
@@ -244,10 +244,20 @@
       box-shadow:0 0 14px rgba(24,183,161,0.55);
     }
 
+    /* ✅ IMPROVED CAROUSEL (SMOOTH) */
     .marquee{position:absolute;inset:0;display:flex;align-items:stretch;}
-    .marquee-track{display:flex;width:max-content;animation:marquee 30s linear infinite;}
+    .marquee-track{
+      display:flex;
+      width:max-content;
+      will-change:transform;
+      animation:marquee 36s linear infinite;
+    }
     .marquee:hover .marquee-track{animation-play-state:paused;}
-    @keyframes marquee{from{transform:translateX(-50%);}to{transform:translateX(0%);} }
+
+    @keyframes marquee{
+      from{transform:translateX(0%);}
+      to{transform:translateX(-50%);}
+    }
 
     .slide{
       width:min(74vw,820px);
@@ -262,7 +272,6 @@
       .slide{width:92vw;min-height:420px;}
     }
 
-    /* IMAGE FILL PERFECTLY */
     .slide img{
       position:absolute;
       inset:0;
@@ -310,6 +319,34 @@
     }
     .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,0.18);}
     .btn.primary{background:linear-gradient(135deg, rgba(24,183,161,0.35), rgba(255,255,255,0.14));}
+
+    /* ✅ DOTS INDICATOR */
+    .carousel-dots{
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:14px;
+      z-index:4;
+      display:flex;
+      justify-content:center;
+      gap:8px;
+      pointer-events:none;
+    }
+    .dot{
+      width:9px;
+      height:9px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.35);
+      border:1px solid rgba(255,255,255,0.50);
+      transition:all 240ms ease;
+      opacity:0.85;
+    }
+    .dot.active{
+      width:22px;
+      background:rgba(241,184,30,0.90);
+      border-color:rgba(241,184,30,0.95);
+      opacity:1;
+    }
 
     .hero-side{display:flex;flex-direction:column;gap:14px;}
     .glass-card{
@@ -388,6 +425,8 @@
       font-weight:400;
     }
     .track-input::placeholder{color:rgba(10,22,68,0.45);}
+
+    /* 🔍︎ BLACK & WHITE ONLY */
     .track-search{
       width:44px;height:44px;
       border-radius:14px;
@@ -398,7 +437,9 @@
       background:#fff;
       flex:0 0 auto;
       font-size:18px;
-      color:var(--blue);
+      color:#000;
+      cursor:pointer;
+      user-select:none;
     }
 
     .hero-bottom{margin-top:18px;padding:8px 0 0 0;}
@@ -620,7 +661,7 @@
             </div>
 
             <div class="marquee">
-              <div class="marquee-track">
+              <div class="marquee-track" id="marqueeTrack">
 
                 <div class="slide">
                   <img src="images/ship.jpg" alt="Ocean Freight" />
@@ -723,6 +764,17 @@
 
               </div>
             </div>
+
+            <!-- DOTS -->
+            <div class="carousel-dots" id="carouselDots">
+              <div class="dot active"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
+
           </div>
 
           <!-- RIGHT SIDE -->
@@ -744,8 +796,8 @@
               <div class="track-left">
                 <strong>TRACK YOUR SHIPMENT</strong>
                 <div class="track-input-row">
-                  <input class="track-input" type="text" placeholder="Enter reference number" />
-                  <div class="track-search">🔍</div>
+                  <input class="track-input" id="trackRef" type="text" placeholder="Enter reference number" />
+                  <div class="track-search" id="trackBtn">🔍︎</div>
                 </div>
               </div>
             </div>
@@ -996,10 +1048,32 @@
       }
       animate();
     })();
+
+    // ✅ DOTS AUTO UPDATE (BASED ON TIME)
+    (function(){
+      const dotsWrap = document.getElementById("carouselDots");
+      if(!dotsWrap) return;
+      const dots = Array.from(dotsWrap.querySelectorAll(".dot"));
+      if(!dots.length) return;
+
+      let idx = 0;
+      setInterval(() => {
+        dots.forEach(d => d.classList.remove("active"));
+        dots[idx].classList.add("active");
+        idx = (idx + 1) % dots.length;
+      }, 4500);
+    })();
+
+    // ✅ TRACK SEARCH -> OPENS TRACK PAGE
+    (function(){
+      const btn = document.getElementById("trackBtn");
+      if(!btn) return;
+
+      btn.addEventListener("click", () => {
+        window.location.href = "pages/track-shipment.html";
+      });
+    })();
   </script>
 
 </body>
 </html>
-
-
-
