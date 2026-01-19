@@ -128,7 +128,7 @@
       gap:12px;
     }
     .logo-img{
-      height:58px;
+      height:64px;
       width:auto;
       display:block;
       object-fit:contain;
@@ -179,7 +179,7 @@
       .nav-inner{flex-direction:column;align-items:flex-start;}
       .nav-links{width:100%;justify-content:flex-start;gap:8px;}
       .nav-links a{padding:8px 10px;}
-      .logo-img{height:54px;}
+      .logo-img{height:58px;}
       .brand-title .name{font-size:21px;}
     }
 
@@ -213,7 +213,7 @@
 
     .carousel-panel{
       position:relative;
-      border-radius:0;
+      border-radius:18px;
       border:1px solid var(--border);
       background:#fff;
       box-shadow:var(--shadow);
@@ -244,15 +244,27 @@
       box-shadow:0 0 14px rgba(24,183,161,0.55);
     }
 
-    /* ✅ IMPROVED CAROUSEL (SMOOTH) */
-    .marquee{position:absolute;inset:0;display:flex;align-items:stretch;}
+    /* CAROUSEL */
+    .marquee{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:stretch;
+      border-radius:18px;
+      overflow:hidden;
+    }
+
+    /* nicer hover + rounded + scroll bar look */
     .marquee-track{
       display:flex;
       width:max-content;
       will-change:transform;
-      animation:marquee 36s linear infinite;
+      animation:marquee 34s linear infinite;
     }
-    .marquee:hover .marquee-track{animation-play-state:paused;}
+    .carousel-panel:hover .marquee-track{
+      animation-play-state:paused;
+      filter:saturate(1.05) contrast(1.05);
+    }
 
     @keyframes marquee{
       from{transform:translateX(0%);}
@@ -267,7 +279,9 @@
       display:flex;
       align-items:flex-end;
       overflow:hidden;
+      border-radius:18px;
     }
+
     @media (max-width:920px){
       .slide{width:92vw;min-height:420px;}
     }
@@ -320,12 +334,40 @@
     .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,0.18);}
     .btn.primary{background:linear-gradient(135deg, rgba(24,183,161,0.35), rgba(255,255,255,0.14));}
 
-    /* ✅ DOTS INDICATOR */
+    /* BOTTOM SCROLL BAR (VISUAL) */
+    .carousel-scrollbar{
+      position:absolute;
+      left:18px;
+      right:18px;
+      bottom:14px;
+      z-index:4;
+      height:6px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.18);
+      border:1px solid rgba(255,255,255,0.22);
+      overflow:hidden;
+      pointer-events:none;
+    }
+    .carousel-scrollbar span{
+      display:block;
+      height:100%;
+      width:24%;
+      border-radius:999px;
+      background:rgba(241,184,30,0.90);
+      animation:scrollbarMove 4.5s ease-in-out infinite;
+    }
+    @keyframes scrollbarMove{
+      0%{transform:translateX(0%);}
+      50%{transform:translateX(220%);}
+      100%{transform:translateX(0%);}
+    }
+
+    /* DOTS INDICATOR */
     .carousel-dots{
       position:absolute;
       left:0;
       right:0;
-      bottom:14px;
+      bottom:28px;
       z-index:4;
       display:flex;
       justify-content:center;
@@ -548,6 +590,69 @@
     .about-mini strong{display:block;margin-bottom:6px;font-size:16px;font-weight:600;color:var(--blue);}
     .about-mini span{color:var(--muted);font-size:14px;line-height:1.9;display:block;font-weight:400;}
 
+    /* EXPERIENCE BOX UNDER ABOUT */
+    .exp-box{
+      margin-top:18px;
+      border-radius:18px;
+      border:1px solid rgba(10,22,68,0.10);
+      box-shadow:var(--shadow);
+      background:#fff;
+      overflow:hidden;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:0;
+    }
+    .exp-img{
+      width:100%;
+      height:100%;
+      min-height:260px;
+      background:#fff;
+      overflow:hidden;
+    }
+    .exp-img img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .exp-content{
+      padding:22px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+    .exp-content h4{
+      margin:0 0 10px 0;
+      font-size:20px;
+      font-weight:600;
+      color:var(--blue);
+    }
+    .exp-content p{
+      margin:0;
+      color:var(--muted);
+      font-size:14.5px;
+      line-height:1.9;
+      font-weight:400;
+    }
+    .exp-highlight{
+      margin-top:14px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(241,184,30,0.40);
+      background:rgba(241,184,30,0.08);
+      color:var(--blue);
+      font-weight:600;
+      font-size:13px;
+      width:fit-content;
+    }
+    @media (max-width:980px){
+      .exp-box{grid-template-columns:1fr;}
+      .exp-img{min-height:220px;}
+    }
+
     /* FOOTER */
     footer{border-top:1px solid rgba(10,22,68,0.10);background:#fff;padding:38px 0;}
     .foot-grid{display:grid;grid-template-columns:1.2fr 0.7fr 0.7fr;gap:18px;}
@@ -560,7 +665,7 @@
       margin-bottom:8px;
     }
     .footer-logo-img{
-      height:58px;
+      height:64px;
       width:auto;
       display:block;
       object-fit:contain;
@@ -762,6 +867,76 @@
                   </div>
                 </div>
 
+                <div class="slide">
+                  <img src="images/air freight.jpg" alt="Air Freight" />
+                  <div class="slide-content">
+                    <div class="slide-text">
+                      <h1>Air Freight for urgent and priority shipments</h1>
+                      <p>Fast global delivery, secure handling, and professional transit planning for time-critical cargo movements.</p>
+                    </div>
+                    <div class="slide-action">
+                      <a class="btn primary" href="pages/air-freight.html">Air Freight</a>
+                      <a class="btn" href="pages/get-a-quote.html">Get a Quote</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="slide">
+                  <img src="images/ground freight.jpg" alt="Ground Freight" />
+                  <div class="slide-content">
+                    <div class="slide-text">
+                      <h1>Ground Freight with road + rail connectivity</h1>
+                      <p>Stable schedules, cost-optimised routing, dependable inland movement and distribution support.</p>
+                    </div>
+                    <div class="slide-action">
+                      <a class="btn primary" href="pages/ground-freight.html">Ground Freight</a>
+                      <a class="btn" href="pages/get-a-quote.html">Get a Quote</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="slide">
+                  <img src="images/project.jpg" alt="Project Cargo" />
+                  <div class="slide-content">
+                    <div class="slide-text">
+                      <h1>Project & specialised cargo handled with precision</h1>
+                      <p>Heavy-lift planning and execution for special shipments, oversized cargo and complex logistics requirements.</p>
+                    </div>
+                    <div class="slide-action">
+                      <a class="btn primary" href="pages/get-a-quote.html">Project Logistics</a>
+                      <a class="btn" href="pages/get-a-quote.html">Get a Quote</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="slide">
+                  <img src="images/roro.jpg" alt="RoRo Cargo" />
+                  <div class="slide-content">
+                    <div class="slide-text">
+                      <h1>RORO & vehicle cargo movement made simple</h1>
+                      <p>Seamless handling for automobiles and rolling cargo through proven carrier options and secure documentation flow.</p>
+                    </div>
+                    <div class="slide-action">
+                      <a class="btn primary" href="pages/get-a-quote.html">RORO Cargo</a>
+                      <a class="btn" href="pages/get-a-quote.html">Get a Quote</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="slide">
+                  <img src="images/bulk.jpg" alt="Bulk Cargo" />
+                  <div class="slide-content">
+                    <div class="slide-text">
+                      <h1>Bulk cargo solutions with dependable execution</h1>
+                      <p>Bulk handling support with robust planning, safe operations, and clear communication across shipment stages.</p>
+                    </div>
+                    <div class="slide-action">
+                      <a class="btn primary" href="pages/get-a-quote.html">Bulk Cargo</a>
+                      <a class="btn" href="pages/get-a-quote.html">Get a Quote</a>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
 
@@ -774,6 +949,9 @@
               <div class="dot"></div>
               <div class="dot"></div>
             </div>
+
+            <!-- SCROLL BAR -->
+            <div class="carousel-scrollbar"><span></span></div>
 
           </div>
 
@@ -954,6 +1132,22 @@
         </div>
       </div>
 
+      <!-- EXPERIENCE BOX UNDER ABOUT -->
+      <div class="exp-box">
+        <div class="exp-img">
+          <img src="images/experience.png" alt="RAIVEGA Experience">
+        </div>
+        <div class="exp-content">
+          <h4>Decades of Miles Mastered</h4>
+          <p>
+            Logistics is built on discipline, timing, and execution — and RAIVEGA delivers with practical operational expertise.
+            With decades of miles mastered in global cargo movement, we understand the ground realities of freight planning,
+            transit coordination, documentation flow, and delivery accountability.
+          </p>
+          <div class="exp-highlight">Execution Driven - Service Focused - Trade Ready</div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -992,7 +1186,7 @@
         <div class="foot">
           <h5>Get in Touch</h5>
           <p>Email: <a href="mailto:mgt@raivega.in">mgt@raivega.in</a></p>
-          <p>Phone: <a href="tel:+919915521506">+91 9915521506</a></p>
+          <p>Phone: <a href="tel:+9199155215906">+91 9915521506</a></p>
           <p style="margin-top:10px;"><a class="cta" href="pages/get-a-quote.html">Get a Quote</a></p>
         </div>
 
@@ -1049,7 +1243,7 @@
       animate();
     })();
 
-    // ✅ DOTS AUTO UPDATE (BASED ON TIME)
+    // DOTS AUTO UPDATE
     (function(){
       const dotsWrap = document.getElementById("carouselDots");
       if(!dotsWrap) return;
@@ -1064,7 +1258,7 @@
       }, 4500);
     })();
 
-    // ✅ TRACK SEARCH -> OPENS TRACK PAGE
+    // TRACK SEARCH -> OPENS TRACK PAGE
     (function(){
       const btn = document.getElementById("trackBtn");
       if(!btn) return;
