@@ -1277,388 +1277,157 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
 
+<!-- ================= RAIVEGA TELEGRAM CHATBOT ================= -->
 <style>
-  :root{
-    --rv-blue:#0A1644;
-    --rv-gold:#F1B81E;
-    --rv-muted:rgba(10, 22, 68, 0.70);
-    --rv-border:rgba(10, 22, 68, 0.12);
-    --rv-shadow:0 18px 55px rgba(10, 22, 68, 0.18);
-    --rv-radius:16px;
-    --rv-font:"Titillium Web", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-  }
+.rv-launch{
+  position:fixed;
+  right:90px;
+  bottom:18px;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#0A1644,#F1B81E);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+  z-index:99999;
+  box-shadow:0 20px 60px rgba(10,22,68,.25);
+  font-family:"Titillium Web",sans-serif;
+  transition:transform .2s ease;
+}
+.rv-launch:hover{transform:translateY(-3px);}
 
-  /* LAUNCHER */
-  .rv-bot-launcher{
-    position:fixed;
-    right:90px;
-    bottom:18px;
-    z-index:99999;
-    width:56px;
-    height:56px;
-    border-radius:999px;
-    border:1px solid rgba(255,255,255,0.35);
-    background:linear-gradient(135deg, rgba(10,22,68,0.96), rgba(241,184,30,0.92));
-    box-shadow:0 18px 55px rgba(10,22,68,0.22);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    user-select:none;
-    transition:transform 180ms ease, filter 180ms ease;
-  }
-  .rv-bot-launcher:hover{transform:translateY(-2px);filter:saturate(1.05) contrast(1.05);}
-  .rv-bot-launcher span{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    width:40px;
-    height:40px;
-    border-radius:999px;
-    background:rgba(255,255,255,0.10);
-    border:1px solid rgba(255,255,255,0.18);
-    color:#fff;
-    font-family:var(--rv-font);
-    font-size:11px;
-    font-weight:700;
-    letter-spacing:0.3px;
-  }
+.rv-box{
+  position:fixed;
+  right:90px;
+  bottom:90px;
+  width:360px;
+  height:520px;
+  background:#fff;
+  border-radius:18px;
+  box-shadow:0 25px 70px rgba(10,22,68,.25);
+  display:none;
+  flex-direction:column;
+  overflow:hidden;
+  z-index:99999;
+  font-family:"Titillium Web",sans-serif;
+  animation:fadeIn .3s ease;
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(10px);}
+  to{opacity:1;transform:translateY(0);}
+}
+.rv-box.active{display:flex;}
 
-  /* WINDOW (20% SCREEN) */
-  .rv-bot-window{
-    position:fixed;
-    right:90px;
-    bottom:86px;
-    z-index:99999;
-    width:min(20vw, 360px);
-    min-width:280px;
-    max-width:360px;
-    height:min(60vh, 560px);
-    background:#fff;
-    border-radius:18px;
-    border:1px solid var(--rv-border);
-    box-shadow:var(--rv-shadow);
-    overflow:hidden;
-    display:none;
-    flex-direction:column;
-  }
-  .rv-bot-window.show{display:flex;}
+.rv-header{
+  background:#0A1644;
+  color:#fff;
+  padding:14px;
+  font-weight:600;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
 
-  @media (max-width: 760px){
-    .rv-bot-window{
-      width:min(92vw, 380px);
-      height:68vh;
-      bottom:86px;
-    }
-  }
+.rv-body{
+  flex:1;
+  padding:12px;
+  overflow-y:auto;
+  background:#f8f8f8;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
 
-  /* HEADER */
-  .rv-bot-top{
-    padding:10px 12px;
-    border-bottom:1px solid rgba(10,22,68,0.10);
-    background:rgba(255,255,255,0.98);
-    backdrop-filter: blur(10px);
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-  }
+.rv-msg{
+  padding:10px 14px;
+  border-radius:16px;
+  font-size:12px;
+  max-width:85%;
+  line-height:1.6;
+  word-wrap:break-word;
+}
 
-  .rv-bot-brand{
-    display:flex;
-    gap:10px;
-    align-items:center;
-  }
+.rv-user{
+  align-self:flex-end;
+  background:#F1B81E;
+  color:#000;
+}
 
-  .rv-bot-logo{
-    width:38px;
-    height:38px;
-    border-radius:14px;
-    background:#fff;
-    border:1px solid rgba(10,22,68,0.12);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-  }
-  .rv-bot-logo img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-    padding:7px;
-    background:#fff;
-  }
+.rv-bot{
+  align-self:flex-start;
+  background:#fff;
+  border:1px solid rgba(10,22,68,.12);
+}
 
-  .rv-bot-title{
-    display:flex;
-    flex-direction:column;
-    line-height:1.05;
-  }
-  .rv-bot-title strong{
-    font-family:var(--rv-font);
-    font-size:12px;
-    font-weight:800;
-    letter-spacing:0.3px;
-    color:var(--rv-blue);
-    text-transform:uppercase;
-  }
-  .rv-bot-title strong .rv-v{color:var(--rv-gold);}
-  .rv-bot-title span{
-    font-family:var(--rv-font);
-    font-size:10px;
-    color:rgba(10,22,68,0.55);
-    font-weight:600;
-    letter-spacing:0.6px;
-    text-transform:uppercase;
-  }
+.rv-loading{
+  font-size:11px;
+  color:#666;
+  align-self:flex-start;
+}
 
-  .rv-bot-close{
-    width:36px;
-    height:36px;
-    border-radius:14px;
-    border:1px solid rgba(10,22,68,0.10);
-    background:#fff;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:var(--rv-blue);
-    font-size:13px;
-    font-weight:800;
-    transition:transform 180ms ease, background 180ms ease;
-    font-family:var(--rv-font);
-  }
-  .rv-bot-close:hover{transform:translateY(-1px);background:rgba(10,22,68,0.04);}
+.rv-input{
+  display:flex;
+  border-top:1px solid rgba(10,22,68,.12);
+}
 
-  /* BODY */
-  .rv-bot-body{
-    padding:12px;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-    overflow:auto;
-    flex:1;
-    background:linear-gradient(180deg, rgba(10,22,68,0.015), rgba(10,22,68,0.0));
-  }
+.rv-input input{
+  flex:1;
+  border:none;
+  padding:12px;
+  outline:none;
+  font-size:12px;
+}
 
-  .rv-msg{
-    max-width:88%;
-    padding:10px 11px;
-    border-radius:14px;
-    border:1px solid rgba(10,22,68,0.10);
-    font-family:var(--rv-font);
-    font-size:10px;
-    line-height:1.55;
-    font-weight:400;
-    white-space:pre-wrap;
-  }
-  .rv-msg.bot{
-    align-self:flex-start;
-    background:#fff;
-    color:var(--rv-blue);
-  }
-  .rv-msg.user{
-    align-self:flex-end;
-    background:rgba(241,184,30,0.12);
-    border-color:rgba(241,184,30,0.25);
-    color:var(--rv-blue);
-  }
-
-  /* OPTION BUTTONS (Maersk-style) */
-  .rv-options{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-    margin-top:2px;
-  }
-  .rv-option-btn{
-    width:100%;
-    text-align:left;
-    border-radius:14px;
-    padding:10px 11px;
-    border:1px solid rgba(10,22,68,0.12);
-    background:rgba(10,22,68,0.03);
-    cursor:pointer;
-    font-family:var(--rv-font);
-    font-size:10px;
-    font-weight:600;
-    color:var(--rv-blue);
-    transition:transform 180ms ease, background 180ms ease;
-  }
-  .rv-option-btn:hover{
-    transform:translateY(-1px);
-    background:rgba(10,22,68,0.05);
-  }
-
-  /* INPUT */
-  .rv-bot-inputbar{
-    padding:10px 12px;
-    border-top:1px solid rgba(10,22,68,0.10);
-    background:#fff;
-    display:flex;
-    gap:8px;
-    align-items:center;
-  }
-  .rv-bot-input{
-    flex:1;
-    height:36px;
-    border-radius:14px;
-    border:1px solid rgba(10,22,68,0.14);
-    padding:0 12px;
-    outline:none;
-    font-family:var(--rv-font);
-    font-size:10px;
-    color:var(--rv-blue);
-    font-weight:400;
-  }
-  .rv-bot-input::placeholder{color:rgba(10,22,68,0.45);}
-
-  .rv-bot-send{
-    width:38px;
-    height:38px;
-    border-radius:14px;
-    border:1px solid rgba(10,22,68,0.14);
-    background:rgba(10,22,68,0.05);
-    color:var(--rv-blue);
-    cursor:pointer;
-    font-weight:800;
-    font-size:11px;
-    transition:transform 180ms ease, background 180ms ease;
-    font-family:var(--rv-font);
-  }
-  .rv-bot-send:hover{transform:translateY(-1px);background:rgba(10,22,68,0.07);}
-
-  /* COLLAPSIBLE ACTION BAR */
-  .rv-actionbar{
-    border-top:1px solid rgba(10,22,68,0.10);
-    background:#fff;
-  }
-  .rv-actionbar-head{
-    padding:10px 12px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    cursor:pointer;
-    user-select:none;
-    font-family:var(--rv-font);
-    font-size:10px;
-    font-weight:700;
-    color:var(--rv-blue);
-  }
-  .rv-actionbar-head span{
-    color:rgba(10,22,68,0.65);
-    font-weight:600;
-  }
-  .rv-actionbar-body{
-    display:none;
-    padding:10px 12px;
-    padding-top:0;
-    gap:8px;
-    grid-template-columns:1fr 1fr;
-  }
-  .rv-actionbar.open .rv-actionbar-body{
-    display:grid;
-  }
-
-  .rv-act-btn{
-    height:32px;
-    border-radius:14px;
-    border:1px solid rgba(10,22,68,0.12);
-    background:rgba(10,22,68,0.03);
-    color:var(--rv-blue);
-    font-family:var(--rv-font);
-    font-size:10px;
-    font-weight:600;
-    cursor:pointer;
-    transition:transform 180ms ease, background 180ms ease;
-  }
-  .rv-act-btn:hover{transform:translateY(-1px);background:rgba(10,22,68,0.05);}
-
-  /* END CHAT */
-  .rv-endchat{
-    text-align:center;
-    padding:10px 12px;
-    font-family:var(--rv-font);
-    font-size:10px;
-    color:rgba(10,22,68,0.62);
-    background:#fff;
-    border-top:1px dashed rgba(10,22,68,0.12);
-    cursor:pointer;
-    user-select:none;
-  }
-  .rv-endchat:hover{color:var(--rv-blue);}
+.rv-input button{
+  width:70px;
+  border:none;
+  background:#0A1644;
+  color:#fff;
+  cursor:pointer;
+}
 </style>
 
-<!-- LAUNCHER -->
-<div class="rv-bot-launcher" id="rvBotOpen" aria-label="Open RV Chat">
-  <span>RV</span>
-</div>
+<div class="rv-launch" id="rvOpen">RV</div>
 
-<!-- WINDOW -->
-<div class="rv-bot-window" id="rvBotWindow" aria-label="RV Chat Window">
-  <div class="rv-bot-top">
-    <div class="rv-bot-brand">
-      <div class="rv-bot-logo">
-        <img src="images/rv-icon.svg" alt="RAIVEGA Icon" />
-      </div>
-      <div class="rv-bot-title">
-        <strong>RAI<span class="rv-v">V</span>EGA <span style="font-weight:800;">RV</span></strong>
-        <span>VIRTUAL ASSISTANT</span>
-      </div>
-    </div>
-    <div class="rv-bot-close" id="rvBotClose" aria-label="Close">✕</div>
+<div class="rv-box" id="rvBox">
+  <div class="rv-header">
+    RAIVEGA Support
+    <span id="rvClose" style="cursor:pointer;">✕</span>
   </div>
 
-  <div class="rv-bot-body" id="rvBotBody">
-    <div class="rv-msg bot">
-Are you looking to book with RAIVEGA and have a question?
-Check out the options below and select one.
-    </div>
-
-    <div class="rv-options" id="rvOptions">
-      <button class="rv-option-btn" data-intent="booking-confirm">How long does it take to confirm my booking?</button>
-      <button class="rv-option-btn" data-intent="booking-amend">How to amend my booking?</button>
-      <button class="rv-option-btn" data-intent="detention">How to access Demurrage & Detention details?</button>
-      <button class="rv-option-btn" data-intent="other-question">I have another question.</button>
-      <button class="rv-option-btn" data-intent="agent">Transfer to an agent</button>
+  <div class="rv-body" id="rvBody">
+    <div class="rv-msg rv-bot">
+      Welcome to RAIVEGA Multimodal Freight Forwarding.
+      How may we assist your shipment?
     </div>
   </div>
 
-  <div class="rv-bot-inputbar">
-    <input class="rv-bot-input" id="rvBotInput" type="text" placeholder="Type your message..." />
-    <button class="rv-bot-send" id="rvBotSend" aria-label="Send">➤</button>
+  <div class="rv-input">
+    <input type="text" id="rvInput" placeholder="Type your message..." />
+    <button id="rvSend">Send</button>
   </div>
-
-  <!-- Collapsible bar -->
-  <div class="rv-actionbar" id="rvActionBar">
-    <div class="rv-actionbar-head" id="rvActionHead">
-      Actions <span id="rvActionChevron">▾</span>
-    </div>
-    <div class="rv-actionbar-body">
-      <button class="rv-act-btn" id="rvBotEmail">Send on Email</button>
-      <button class="rv-act-btn" id="rvBotDownload">Download TXT</button>
-    </div>
-  </div>
-
-  <div class="rv-endchat" id="rvEndChat">Close Chat</div>
 </div>
 
 <script>
-<script>
+const SERVER_URL = "https://YOUR-RENDER-URL.onrender.com"; // 🔁 CHANGE THIS
+
 const openBtn = document.getElementById("rvOpen");
 const closeBtn = document.getElementById("rvClose");
 const box = document.getElementById("rvBox");
 const body = document.getElementById("rvBody");
 const input = document.getElementById("rvInput");
-const send = document.getElementById("rvSend");
+const sendBtn = document.getElementById("rvSend");
 
-// 🔁 Replace this with your actual Render URL
-const SERVER_URL = "https://raivega-telegram-bot.onrender.com";
+let knownMessages = [];
 
 openBtn.onclick = () => box.classList.add("active");
 closeBtn.onclick = () => box.classList.remove("active");
 
-function addMsg(text, type) {
+function addMessage(text, type) {
   const div = document.createElement("div");
   div.className = "rv-msg " + type;
   div.innerText = text;
@@ -1666,55 +1435,73 @@ function addMsg(text, type) {
   body.scrollTop = body.scrollHeight;
 }
 
-async function sendToServer(message) {
+function addLoading() {
+  const div = document.createElement("div");
+  div.className = "rv-loading";
+  div.id = "rvLoading";
+  div.innerText = "Agent is typing...";
+  body.appendChild(div);
+  body.scrollTop = body.scrollHeight;
+}
+
+function removeLoading() {
+  const loading = document.getElementById("rvLoading");
+  if (loading) loading.remove();
+}
+
+async function sendMessage(message) {
   try {
-    await fetch(`${SERVER_URL}/send`, {
+    addLoading();
+    await fetch(SERVER_URL + "/send", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message })
     });
-  } catch (err) {
-    console.log("Send error");
+  } catch (e) {
+    console.log("Send error", e);
   }
 }
 
-send.onclick = async () => {
-  const msg = input.value.trim();
-  if (!msg) return;
+sendBtn.onclick = async () => {
+  const message = input.value.trim();
+  if (!message) return;
 
-  addMsg(msg, "rv-user");
+  addMessage(message, "rv-user");
   input.value = "";
-
-  await sendToServer(msg);
+  await sendMessage(message);
 };
 
-// 🔁 Poll for replies from Telegram
+input.addEventListener("keypress", function(e){
+  if(e.key === "Enter") sendBtn.click();
+});
+
+// Poll for new messages only
 setInterval(async () => {
   try {
-    const res = await fetch(`${SERVER_URL}/messages`);
+    const res = await fetch(SERVER_URL + "/messages");
     const data = await res.json();
 
-    body.innerHTML = "";
+    if (JSON.stringify(data) !== JSON.stringify(knownMessages)) {
+      removeLoading();
+      knownMessages = data;
+      body.innerHTML = "";
+      addMessage("Welcome to RAIVEGA Multimodal Freight Forwarding. How may we assist your shipment?", "rv-bot");
 
-    // Always show welcome message first
-    addMsg("Welcome to RAIVEGA Multimodal Freight Forwarding. How may we assist you?", "rv-bot");
+      data.forEach(msg => {
+        addMessage(msg.text, msg.from === "user" ? "rv-user" : "rv-bot");
+      });
+    }
 
-    data.forEach(m => {
-      addMsg(m.text, m.from === "user" ? "rv-user" : "rv-bot");
-    });
-
-  } catch (err) {
-    console.log("Polling error");
+  } catch (e) {
+    console.log("Polling error", e);
   }
 }, 3000);
-
-input.addEventListener("keypress", e => {
-  if (e.key === "Enter") send.click();
-});
 </script>
+<!-- ================= END CHATBOT ================= -->
 
 </body>
 </html>
+
 
 
 
