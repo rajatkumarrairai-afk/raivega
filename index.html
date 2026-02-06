@@ -1644,256 +1644,78 @@ Check out the options below and select one.
 </div>
 
 <script>
-  (function(){
-    const openBtn = document.getElementById("rvBotOpen");
-    const closeBtn = document.getElementById("rvBotClose");
-    const win = document.getElementById("rvBotWindow");
-    const body = document.getElementById("rvBotBody");
-    const input = document.getElementById("rvBotInput");
-    const sendBtn = document.getElementById("rvBotSend");
+<script>
+const openBtn = document.getElementById("rvOpen");
+const closeBtn = document.getElementById("rvClose");
+const box = document.getElementById("rvBox");
+const body = document.getElementById("rvBody");
+const input = document.getElementById("rvInput");
+const send = document.getElementById("rvSend");
 
-    const optionsBox = document.getElementById("rvOptions");
+// 🔁 Replace this with your actual Render URL
+const SERVER_URL = "https://raivega-telegram-bot.onrender.com";
 
-    const actionBar = document.getElementById("rvActionBar");
-    const actionHead = document.getElementById("rvActionHead");
-    const chevron = document.getElementById("rvActionChevron");
+openBtn.onclick = () => box.classList.add("active");
+closeBtn.onclick = () => box.classList.remove("active");
 
-    const emailBtn = document.getElementById("rvBotEmail");
-    const downloadBtn = document.getElementById("rvBotDownload");
-    const endChatBtn = document.getElementById("rvEndChat");
+function addMsg(text, type) {
+  const div = document.createElement("div");
+  div.className = "rv-msg " + type;
+  div.innerText = text;
+  body.appendChild(div);
+  body.scrollTop = body.scrollHeight;
+}
 
-    let transcript = [];
+async function sendToServer(message) {
+  try {
+    await fetch(`${SERVER_URL}/send`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message })
+    });
+  } catch (err) {
+    console.log("Send error");
+  }
+}
 
-    function nowTime(){
-      const t = new Date();
-      return t.toLocaleString();
-    }
+send.onclick = async () => {
+  const msg = input.value.trim();
+  if (!msg) return;
 
-    function addMsg(type, text){
-      const msg = document.createElement("div");
-      msg.className = "rv-msg " + (type === "user" ? "user" : "bot");
-      msg.textContent = text;
-      body.appendChild(msg);
-      body.scrollTop = body.scrollHeight;
-      transcript.push(`[${nowTime()}] ${type.toUpperCase()}: ${text}`);
-    }
+  addMsg(msg, "rv-user");
+  input.value = "";
 
-    function finalNotedLine(){
-      return "\n\nYour query has been noted and shall be reverted shortly.";
-    }
+  await sendToServer(msg);
+};
 
-    function smartReply(userText){
-      const txt = (userText || "").trim().toLowerCase();
+// 🔁 Poll for replies from Telegram
+setInterval(async () => {
+  try {
+    const res = await fetch(`${SERVER_URL}/messages`);
+    const data = await res.json();
 
-      if(txt.includes("ocean") || txt.includes("sea") || txt.includes("fcl") || txt.includes("lcl") || txt.includes("container")){
-        addMsg("bot",
-`Ocean Freight Assistance:
-• FCL / LCL movements
-• Project / Break Bulk / Bulk / RORO / Reefer
-To proceed, share POL, POD, container type, commodity, weight, and cargo readiness date.${finalNotedLine()}`);
-        return;
-      }
+    body.innerHTML = "";
 
-      if(txt.includes("air") || txt.includes("urgent") || txt.includes("kg") || txt.includes("airport")){
-        addMsg("bot",
-`Air Freight Assistance:
-To prepare the best option, share origin airport, destination airport, commodity, chargeable weight (KG), and pickup date.${finalNotedLine()}`);
-        return;
-      }
+    // Always show welcome message first
+    addMsg("Welcome to RAIVEGA Multimodal Freight Forwarding. How may we assist you?", "rv-bot");
 
-      if(txt.includes("ground") || txt.includes("road") || txt.includes("rail") || txt.includes("transport") || txt.includes("truck")){
-        addMsg("bot",
-`Ground Freight Assistance (Road / Rail):
-Share pickup location, delivery location, cargo type, weight, and timeline. We will suggest the best routing.${finalNotedLine()}`);
-        return;
-      }
-
-      if(txt.includes("custom") || txt.includes("clearance") || txt.includes("hs") || txt.includes("duty") || txt.includes("boe")){
-        addMsg("bot",
-`Customs Clearance Assistance:
-Share import/export type, port/airport, commodity, HS code (if available), and documents status. We will guide you accurately.${finalNotedLine()}`);
-        return;
-      }
-
-      if(txt.includes("warehouse") || txt.includes("storage") || txt.includes("inventory")){
-        addMsg("bot",
-`Warehousing Assistance:
-Share city, required space (pallet/carton count), handling needs, and storage duration.${finalNotedLine()}`);
-        return;
-      }
-
-      if(txt.includes("rate") || txt.includes("quote") || txt.includes("pricing") || txt.includes("freight")){
-        addMsg("bot",
-`Quotation Support:
-To generate rates, share origin, destination, mode (Ocean/Air/Ground), commodity, weight/volume, and cargo readiness date.${finalNotedLine()}`);
-        return;
-      }
-
-      if(txt.includes("contact") || txt.includes("email") || txt.includes("phone") || txt.includes("call")){
-        addMsg("bot",
-`RAIVEGA Contact:
-• mgt@raivega.in
-• WhatsApp: +91 99155215906${finalNotedLine()}`);
-        return;
-      }
-
-      addMsg("bot",
-`Noted. To assist correctly, please share:
-• Origin + Destination
-• Cargo Type + Weight/Volume
-• Timeline / Ready date
-I will guide the best logistics plan.${finalNotedLine()}`);
-    }
-
-    function optionIntent(intent){
-      if(intent === "booking-confirm"){
-        addMsg("bot",
-`Booking confirmation depends on carrier/airline space and documentation readiness.
-In most cases:
-• Ocean: 2–24 hours (subject to space)
-• Air: 1–6 hours (priority shipments faster)
-
-Share POL, POD, cargo details to confirm the timeline.${finalNotedLine()}`);
-        return;
-      }
-
-      if(intent === "booking-amend"){
-        addMsg("bot",
-`Booking amendments can include:
-• Shipper/Consignee update
-• Container size/type change
-• Routing or schedule change
-• Commodity or weight revision
-
-Share your booking reference and required change to proceed.${finalNotedLine()}`);
-        return;
-      }
-
-      if(intent === "detention"){
-        addMsg("bot",
-`Demurrage & Detention depends on:
-• Port/Terminal free days
-• Shipping line tariff
-• Container type & trade lane
-
-Share POL, POD, carrier name, and shipment dates. We will guide the applicable details.${finalNotedLine()}`);
-        return;
-      }
-
-      if(intent === "other-question"){
-        addMsg("bot",
-`Please type your query and share shipment details if available.
-I will guide you with the best available logistics option.${finalNotedLine()}`);
-        return;
-      }
-
-      if(intent === "agent"){
-        addMsg("bot",
-`Transfer to an agent is available.
-You can contact RAIVEGA directly:
-• WhatsApp: +91 99155215906
-• Email: mgt@raivega.in${finalNotedLine()}`);
-        return;
-      }
-
-      addMsg("bot",
-`Please type your query and I will guide you.${finalNotedLine()}`);
-    }
-
-    function resetChatFresh(){
-      transcript = [];
-      body.innerHTML = `
-        <div class="rv-msg bot">
-Are you looking to book with RAIVEGA and have a question?
-Check out the options below and select one.
-        </div>
-        <div class="rv-options" id="rvOptions">
-          <button class="rv-option-btn" data-intent="booking-confirm">How long does it take to confirm my booking?</button>
-          <button class="rv-option-btn" data-intent="booking-amend">How to amend my booking?</button>
-          <button class="rv-option-btn" data-intent="detention">How to access Demurrage & Detention details?</button>
-          <button class="rv-option-btn" data-intent="other-question">I have another question.</button>
-          <button class="rv-option-btn" data-intent="agent">Transfer to an agent</button>
-        </div>
-      `;
-    }
-
-    function openChat(){
-      win.classList.add("show");
-      input.focus();
-    }
-    function closeChat(){
-      win.classList.remove("show");
-    }
-
-    openBtn.addEventListener("click", openChat);
-    closeBtn.addEventListener("click", closeChat);
-
-    function handleSend(){
-      const text = (input.value || "").trim();
-      if(!text) return;
-      addMsg("user", text);
-      input.value = "";
-      setTimeout(() => smartReply(text), 180);
-    }
-
-    sendBtn.addEventListener("click", handleSend);
-    input.addEventListener("keydown", (e) => {
-      if(e.key === "Enter") handleSend();
+    data.forEach(m => {
+      addMsg(m.text, m.from === "user" ? "rv-user" : "rv-bot");
     });
 
-    // options click
-    document.addEventListener("click", (e) => {
-      if(e.target && e.target.classList.contains("rv-option-btn")){
-        const intent = e.target.getAttribute("data-intent");
-        addMsg("user", e.target.textContent.trim());
-        optionIntent(intent);
-      }
-    });
+  } catch (err) {
+    console.log("Polling error");
+  }
+}, 3000);
 
-    // collapsible action bar
-    actionHead.addEventListener("click", () => {
-      actionBar.classList.toggle("open");
-      chevron.textContent = actionBar.classList.contains("open") ? "▴" : "▾";
-    });
-
-    emailBtn.addEventListener("click", () => {
-      const subject = encodeURIComponent("RAIVEGA Website Query");
-      const bodyText = encodeURIComponent(
-        "Hello RAIVEGA Team,\n\n" +
-        "Please find my query shared via website chat.\n\n" +
-        "Transcript:\n\n" +
-        (transcript.length ? transcript.join("\n") : "No transcript available.") +
-        "\n\nRegards,"
-      );
-      window.location.href = `mailto:mgt@raivega.in?subject=${subject}&body=${bodyText}`;
-    });
-
-    downloadBtn.addEventListener("click", () => {
-      const text = transcript.length ? transcript.join("\n") : "No chat transcript available yet.";
-      const blob = new Blob([text], { type: "text/plain" });
-      const url = URL.createObjectURL(blob);
-
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "raivega-chat-transcript.txt";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-
-      URL.revokeObjectURL(url);
-    });
-
-    // END CHAT => close + reset fresh chat
-    endChatBtn.addEventListener("click", () => {
-      closeChat();
-      setTimeout(() => resetChatFresh(), 250);
-    });
-
-  })();
+input.addEventListener("keypress", e => {
+  if (e.key === "Enter") send.click();
+});
 </script>
 
 </body>
 </html>
+
 
 
 
