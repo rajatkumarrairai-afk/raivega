@@ -1277,17 +1277,19 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-<!-- ================= RAIVEGA PROFESSIONAL TELEGRAM CHATBOT ================= -->
+<!-- ================= RAIVEGA UPDATED CHATBOT ================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 
 <style>
 .rv-launch{
   position:fixed;
   right:90px;
   bottom:18px;
-  width:60px;
-  height:60px;
+  width:50px;
+  height:50px;
   border-radius:50%;
-  background:linear-gradient(135deg,#0A1644,#F1B81E);
+  background:#0A1644;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -1295,18 +1297,25 @@
   font-weight:700;
   cursor:pointer;
   z-index:99999;
-  box-shadow:0 20px 60px rgba(10,22,68,.25);
+  box-shadow:0 10px 30px rgba(0,0,0,.3);
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(241,184,30,.6);}
+  70%{box-shadow:0 0 0 15px rgba(241,184,30,0);}
+  100%{box-shadow:0 0 0 0 rgba(241,184,30,0);}
 }
 
 .rv-box{
   position:fixed;
   right:90px;
-  bottom:90px;
-  width:380px;
-  height:600px;
+  bottom:80px;
+  width:360px;
+  height:480px; /* reduced height */
   background:#fff;
   border-radius:18px;
-  box-shadow:0 25px 70px rgba(10,22,68,.25);
+  box-shadow:0 25px 70px rgba(0,0,0,.25);
   display:none;
   flex-direction:column;
   overflow:hidden;
@@ -1318,7 +1327,7 @@
 .rv-header{
   background:#0A1644;
   color:#fff;
-  padding:14px;
+  padding:12px;
   font-weight:600;
   display:flex;
   justify-content:space-between;
@@ -1326,20 +1335,19 @@
 
 .rv-body{
   flex:1;
-  padding:12px;
+  padding:10px;
   overflow-y:auto;
   background:#f8f8f8;
   display:flex;
   flex-direction:column;
-  gap:8px;
+  gap:6px;
 }
 
 .rv-msg{
-  padding:10px 14px;
-  border-radius:16px;
+  padding:8px 12px;
+  border-radius:14px;
   font-size:12px;
   max-width:85%;
-  line-height:1.6;
 }
 
 .rv-client{
@@ -1351,49 +1359,47 @@
 .rv-agent{
   align-self:flex-start;
   background:#fff;
-  border:1px solid rgba(10,22,68,.12);
+  border:1px solid rgba(0,0,0,.1);
 }
 
 .rv-input{
   display:flex;
-  border-top:1px solid rgba(10,22,68,.12);
+  border-top:1px solid #eee;
 }
 
 .rv-input input{
   flex:1;
   border:none;
-  padding:12px;
-  outline:none;
+  padding:10px;
   font-size:12px;
+  outline:none;
 }
 
 .rv-input button{
-  width:70px;
+  width:60px;
   border:none;
   background:#0A1644;
   color:#fff;
+  font-size:12px;
   cursor:pointer;
 }
 
-.rv-btn{
-  padding:6px 10px;
+.rv-footer{
+  border-top:1px solid #eee;
+  padding:8px;
+  text-align:center;
+}
+
+.rv-footer button{
+  margin:3px;
+  padding:5px 8px;
   font-size:11px;
-  margin:3px 3px 0 0;
-  background:#0A1644;
-  color:#fff;
-  border:none;
   cursor:pointer;
 }
 
-.rv-typing::after{
-  content: "...";
-  animation: blink 0.3s infinite;
-}
-
-@keyframes blink{
-  0%{opacity:0;}
-  50%{opacity:1;}
-  100%{opacity:0;}
+.rv-rating span{
+  cursor:pointer;
+  font-size:16px;
 }
 </style>
 
@@ -1401,8 +1407,8 @@
 
 <div class="rv-box" id="rvBox">
   <div class="rv-header">
-    RAIVEGA Customer Service
-    <span id="rvClose" style="cursor:pointer;">✕</span>
+    RAIVEGA Support
+    <span id="rvCloseTop" style="cursor:pointer;">✕</span>
   </div>
 
   <div class="rv-body" id="rvBody"></div>
@@ -1411,10 +1417,28 @@
     <input type="text" id="rvInput" placeholder="Type your message..." />
     <button id="rvSend">Send</button>
   </div>
+
+  <div class="rv-footer">
+    <button onclick="endChat()">Close Chat</button>
+    <div id="rvActions" style="display:none;">
+      <button onclick="downloadTranscript()">Download Transcript</button>
+      <button onclick="sendEmail()">Send Email</button>
+      <div class="rv-rating">
+        Rate:
+        <span onclick="rate(1)">★</span>
+        <span onclick="rate(2)">★</span>
+        <span onclick="rate(3)">★</span>
+        <span onclick="rate(4)">★</span>
+        <span onclick="rate(5)">★</span>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
-const SERVER_URL = "https://raivega-telegram-bot.onrender.com"; // 🔁 CHANGE IF DIFFERENT
+emailjs.init("YOUR_PUBLIC_KEY"); // replace
+
+const SERVER_URL = "https://raivega-telegram-bot.onrender.com";
 
 const body = document.getElementById("rvBody");
 const input = document.getElementById("rvInput");
@@ -1426,164 +1450,94 @@ if(!sessionId){
   localStorage.setItem("rv_session_id",sessionId);
 }
 
-let state = "init";
-let lastMessages = [];
-let typingDiv = null;
+let transcript = "RAIVEGA Chat Transcript\n\n";
+let lastMessages=[];
 
-/* ---------- UI FUNCTIONS ---------- */
-
+/* ----- MESSAGE UI ----- */
 function addMessage(text,type){
-  const div = document.createElement("div");
+  const div=document.createElement("div");
   div.className="rv-msg "+type;
   div.innerText=text;
   body.appendChild(div);
   body.scrollTop=body.scrollHeight;
+
+  transcript += (type==="rv-client"?"Client: ":"Agent: ")+text+"\n";
 }
 
-function showTyping(){
-  if(typingDiv) return;
-  typingDiv=document.createElement("div");
-  typingDiv.className="rv-msg rv-agent rv-typing";
-  typingDiv.innerText="RAIVEGA Customer Service is typing";
-  body.appendChild(typingDiv);
-  body.scrollTop=body.scrollHeight;
-}
+/* ----- SEND MESSAGE ----- */
+sendBtn.onclick=async()=>{
+  const message=input.value.trim();
+  if(!message) return;
 
-function hideTyping(){
-  if(typingDiv){
-    typingDiv.remove();
-    typingDiv=null;
-  }
-}
+  addMessage(message,"rv-client");
+  input.value="";
 
-function addButtons(options){
-  const container=document.createElement("div");
-  options.forEach(opt=>{
-    const btn=document.createElement("button");
-    btn.className="rv-btn";
-    btn.innerText=opt;
-    btn.onclick=()=>handleOption(opt);
-    container.appendChild(btn);
-  });
-  body.appendChild(container);
-}
-
-/* ---------- CHAT FLOW ---------- */
-
-function startFlow(){
-  addMessage("Please select the country you are contacting from:","rv-agent");
-
-  const select=document.createElement("select");
-    ["Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Ivory Coast","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Palau","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe","Palestine"]
-  .forEach(c=>{
-    const opt=document.createElement("option");
-    opt.text=c;
-    select.add(opt);
-  });
-
-  const startBtn=document.createElement("button");
-  startBtn.className="rv-btn";
-  startBtn.innerText="Start Chat";
-
-  startBtn.onclick=function(){
-    addMessage(select.value,"rv-client");
-
-    const now=new Date().toLocaleTimeString();
-    addMessage("RAIVEGA Customer Service joined ("+now+")","rv-agent");
-    addMessage("Thank you for reaching out. Please choose a topic below to continue.","rv-agent");
-
-    state="topic";
-    addButtons(["Rates","Booking","Documentation","Quote","Invoice & Charges","CS Support"]);
-  };
-
-  body.appendChild(select);
-  body.appendChild(startBtn);
-}
-
-function handleOption(option){
-  addMessage(option,"rv-client");
-
-  const agents=["Mr Kumar","Mr Rai","Ms Akanksha"];
-  const assigned=agents[Math.floor(Math.random()*agents.length)];
-
-  addMessage("You are now connected with "+assigned+".","rv-agent");
-
-  state="chat";
-  sendToServer(option);
-}
-
-async function sendToServer(message){
   await fetch(SERVER_URL+"/send",{
     method:"POST",
     headers:{ "Content-Type":"application/json"},
     body:JSON.stringify({message,sessionId})
   });
-}
-
-/* ---------- USER SEND ---------- */
-
-sendBtn.onclick=async ()=>{
-  const message=input.value.trim();
-  if(!message || state!=="chat") return;
-
-  addMessage(message,"rv-client");
-  input.value="";
-  await sendToServer(message);
 };
 
-input.addEventListener("keypress",function(e){
+input.addEventListener("keypress",e=>{
   if(e.key==="Enter") sendBtn.click();
 });
 
-/* ---------- OPEN / CLOSE ---------- */
-
-document.getElementById("rvOpen").onclick=()=>{
-  document.getElementById("rvBox").classList.add("active");
-  if(state==="init"){
-    state="country";
-    startFlow();
-  }
-};
-
-document.getElementById("rvClose").onclick=()=>{
-  document.getElementById("rvBox").classList.remove("active");
-};
-
-/* ---------- POLLING FOR REPLIES ---------- */
-
+/* ----- POLLING ----- */
 setInterval(async()=>{
-  if(state!=="chat") return;
-
   const res=await fetch(SERVER_URL+"/messages/"+sessionId);
   const data=await res.json();
 
-  if(data.length > lastMessages.length){
-
-    const newMessages = data.slice(lastMessages.length);
-
-    newMessages.forEach(msg=>{
+  if(data.length>lastMessages.length){
+    const newMsgs=data.slice(lastMessages.length);
+    newMsgs.forEach(msg=>{
       if(msg.from==="agent"){
-        showTyping();
-        setTimeout(()=>{
-          hideTyping();
-          addMessage(msg.text,"rv-agent");
-        },1200);
+        addMessage(msg.text,"rv-agent");
       }
     });
-
-    lastMessages = data;
+    lastMessages=data;
   }
-
 },3000);
 
+/* ----- OPEN/CLOSE ----- */
+document.getElementById("rvOpen").onclick=()=>{
+  document.getElementById("rvBox").classList.add("active");
+};
+document.getElementById("rvCloseTop").onclick=()=>{
+  document.getElementById("rvBox").classList.remove("active");
+};
+
+/* ----- FOOTER ACTIONS ----- */
+function endChat(){
+  document.getElementById("rvActions").style.display="block";
+}
+
+function downloadTranscript(){
+  const blob=new Blob([transcript],{type:"text/plain"});
+  const link=document.createElement("a");
+  link.href=URL.createObjectURL(blob);
+  link.download="raivega_chat.txt";
+  link.click();
+}
+
+function sendEmail(){
+  emailjs.send("YOUR_SERVICE_ID","YOUR_TEMPLATE_ID",{
+    transcript:transcript
+  }).then(()=>{
+    alert("Transcript sent successfully");
+  });
+}
+
+function rate(star){
+  alert("Thank you for rating "+star+" star(s).");
+}
 </script>
 
 <!-- ================= END CHATBOT ================= -->
 
-
-
 </body>
 </html>
+
 
 
 
