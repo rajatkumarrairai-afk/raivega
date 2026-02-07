@@ -1277,7 +1277,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-<!-- ================= RAIVEGA TELEGRAM CHATBOT ================= -->
+<!-- ================= RAIVEGA TELEGRAM MULTI-CLIENT CHATBOT ================= -->
+
 <style>
 .rv-launch{
   position:fixed;
@@ -1296,9 +1297,7 @@
   z-index:99999;
   box-shadow:0 20px 60px rgba(10,22,68,.25);
   font-family:"Titillium Web",sans-serif;
-  transition:transform .2s ease;
 }
-.rv-launch:hover{transform:translateY(-3px);}
 
 .rv-box{
   position:fixed;
@@ -1314,12 +1313,8 @@
   overflow:hidden;
   z-index:99999;
   font-family:"Titillium Web",sans-serif;
-  animation:fadeIn .3s ease;
 }
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(10px);}
-  to{opacity:1;transform:translateY(0);}
-}
+
 .rv-box.active{display:flex;}
 
 .rv-header{
@@ -1351,22 +1346,16 @@
   word-wrap:break-word;
 }
 
-.rv-user{
+.rv-client{
   align-self:flex-end;
   background:#F1B81E;
   color:#000;
 }
 
-.rv-bot{
+.rv-agent{
   align-self:flex-start;
   background:#fff;
   border:1px solid rgba(10,22,68,.12);
-}
-
-.rv-loading{
-  font-size:11px;
-  color:#666;
-  align-self:flex-start;
 }
 
 .rv-input{
@@ -1400,9 +1389,8 @@
   </div>
 
   <div class="rv-body" id="rvBody">
-    <div class="rv-msg rv-bot">
-      Welcome to RAIVEGA Multimodal Freight Forwarding.
-      How may we assist your shipment?
+    <div class="rv-msg rv-agent">
+      Welcome to RAIVEGA. How may we assist your shipment?
     </div>
   </div>
 
@@ -1413,7 +1401,7 @@
 </div>
 
 <script>
-const SERVER_URL = "https://raivega-telegram-bot.onrender.com"; // 🔁 CHANGE THIS
+const SERVER_URL = "https://raivega-telegram-bot.onrender.com"; // 🔁 REPLACE IF DIFFERENT
 
 const openBtn = document.getElementById("rvOpen");
 const closeBtn = document.getElementById("rvClose");
@@ -1422,7 +1410,12 @@ const body = document.getElementById("rvBody");
 const input = document.getElementById("rvInput");
 const sendBtn = document.getElementById("rvSend");
 
-let knownMessages = [];
+// Generate unique session ID per browser
+let sessionId = localStorage.getItem("rv_session_id");
+if (!sessionId) {
+  sessionId = Math.random().toString(36).substring(2, 10);
+  localStorage.setItem("rv_session_id", sessionId);
+}
 
 openBtn.onclick = () => box.classList.add("active");
 closeBtn.onclick = () => box.classList.remove("active");
@@ -1435,30 +1428,15 @@ function addMessage(text, type) {
   body.scrollTop = body.scrollHeight;
 }
 
-function addLoading() {
-  const div = document.createElement("div");
-  div.className = "rv-loading";
-  div.id = "rvLoading";
-  div.innerText = "Agent is typing...";
-  body.appendChild(div);
-  body.scrollTop = body.scrollHeight;
-}
-
-function removeLoading() {
-  const loading = document.getElementById("rvLoading");
-  if (loading) loading.remove();
-}
-
 async function sendMessage(message) {
   try {
-    addLoading();
     await fetch(SERVER_URL + "/send", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message })
+      body: JSON.stringify({ message, sessionId })
     });
-  } catch (e) {
-    console.log("Send error", e);
+  } catch (err) {
+    console.log("Send error:", err);
   }
 }
 
@@ -1466,8 +1444,9 @@ sendBtn.onclick = async () => {
   const message = input.value.trim();
   if (!message) return;
 
-  addMessage(message, "rv-user");
+  addMessage(message, "rv-client");
   input.value = "";
+
   await sendMessage(message);
 };
 
@@ -1475,32 +1454,40 @@ input.addEventListener("keypress", function(e){
   if(e.key === "Enter") sendBtn.click();
 });
 
-// Poll for new messages only
+// Poll only this session
+let lastMessages = [];
+
 setInterval(async () => {
   try {
-    const res = await fetch(SERVER_URL + "/messages");
+    const res = await fetch(SERVER_URL + "/messages/" + sessionId);
     const data = await res.json();
 
-    if (JSON.stringify(data) !== JSON.stringify(knownMessages)) {
-      removeLoading();
-      knownMessages = data;
+    if (JSON.stringify(data) !== JSON.stringify(lastMessages)) {
+      lastMessages = data;
+
       body.innerHTML = "";
-      addMessage("Welcome to RAIVEGA Multimodal Freight Forwarding. How may we assist your shipment?", "rv-bot");
+      addMessage("Welcome to RAIVEGA. How may we assist your shipment?", "rv-agent");
 
       data.forEach(msg => {
-        addMessage(msg.text, msg.from === "user" ? "rv-user" : "rv-bot");
+        addMessage(
+          msg.text,
+          msg.from === "client" ? "rv-client" : "rv-agent"
+        );
       });
     }
-
-  } catch (e) {
-    console.log("Polling error", e);
+  } catch (err) {
+    console.log("Polling error:", err);
   }
 }, 3000);
+
 </script>
+
 <!-- ================= END CHATBOT ================= -->
+
 
 </body>
 </html>
+
 
 
 
