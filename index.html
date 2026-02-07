@@ -1277,15 +1277,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-<!-- ================= RAIVEGA COMPLETE PROFESSIONAL CHATBOT ================= -->
+<!-- ================= RAIVEGA PREMIUM SAAS CHAT ================= -->
 
 <style>
 .rv-launch{
   position:fixed;
-  right:90px;
-  bottom:18px;
-  width:50px;
-  height:50px;
+  right:30px;
+  bottom:30px;
+  width:56px;
+  height:56px;
   border-radius:50%;
   background:linear-gradient(135deg,#0A1644,#F1B81E);
   display:flex;
@@ -1295,57 +1295,63 @@
   font-weight:700;
   cursor:pointer;
   z-index:99999;
-  animation:pulse 2s infinite;
+  box-shadow:0 10px 25px rgba(0,0,0,.25);
+  transition:transform .2s ease;
 }
-
-@keyframes pulse{
-  0%{box-shadow:0 0 0 0 rgba(241,184,30,.7);}
-  70%{box-shadow:0 0 0 15px rgba(241,184,30,0);}
-  100%{box-shadow:0 0 0 0 rgba(241,184,30,0);}
-}
+.rv-launch:hover{ transform:scale(1.1); }
 
 .rv-box{
   position:fixed;
-  right:90px;
-  bottom:90px;
+  right:30px;
+  bottom:100px;
   width:380px;
-  height:520px;
+  height:560px;
   background:#fff;
-  border-radius:18px;
-  box-shadow:0 25px 70px rgba(10,22,68,.25);
+  border-radius:20px;
+  box-shadow:0 40px 90px rgba(0,0,0,.25);
   display:none;
   flex-direction:column;
   overflow:hidden;
   z-index:99999;
-  font-family:Arial;
+  animation:fadeIn .3s ease;
+}
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(10px);}
+  to{opacity:1; transform:translateY(0);}
 }
 .rv-box.active{display:flex;}
 
 .rv-header{
-  background:#0A1644;
+  background:linear-gradient(135deg,#0A1644,#1f2e75);
   color:#fff;
-  padding:14px;
+  padding:16px;
   font-weight:600;
   display:flex;
   justify-content:space-between;
+  align-items:center;
+}
+
+.rv-subtitle{
+  font-size:11px;
+  opacity:.8;
 }
 
 .rv-body{
   flex:1;
-  padding:12px;
+  padding:16px;
   overflow-y:auto;
-  background:#f8f8f8;
+  background:#f4f6fb;
   display:flex;
   flex-direction:column;
-  gap:8px;
+  gap:10px;
 }
 
 .rv-msg{
-  padding:10px 14px;
-  border-radius:16px;
-  font-size:12px;
-  max-width:85%;
-  line-height:1.6;
+  padding:12px 16px;
+  border-radius:18px;
+  font-size:13px;
+  max-width:80%;
+  position:relative;
 }
 
 .rv-client{
@@ -1357,71 +1363,80 @@
 .rv-agent{
   align-self:flex-start;
   background:#fff;
-  border:1px solid rgba(10,22,68,.12);
+  box-shadow:0 5px 15px rgba(0,0,0,.05);
 }
 
 .rv-time{
   font-size:10px;
-  color:#888;
-  margin-top:2px;
+  opacity:.6;
+  margin-top:4px;
 }
 
 .rv-input{
   display:flex;
-  border-top:1px solid rgba(10,22,68,.12);
+  padding:10px;
+  background:#fff;
+  border-top:1px solid #eee;
 }
 
 .rv-input input{
   flex:1;
   border:none;
-  padding:12px;
+  padding:10px 12px;
+  border-radius:20px;
+  background:#f1f3f8;
   outline:none;
-  font-size:12px;
+  font-size:13px;
 }
 
 .rv-input button{
-  width:60px;
+  margin-left:8px;
   border:none;
   background:#0A1644;
   color:#fff;
+  padding:0 16px;
+  border-radius:20px;
   cursor:pointer;
+  font-size:12px;
 }
 
 .rv-btn{
   padding:6px 10px;
   font-size:11px;
-  margin:3px 3px 0 0;
-  background:#0A1644;
-  color:#fff;
+  margin:4px 4px 0 0;
+  border-radius:14px;
   border:none;
+  background:#e7ecff;
   cursor:pointer;
 }
 
 .rv-footer{
-  border-top:1px solid #ddd;
-  padding:8px;
+  padding:10px;
   text-align:center;
+  border-top:1px solid #eee;
 }
 
 .rv-footer button{
   margin:3px;
-  padding:5px 8px;
   font-size:11px;
-  cursor:pointer;
+  padding:5px 8px;
 }
 
 .rv-rating span{
-  font-size:16px;
   cursor:pointer;
+  font-size:18px;
 }
 </style>
 
-<div class="rv-launch" id="rvOpen">RV</div>
+<div class="rv-launch" id="rvOpen">💬</div>
 
 <div class="rv-box" id="rvBox">
   <div class="rv-header">
-    RAIVEGA Customer Service
-    <span id="rvCloseTop" style="cursor:pointer;">✕</span>
+    <div>
+      RAIVEGA Support
+      <div class="rv-subtitle">Typically replies within minutes</div>
+    </div>
+    <span id="rvClose" style="cursor:pointer;">✕</span>
   </div>
 
   <div class="rv-body" id="rvBody"></div>
@@ -1432,12 +1447,11 @@
   </div>
 
   <div class="rv-footer">
-    <button onclick="closeChat()">Close Chat</button>
+    <button onclick="closeChat()">End Chat</button>
     <div id="rvActions" style="display:none;">
-      <button onclick="downloadTranscript()">Download Transcript</button>
-      <button onclick="sendTranscript()">Send Email</button>
+      <button onclick="downloadTranscript()">Download</button>
+      <button onclick="sendTranscript()">Email</button>
       <div class="rv-rating">
-        Rate:
         <span onclick="rateChat(1)">★</span>
         <span onclick="rateChat(2)">★</span>
         <span onclick="rateChat(3)">★</span>
@@ -1449,82 +1463,49 @@
 </div>
 
 <script>
-const SERVER_URL = "https://raivega-telegram-bot.onrender.com";
+const SERVER_URL="https://raivega-telegram-bot.onrender.com";
 
-const body = document.getElementById("rvBody");
-const input = document.getElementById("rvInput");
-const sendBtn = document.getElementById("rvSend");
+const body=document.getElementById("rvBody");
+const input=document.getElementById("rvInput");
+const sendBtn=document.getElementById("rvSend");
 
-let sessionId = localStorage.getItem("rv_session_id");
+let sessionId=localStorage.getItem("rv_session_id");
 if(!sessionId){
-  sessionId = Math.random().toString(36).substring(2,10);
+  sessionId=Math.random().toString(36).substring(2,10);
   localStorage.setItem("rv_session_id",sessionId);
 }
 
 let state="init";
 let lastMessages=[];
-let transcript="RAIVEGA Chat Transcript\n";
-transcript+="Session Date: "+new Date().toLocaleString()+"\n\n";
+let transcript="RAIVEGA Chat Transcript\nSession: "+new Date().toLocaleString()+"\n\n";
 
-function currentTime(){
-  return new Date().toLocaleString();
-}
+function now(){ return new Date().toLocaleString(); }
 
 function addMessage(text,type){
   const div=document.createElement("div");
   div.className="rv-msg "+type;
-  div.innerHTML=text + '<div class="rv-time">'+currentTime()+'</div>';
+  div.innerHTML=text+'<div class="rv-time">'+now()+'</div>';
   body.appendChild(div);
   body.scrollTop=body.scrollHeight;
-
-  transcript+=(type==="rv-client"?"Client: ":"Agent: ")+text+" ("+currentTime()+")\n";
+  transcript+=(type==="rv-client"?"Client: ":"Agent: ")+text+" ("+now()+")\n";
 }
 
 function startFlow(){
-  addMessage("Please select the country you are contacting from:","rv-agent");
-
-  const select=document.createElement("select");
-    ["Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Ivory Coast","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe","Palestine"]
-  .forEach(c=>{
-    const opt=document.createElement("option");
-    opt.text=c;
-    select.add(opt);
+  addMessage("Welcome to RAIVEGA. Please select your topic.","rv-agent");
+  const topics=["Rates","Booking","Documentation","Quote","Invoice & Charges","CS Support"];
+  const container=document.createElement("div");
+  topics.forEach(t=>{
+    const btn=document.createElement("button");
+    btn.className="rv-btn";
+    btn.innerText=t;
+    btn.onclick=()=>{
+      addMessage(t,"rv-client");
+      state="chat";
+      sendToServer(t);
+    };
+    container.appendChild(btn);
   });
-
-  const startBtn=document.createElement("button");
-  startBtn.className="rv-btn";
-  startBtn.innerText="Start Chat";
-
-  startBtn.onclick=function(){
-    addMessage(select.value,"rv-client");
-
-    const now=currentTime();
-    addMessage("RAIVEGA Customer Service joined ("+now+")","rv-agent");
-    addMessage("Please choose a topic below to continue.","rv-agent");
-
-    const topics=["Rates","Booking","Documentation","Quote","Invoice & Charges","CS Support"];
-    const container=document.createElement("div");
-
-    topics.forEach(t=>{
-      const btn=document.createElement("button");
-      btn.className="rv-btn";
-      btn.innerText=t;
-      btn.onclick=()=>{
-        addMessage(t,"rv-client");
-        const agents=["Mr Kumar","Mr Rai","Ms Akanksha"];
-        const assigned=agents[Math.floor(Math.random()*agents.length)];
-        addMessage("You are now connected with "+assigned+".","rv-agent");
-        state="chat";
-        sendToServer(t);
-      };
-      container.appendChild(btn);
-    });
-
-    body.appendChild(container);
-  };
-
-  body.appendChild(select);
-  body.appendChild(startBtn);
+  body.appendChild(container);
 }
 
 async function sendToServer(message){
@@ -1549,10 +1530,10 @@ input.addEventListener("keypress",e=>{
 
 document.getElementById("rvOpen").onclick=()=>{
   document.getElementById("rvBox").classList.add("active");
-  if(state==="init"){ state="country"; startFlow(); }
+  if(state==="init"){ state="chat"; startFlow(); }
 };
 
-document.getElementById("rvCloseTop").onclick=()=>{
+document.getElementById("rvClose").onclick=()=>{
   document.getElementById("rvBox").classList.remove("active");
 };
 
@@ -1563,9 +1544,7 @@ setInterval(async()=>{
   if(data.length>lastMessages.length){
     const newMsgs=data.slice(lastMessages.length);
     newMsgs.forEach(msg=>{
-      if(msg.from==="agent"){
-        addMessage(msg.text,"rv-agent");
-      }
+      if(msg.from==="agent"){ addMessage(msg.text,"rv-agent"); }
     });
     lastMessages=data;
   }
@@ -1584,31 +1563,25 @@ function downloadTranscript(){
 }
 
 function sendTranscript(){
-  const subject=encodeURIComponent("RAIVEGA Chat Transcript");
-  const bodyContent=encodeURIComponent(transcript);
-  window.location.href="mailto:?subject="+subject+"&body="+bodyContent;
+  window.location.href="mailto:?subject=RAIVEGA Chat Transcript&body="+encodeURIComponent(transcript);
 }
 
 function rateChat(star){
   if(star<=3){
-    const feedback=prompt("We're sorry to hear that. Please tell us what you didn't like:");
+    const feedback=prompt("Please tell us what we can improve:");
     if(feedback){
-      transcript+="\nClient Feedback ("+star+" stars): "+feedback+" ("+currentTime()+")\n";
-      alert("Thank you. We value your feedback.");
+      transcript+="\nFeedback ("+star+"★): "+feedback+" ("+now()+")\n";
     }
   }
-  if(star===4){
-    alert("Thank you for your valuable feedback.");
-  }
-  if(star===5){
-    alert("We are happy to serve you. Thank you!");
-  }
+  alert("Thank you for your feedback!");
 }
 </script>
 
-<!-- ================= END CHATBOT ================= -->
+<!-- ================= END PREMIUM CHAT ================= -->
+
 </body>
 </html>
+
 
 
 
