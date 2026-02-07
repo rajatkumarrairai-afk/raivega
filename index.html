@@ -1277,7 +1277,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-<!-- ================= RAIVEGA TELEGRAM MULTI-CLIENT CHATBOT ================= -->
+<!-- ================= RAIVEGA PROFESSIONAL CHATBOT ================= -->
 
 <style>
 .rv-launch{
@@ -1296,15 +1296,14 @@
   cursor:pointer;
   z-index:99999;
   box-shadow:0 20px 60px rgba(10,22,68,.25);
-  font-family:"Titillium Web",sans-serif;
 }
 
 .rv-box{
   position:fixed;
   right:90px;
   bottom:90px;
-  width:360px;
-  height:520px;
+  width:380px;
+  height:580px;
   background:#fff;
   border-radius:18px;
   box-shadow:0 25px 70px rgba(10,22,68,.25);
@@ -1312,9 +1311,8 @@
   flex-direction:column;
   overflow:hidden;
   z-index:99999;
-  font-family:"Titillium Web",sans-serif;
+  font-family:Arial;
 }
-
 .rv-box.active{display:flex;}
 
 .rv-header{
@@ -1324,7 +1322,6 @@
   font-weight:600;
   display:flex;
   justify-content:space-between;
-  align-items:center;
 }
 
 .rv-body{
@@ -1334,7 +1331,7 @@
   background:#f8f8f8;
   display:flex;
   flex-direction:column;
-  gap:10px;
+  gap:8px;
 }
 
 .rv-msg{
@@ -1343,7 +1340,6 @@
   font-size:12px;
   max-width:85%;
   line-height:1.6;
-  word-wrap:break-word;
 }
 
 .rv-client{
@@ -1378,6 +1374,16 @@
   color:#fff;
   cursor:pointer;
 }
+
+.rv-btn{
+  padding:6px 10px;
+  font-size:11px;
+  margin:3px 3px 0 0;
+  background:#0A1644;
+  color:#fff;
+  border:none;
+  cursor:pointer;
+}
 </style>
 
 <div class="rv-launch" id="rvOpen">RV</div>
@@ -1388,11 +1394,7 @@
     <span id="rvClose" style="cursor:pointer;">✕</span>
   </div>
 
-  <div class="rv-body" id="rvBody">
-    <div class="rv-msg rv-agent">
-      Welcome to RAIVEGA. How may we assist your shipment?
-    </div>
-  </div>
+  <div class="rv-body" id="rvBody"></div>
 
   <div class="rv-input">
     <input type="text" id="rvInput" placeholder="Type your message..." />
@@ -1401,84 +1403,123 @@
 </div>
 
 <script>
-const SERVER_URL = "https://raivega-telegram-bot.onrender.com"; // 🔁 REPLACE IF DIFFERENT
+const SERVER_URL = "https://raivega-telegram-bot.onrender.com";
 
-const openBtn = document.getElementById("rvOpen");
-const closeBtn = document.getElementById("rvClose");
-const box = document.getElementById("rvBox");
 const body = document.getElementById("rvBody");
 const input = document.getElementById("rvInput");
 const sendBtn = document.getElementById("rvSend");
 
-// Generate unique session ID per browser
 let sessionId = localStorage.getItem("rv_session_id");
-if (!sessionId) {
-  sessionId = Math.random().toString(36).substring(2, 10);
-  localStorage.setItem("rv_session_id", sessionId);
+if(!sessionId){
+  sessionId = Math.random().toString(36).substring(2,10);
+  localStorage.setItem("rv_session_id",sessionId);
 }
 
-openBtn.onclick = () => box.classList.add("active");
-closeBtn.onclick = () => box.classList.remove("active");
+let state = "init";
+let assignedAgent = "";
 
-function addMessage(text, type) {
+function addMessage(text,type){
   const div = document.createElement("div");
-  div.className = "rv-msg " + type;
-  div.innerText = text;
+  div.className="rv-msg "+type;
+  div.innerText=text;
   body.appendChild(div);
-  body.scrollTop = body.scrollHeight;
+  body.scrollTop=body.scrollHeight;
 }
 
-async function sendMessage(message) {
-  try {
-    await fetch(SERVER_URL + "/send", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message, sessionId })
-    });
-  } catch (err) {
-    console.log("Send error:", err);
-  }
+function addButtons(options){
+  const container=document.createElement("div");
+  options.forEach(opt=>{
+    const btn=document.createElement("button");
+    btn.className="rv-btn";
+    btn.innerText=opt;
+    btn.onclick=()=>handleOption(opt);
+    container.appendChild(btn);
+  });
+  body.appendChild(container);
 }
 
-sendBtn.onclick = async () => {
-  const message = input.value.trim();
-  if (!message) return;
+function startFlow(){
+  addMessage("Please select the country you are contacting from:","rv-agent");
 
-  addMessage(message, "rv-client");
-  input.value = "";
+  const select=document.createElement("select");
+  ["Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Ivory Coast","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe","Palestine"]
+  .forEach(c=>{
+    const opt=document.createElement("option");
+    opt.text=c;
+    select.add(opt);
+  });
 
-  await sendMessage(message);
+  const startBtn=document.createElement("button");
+  startBtn.className="rv-btn";
+  startBtn.innerText="Start Chat";
+  startBtn.onclick=function(){
+    const country=select.value;
+    addMessage(country,"rv-client");
+    const now=new Date().toLocaleTimeString();
+    addMessage("RAIVEGA Customer Service joined ("+now+")","rv-agent");
+    addMessage("Thank you for reaching out to RAIVEGA Customer Service. Please choose a topic below to continue.","rv-agent");
+
+    state="topic";
+    addButtons(["Rates","Booking","Documentation","Quote","Invoice & Charges","CS Support"]);
+  };
+
+  body.appendChild(select);
+  body.appendChild(startBtn);
+}
+
+function handleOption(option){
+  addMessage(option,"rv-client");
+
+  const agents=["Mr Kumar","Mr Rai","Ms Akanksha"];
+  assignedAgent=agents[Math.floor(Math.random()*agents.length)];
+
+  addMessage("You are now connected with "+assignedAgent+".","rv-agent");
+  state="chat";
+
+  sendToServer(option);
+}
+
+async function sendToServer(message){
+  await fetch(SERVER_URL+"/send",{
+    method:"POST",
+    headers:{ "Content-Type":"application/json"},
+    body:JSON.stringify({message,sessionId})
+  });
+}
+
+sendBtn.onclick=async ()=>{
+  const message=input.value.trim();
+  if(!message || state!=="chat") return;
+
+  addMessage(message,"rv-client");
+  input.value="";
+  await sendToServer(message);
 };
 
-input.addEventListener("keypress", function(e){
-  if(e.key === "Enter") sendBtn.click();
-});
-
-// Poll only this session
-let lastMessages = [];
-
-setInterval(async () => {
-  try {
-    const res = await fetch(SERVER_URL + "/messages/" + sessionId);
-    const data = await res.json();
-
-    if (JSON.stringify(data) !== JSON.stringify(lastMessages)) {
-      lastMessages = data;
-
-      body.innerHTML = "";
-      addMessage("Welcome to RAIVEGA. How may we assist your shipment?", "rv-agent");
-
-      data.forEach(msg => {
-        addMessage(
-          msg.text,
-          msg.from === "client" ? "rv-client" : "rv-agent"
-        );
-      });
-    }
-  } catch (err) {
-    console.log("Polling error:", err);
+document.getElementById("rvOpen").onclick=()=>{
+  document.getElementById("rvBox").classList.add("active");
+  if(state==="init"){
+    state="country";
+    startFlow();
   }
-}, 3000);
+};
+
+document.getElementById("rvClose").onclick=()=>{
+  document.getElementById("rvBox").classList.remove("active");
+};
+
+setInterval(async()=>{
+  if(state!=="chat") return;
+
+  const res=await fetch(SERVER_URL+"/messages/"+sessionId);
+  const data=await res.json();
+
+  data.forEach(msg=>{
+    if(msg.from==="agent"){
+      addMessage(msg.text,"rv-agent");
+    }
+  });
+},3000);
 
 </script>
 
@@ -1487,6 +1528,7 @@ setInterval(async () => {
 
 </body>
 </html>
+
 
 
 
