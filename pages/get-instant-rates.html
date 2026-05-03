@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/svg+xml" href="images/rv-icon.svg">
+  <link rel="icon" type="image/svg+xml" href="../images/rv-icon.svg">
 
   <style>
     :root{
@@ -100,13 +100,13 @@
 
     .cursor-glow{
       z-index:999997;
-      width:95px;
-      height:95px;
+      width:90px;
+      height:90px;
       border-radius:50%;
       background:
         radial-gradient(circle, rgba(24,183,161,0.08) 0%, rgba(24,183,161,0.04) 30%, rgba(10,22,68,0.015) 52%, transparent 72%);
-      filter:blur(6px);
-      opacity:.34;
+      filter:blur(5px);
+      opacity:.30;
     }
 
     body.cursor-hover .cursor-ring{
@@ -398,6 +398,7 @@
       flex-wrap:wrap;
       align-items:center;
     }
+
     .btn{
       display:inline-flex;
       align-items:center;
@@ -444,36 +445,6 @@
       min-height:680px;
       border:0;
       background:#fff;
-    }
-
-    .iframe-hover-overlay{
-      position:absolute;
-      inset:0;
-      display:none;
-      align-items:flex-end;
-      justify-content:flex-end;
-      padding:16px;
-      background:linear-gradient(to top, rgba(10,22,68,0.06), rgba(10,22,68,0.00) 30%);
-      z-index:3;
-    }
-
-    .iframe-wrap.overlay-on .iframe-hover-overlay{
-      display:flex;
-    }
-
-    .iframe-wrap.overlay-on iframe{
-      pointer-events:none;
-    }
-
-    .overlay-chip{
-      padding:10px 14px;
-      border-radius:999px;
-      background:rgba(255,255,255,0.92);
-      border:1px solid rgba(10,22,68,0.10);
-      box-shadow:0 12px 28px rgba(10,22,68,0.10);
-      color:var(--blue);
-      font-size:13px;
-      font-weight:700;
     }
 
     .frame-bottom{
@@ -596,7 +567,7 @@
       font-weight:400;
     }
 
-    /* FLOATING */
+    /* CHAT */
     .chat-panel{
       position:fixed;
       right:18px;
@@ -660,6 +631,7 @@
       box-shadow:0 14px 30px rgba(10,22,68,0.06);
     }
 
+    /* FLOATING */
     .float-wrap{
       position:fixed;
       right:18px;
@@ -738,7 +710,7 @@
 
   <div id="loader">
     <div class="loader-box">
-      <img class="loader-logo" src="images/RV LOGO.png" alt="RAIVEGA Loader Logo" />
+      <img class="loader-logo" src="../images/RV LOGO.png" alt="RAIVEGA Loader Logo" />
       <p class="loader-title">RAIVEGA</p>
       <p class="loader-sub">MULTIMODAL FREIGHT FORWARDING</p>
       <div class="loader-bar"><span></span></div>
@@ -748,8 +720,8 @@
   <div class="nav">
     <div class="container">
       <div class="nav-inner">
-        <a class="brand magnetic" href="index.html">
-          <img class="logo-img" src="images/RV LOGO.png" alt="RAIVEGA Logo" />
+        <a class="brand magnetic" href="../index.html">
+          <img class="logo-img" src="../images/RV LOGO.png" alt="RAIVEGA Logo" />
           <div class="brand-title">
             <div class="name">
               <span class="rai">RAI</span><span class="v">V</span><span class="ega">EGA</span>
@@ -759,10 +731,10 @@
         </a>
 
         <div class="nav-links">
-          <a class="magnetic" href="index.html#services">Services</a>
-          <a class="magnetic" href="index.html#about">About Us</a>
-          <a class="magnetic" href="pages/contact.html">Contact</a>
-          <a class="cta magnetic" href="pages/get-a-quote.html">Get a Quote</a>
+          <a class="magnetic" href="../index.html#services">Services</a>
+          <a class="magnetic" href="../index.html#about">About Us</a>
+          <a class="magnetic" href="contact.html">Contact</a>
+          <a class="cta magnetic" href="get-a-quote.html">Get a Quote</a>
           <a class="cta-sea magnetic" href="get-instant-rates.html">Get Instant Rates</a>
         </div>
       </div>
@@ -778,41 +750,37 @@
             <div class="badge">Live rates access</div>
             <h1>Get Instant Rates</h1>
             <p>
-              Access the live rates page below inside the RAIVEGA interface. Use cursor mode if you want the custom cursor visual over the frame area, or interaction mode if you want to click and use the embedded page normally.
+              Access the live rates page below inside the RAIVEGA layout, or open it directly in a new tab for full external browsing.
             </p>
           </div>
 
           <div class="hero-actions">
-            <a class="btn btn-white magnetic" id="openRatesNewTab" href="#" target="_blank" rel="noopener">Open in New Tab</a>
-            <a class="btn btn-soft magnetic" href="index.html">Back to Home</a>
+            <a class="btn btn-white magnetic" href="https://swifty-pi.vercel.app/user" target="_blank" rel="noopener noreferrer">Open in New Tab</a>
+            <a class="btn btn-soft magnetic" href="../index.html">Back to Home</a>
           </div>
         </div>
       </section>
 
       <section class="frame-card motion">
-        <div class="iframe-wrap" id="iframeWrap">
+        <div class="iframe-wrap">
           <iframe
             id="ratesFrame"
             title="Instant Rates"
             src="https://swifty-pi.vercel.app/user"
             loading="eager"
             referrerpolicy="strict-origin-when-cross-origin"
+            allow="fullscreen"
             allowfullscreen>
           </iframe>
-
-          <div class="iframe-hover-overlay" id="iframeOverlay">
-            <div class="overlay-chip">Cursor preview mode active</div>
-          </div>
         </div>
 
         <div class="frame-bottom">
           <div class="frame-note">
-            Cursor over iframe is limited by browser security for cross-origin frames. Use “Cursor Mode” to keep the RAIVEGA cursor visible over the frame, or switch it off to interact normally with the embedded page. 
+            The embedded page is fully interactive here. For the most reliable external navigation, use Open in New Tab.
           </div>
 
           <div class="frame-controls">
-            <button class="mini-btn magnetic" id="toggleCursorModeBtn" type="button">Cursor Mode: Off</button>
-            <a class="mini-btn magnetic" id="openRatesInline" href="#" target="_blank" rel="noopener">Open Direct</a>
+            <a class="mini-btn magnetic" href="https://swifty-pi.vercel.app/user" target="_blank" rel="noopener noreferrer">Open Direct</a>
           </div>
         </div>
       </section>
@@ -825,7 +793,7 @@
       <div class="foot-grid motion">
         <div class="foot">
           <div class="footer-brand">
-            <img class="footer-logo-img" src="images/RV LOGO.png" alt="RAIVEGA Footer Logo" />
+            <img class="footer-logo-img" src="../images/RV LOGO.png" alt="RAIVEGA Footer Logo" />
             <div class="footer-title">
               <div class="name">
                 <span class="rai">RAI</span><span class="v">V</span><span class="ega">EGA</span>
@@ -838,11 +806,11 @@
 
         <div class="foot">
           <h5>Links</h5>
-          <a href="index.html">Home</a><br>
-          <a href="index.html#services">Services</a><br>
-          <a href="index.html#about">About Us</a><br>
-          <a href="pages/contact.html">Contact</a><br>
-          <a href="pages/get-a-quote.html">Get a Quote</a><br>
+          <a href="../index.html">Home</a><br>
+          <a href="../index.html#services">Services</a><br>
+          <a href="../index.html#about">About Us</a><br>
+          <a href="contact.html">Contact</a><br>
+          <a href="get-a-quote.html">Get a Quote</a><br>
           <a href="get-instant-rates.html">Get Instant Rates</a>
         </div>
 
@@ -866,15 +834,15 @@
         <span>Get Instant Rates</span>
         <span>→</span>
       </a>
-      <a class="chat-link magnetic" href="pages/get-a-quote.html">
+      <a class="chat-link magnetic" href="get-a-quote.html">
         <span>Get a Quote</span>
         <span>→</span>
       </a>
-      <a class="chat-link magnetic" href="pages/contact.html">
+      <a class="chat-link magnetic" href="contact.html">
         <span>Contact Us</span>
         <span>→</span>
       </a>
-      <a class="chat-link magnetic" href="https://wa.me/911234567890" target="_blank" rel="noopener">
+      <a class="chat-link magnetic" href="https://wa.me/911234567890" target="_blank" rel="noopener noreferrer">
         <span>WhatsApp Support</span>
         <span>→</span>
       </a>
@@ -888,14 +856,14 @@
       </svg>
     </button>
 
-    <a class="float-btn float-wa magnetic" href="https://wa.me/911234567890" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <a class="float-btn float-wa magnetic" href="https://wa.me/911234567890" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
       <svg viewBox="0 0 24 24" fill="currentColor">
         <path d="M16.6 14.1c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.1-.4-2.1-1.3-.8-.7-1.3-1.6-1.4-1.9-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.6 0-.1-.7-1.7-.9-2.3-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7 0 1.6 1.1 3.1 1.3 3.3.2.2 2.2 3.4 5.4 4.7.8.3 1.4.5 1.9.6.8.3 1.5.2 2 .1.6-.1 1.8-.8 2-1.6.3-.8.3-1.4.2-1.5 0-.1-.2-.2-.5-.4Z"/>
         <path d="M12 2.6c-5 0-9 4-9 9 0 1.6.4 3.1 1.2 4.5L3 21.4l5.5-1.4c1.3.7 2.8 1 4.3 1 5 0 9-4 9-9s-4-9-9-9Zm0 16.7c-1.3 0-2.6-.3-3.8-1l-.3-.2-3.3.8.9-3.2-.2-.3a7.1 7.1 0 0 1-1.1-3.8c0-4.1 3.4-7.5 7.6-7.5 4.2 0 7.6 3.4 7.6 7.5s-3.4 7.7-7.4 7.7Z"/>
       </svg>
     </a>
 
-    <a class="float-btn float-li magnetic" href="https://www.linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">
+    <a class="float-btn float-li magnetic" href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
       <svg viewBox="0 0 24 24" fill="currentColor">
         <path d="M6.94 8.5H3.56V20h3.38V8.5ZM5.25 3A1.97 1.97 0 1 0 5.3 6.94 1.97 1.97 0 0 0 5.25 3ZM20.44 12.67c0-3.42-1.82-5.01-4.25-5.01-1.96 0-2.84 1.08-3.33 1.84V8.5H9.48c.05.66 0 11.5 0 11.5h3.38v-6.42c0-.34.02-.68.12-.92.27-.67.88-1.36 1.9-1.36 1.34 0 1.88 1.02 1.88 2.52V20h3.38v-7.33Z"/>
       </svg>
@@ -903,34 +871,6 @@
   </div>
 
   <script>
-    const RATES_URL = "https://swifty-pi.vercel.app/user";
-
-    const ratesFrame = document.getElementById("ratesFrame");
-    const openRatesNewTab = document.getElementById("openRatesNewTab");
-    const openRatesInline = document.getElementById("openRatesInline");
-    const iframeWrap = document.getElementById("iframeWrap");
-    const toggleCursorModeBtn = document.getElementById("toggleCursorModeBtn");
-
-    if (ratesFrame) ratesFrame.src = RATES_URL;
-    if (openRatesNewTab) openRatesNewTab.href = RATES_URL;
-    if (openRatesInline) openRatesInline.href = RATES_URL;
-
-    let cursorMode = false;
-
-    function updateCursorMode(){
-      if(!iframeWrap || !toggleCursorModeBtn) return;
-      iframeWrap.classList.toggle("overlay-on", cursorMode);
-      toggleCursorModeBtn.textContent = cursorMode ? "Cursor Mode: On" : "Cursor Mode: Off";
-    }
-
-    if (toggleCursorModeBtn){
-      toggleCursorModeBtn.addEventListener("click", () => {
-        cursorMode = !cursorMode;
-        updateCursorMode();
-      });
-    }
-    updateCursorMode();
-
     window.addEventListener("load", () => {
       const loader = document.getElementById("loader");
       if (loader) loader.classList.add("hide");
@@ -1001,7 +941,7 @@
       };
       follow();
 
-      document.querySelectorAll("a, button, .btn, .mini-btn, .float-btn, .chat-link, .iframe-hover-overlay").forEach(el => {
+      document.querySelectorAll("a, button, .btn, .mini-btn, .float-btn, .chat-link").forEach(el => {
         el.addEventListener("mouseenter", () => document.body.classList.add("cursor-hover"));
         el.addEventListener("mouseleave", () => document.body.classList.remove("cursor-hover"));
       });
