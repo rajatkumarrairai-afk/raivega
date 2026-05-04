@@ -58,8 +58,10 @@
     button{font:inherit;}
 
     .container{
-      width:min(1400px, calc(100% - 40px));
+      width:100%;
+      max-width:none;
       margin:0 auto;
+      padding-inline:20px;
     }
 
     .cursor-dot,
@@ -429,15 +431,15 @@
     .iframe-wrap{
       position:relative;
       width:100%;
-      min-height:78vh;
+      min-height:clamp(500px, 78vh, 980px);
       background:#f8fafc;
     }
 
     .iframe-wrap iframe{
       display:block;
       width:100%;
-      height:78vh;
-      min-height:680px;
+      height:clamp(500px, 78vh, 980px);
+      min-height:500px;
       border:0;
       background:#fff;
     }
@@ -486,7 +488,13 @@
     }
 
     @media (max-width:820px){
+      .container{
+        padding-inline:16px;
+      }
       .hero-head-inner{padding:22px 18px;}
+      .iframe-wrap{
+        min-height:74vh;
+      }
       .iframe-wrap iframe{
         height:74vh;
         min-height:560px;
@@ -667,6 +675,21 @@
     .magnetic{
       will-change:transform;
       transition:transform .16s var(--ease), box-shadow .2s ease, filter .2s ease;
+    }
+
+    @media (max-width:640px){
+      .container{
+        padding-inline:12px;
+      }
+      .cta,.cta-sea{width:100%;}
+      .nav-links{align-items:stretch;}
+      .iframe-wrap{
+        min-height:70vh;
+      }
+      .iframe-wrap iframe{
+        height:70vh;
+        min-height:500px;
+      }
     }
 
     @media (prefers-reduced-motion:reduce){
