@@ -6,7 +6,7 @@
   <title>RAIVEGA | Air Freight</title>
   <meta name="theme-color" content="#0A1644" />
 
-  <link rel="preconnect" href://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/svg+xml" href="../images/rv-icon.svg">
@@ -88,7 +88,7 @@
       border:1.6px solid rgba(241,184,30,0.92);
       background:rgba(255,255,255,0.05);
       box-shadow:0 8px 22px rgba(10,22,68,0.10);
-      backdrop-filter:blur(4px);
+      backdrop-filter:blur(.5px);
       transition:
         width .22s var(--ease),
         height .22s var(--ease),
@@ -322,7 +322,7 @@
     }
 
     .page-wrap{
-      padding:28px 0 44px;
+      padding:26px 0 44px;
       min-height:calc(100vh - 180px);
       background:#FFFFFF;
     }
@@ -334,18 +334,21 @@
       overflow:hidden;
       background:#fff;
       display:grid;
-      grid-template-columns:1.1fr 0.9fr;
+      grid-template-columns:1.08fr 0.92fr;
       gap:0;
-      min-height:380px;
+      min-height:400px;
     }
     @media(max-width:920px){
-      .hero-card{grid-template-columns:1fr;min-height:unset;}
+      .hero-card{
+        grid-template-columns:1fr;
+        min-height:unset;
+      }
     }
 
     .hero-img{
       position:relative;
-      min-height:320px;
-      background:#f5f7fb;
+      min-height:340px;
+      overflow:hidden;
     }
     .hero-img img{
       position:absolute;
@@ -354,11 +357,11 @@
       height:100%;
       object-fit:cover;
     }
-    .hero-img:after{
+    .hero-img::after{
       content:"";
       position:absolute;
       inset:0;
-      background:linear-gradient(to top, rgba(10,22,68,0.60), rgba(10,22,68,0.10));
+      background:linear-gradient(to top, rgba(10,22,68,0.52), rgba(10,22,68,0.08));
     }
 
     .hero-info{
@@ -371,9 +374,10 @@
     }
     .hero-info h1{
       margin:0;
-      font-size:32px;
+      font-size:clamp(28px,4vw,40px);
+      line-height:1.08;
       font-weight:700;
-      letter-spacing:-0.3px;
+      letter-spacing:-0.4px;
       color:var(--blue);
     }
     .hero-info p{
@@ -388,7 +392,7 @@
       display:flex;
       gap:10px;
       flex-wrap:wrap;
-      margin-top:6px;
+      margin-top:8px;
     }
     .pill{
       padding:8px 12px;
@@ -400,16 +404,20 @@
       font-weight:600;
     }
 
-    .section-pad{
-      padding:24px 0 0;
+    .section-block{
+      padding:20px 0 0;
     }
     .grid{
       display:grid;
       grid-template-columns:repeat(3,1fr);
       gap:16px;
     }
-    @media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr);}}
-    @media(max-width:620px){.grid{grid-template-columns:1fr;}}
+    @media(max-width:980px){
+      .grid{grid-template-columns:repeat(2,1fr);}
+    }
+    @media(max-width:620px){
+      .grid{grid-template-columns:1fr;}
+    }
 
     .card{
       border-radius:18px;
@@ -420,7 +428,7 @@
       min-height:180px;
     }
     .card h3{
-      margin:0 0 10px 0;
+      margin:0 0 10px;
       font-size:18px;
       font-weight:700;
       color:var(--blue);
@@ -691,7 +699,8 @@
         <div class="hero-info">
           <h1>Air Freight</h1>
           <p>
-            RAIVEGA provides professional air freight solutions for priority and time-sensitive shipments. We support end-to-end movement with secure handling, proactive coordination, and reliable routing to ensure your cargo reaches the destination smoothly.
+            RAIVEGA provides professional air freight solutions for priority and time-sensitive shipments. We support end-to-end movement
+            with secure handling, proactive coordination, and reliable routing to ensure your cargo reaches the destination smoothly.
           </p>
           <div class="pill-row">
             <span class="pill">Express Movement</span>
@@ -702,8 +711,8 @@
         </div>
       </section>
 
-      <section class="section-pad">
-        <div class="grid motion">
+      <section class="section-block motion">
+        <div class="grid">
           <div class="card">
             <h3>Key Capabilities</h3>
             <ul>
@@ -750,7 +759,7 @@
               </div>
             </div>
           </div>
-          <p>Multimodal freight forwarding solutions across Ocean, Air and Ground freight — supported by customs clearance and warehousing services. RAIVEGA focuses on reliable execution, clear communication and end-to-end movement control for every shipment.</p>
+          <p>Multimodal freight forwarding solutions across Ocean, Air and Ground freight with customs and warehousing support.</p>
           <div class="copyright">© 2025 RAIVEGA. All rights reserved.</div>
         </div>
 
@@ -766,9 +775,9 @@
 
         <div class="foot">
           <h5>Contact</h5>
-          <p>Email: mgt@raivega.in</p>
-          <p>For rates, routing guidance or shipment planning — connect with our team anytime.</p>
-          <p style="margin-top:10px;"><a href="get-a-quote.html">Get a Quote</a></p>
+          <p>Email: mgt@raivega.com</p>
+          <p>Phone: +91 7011028101</p>
+          <p>Location: Ludhiana, Punjab, India</p>
         </div>
       </div>
     </div>
@@ -792,7 +801,7 @@
         <span>Contact Us</span>
         <span>→</span>
       </a>
-      <a class="chat-link magnetic" href="https://wa.me/919915521506" target="_blank" rel="noopener noreferrer">
+      <a class="chat-link magnetic" href="https://wa.me/917011028101" target="_blank" rel="noopener noreferrer">
         <span>WhatsApp Support</span>
         <span>→</span>
       </a>
@@ -806,14 +815,14 @@
       </svg>
     </button>
 
-    <a class="float-btn float-wa magnetic" href="https://wa.me/919915521506" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+    <a class="float-btn float-wa magnetic" href="https://wa.me/917011028101" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
       <svg viewBox="0 0 24 24" fill="currentColor">
         <path d="M16.6 14.1c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.1-.4-2.1-1.3-.8-.7-1.3-1.6-1.4-1.9-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.6 0-.1-.7-1.7-.9-2.3-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7 0 1.6 1.1 3.1 1.3 3.3.2.2 2.2 3.4 5.4 4.7.8.3 1.4.5 1.9.6.8.3 1.5.2 2 .1.6-.1 1.8-.8 2-1.6.3-.8.3-1.4.2-1.5 0-.1-.2-.2-.5-.4Z"/>
         <path d="M12 2.6c-5 0-9 4-9 9 0 1.6.4 3.1 1.2 4.5L3 21.4l5.5-1.4c1.3.7 2.8 1 4.3 1 5 0 9-4 9-9s-4-9-9-9Zm0 16.7c-1.3 0-2.6-.3-3.8-1l-.3-.2-3.3.8.9-3.2-.2-.3a7.1 7.1 0 0 1-1.1-3.8c0-4.1 3.4-7.5 7.6-7.5 4.2 0 7.6 3.4 7.6 7.5s-3.4 7.7-7.4 7.7Z"/>
       </svg>
     </a>
 
-    <a class="float-btn float-li magnetic" href="https://www.linkedin.com/company/raivega/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+    <a class="float-btn float-li magnetic" href="https://in.linkedin.com/company/raivega?trk=public_post_feed-actor-image" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
       <svg viewBox="0 0 24 24" fill="currentColor">
         <path d="M6.94 8.5H3.56V20h3.38V8.5ZM5.25 3A1.97 1.97 0 1 0 5.3 6.94 1.97 1.97 0 0 0 5.25 3ZM20.44 12.67c0-3.42-1.82-5.01-4.25-5.01-1.96 0-2.84 1.08-3.33 1.84V8.5H9.48c.05.66 0 11.5 0 11.5h3.38v-6.42c0-.34.02-.68.12-.92.27-.67.88-1.36 1.9-1.36 1.34 0 1.88 1.02 1.88 2.52V20h3.38v-7.33Z"/>
       </svg>
@@ -932,4 +941,4 @@
     }
   </script>
 </body>
-</html> 
+</html>
