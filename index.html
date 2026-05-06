@@ -7,38 +7,31 @@
   <meta name="google-site-verification" content="GyhxezXuB1nSu6Ad0sVW0Fhw3z4h8xECJU3ROw0NAaU" />
   <meta name="theme-color" content="#0A1644" />
 
-  <!-- FONT -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- FAVICON -->
   <link rel="icon" type="image/svg+xml" href="images/rv-icon.svg">
 
   <style>
     :root{
-      --bg:#ffffff;
+      --bg:#FFFFFF;
       --border:rgba(10,22,68,0.10);
       --blue:#0A1644;
       --blue2:#15307a;
       --teal:#18b7a1;
       --gold:#F1B81E;
-
       --wa:#25D366;
       --li:#0A66C2;
-
       --muted:rgba(10,22,68,0.72);
       --muted2:rgba(10,22,68,0.55);
-
       --shadow:0 18px 50px rgba(10,22,68,0.10);
       --shadow-soft:0 14px 40px rgba(10,22,68,0.08);
       --radius:18px;
       --ease:cubic-bezier(.22,1,.36,1);
-
       --mint-start:#A7F3D0;
       --mint-end:#6EE7B7;
       --mint-text:#064E3B;
-
       --sea-start:#20B2AA;
       --sea-end:#2E8B57;
     }
@@ -51,10 +44,7 @@
     body{
       margin:0;
       font-family:"Titillium Web",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      background:
-        radial-gradient(circle at top right, rgba(24,183,161,0.05), transparent 25%),
-        radial-gradient(circle at left 18%, rgba(241,184,30,0.06), transparent 20%),
-        var(--bg);
+      background:#FFFFFF;
       color:var(--blue);
       overflow-x:hidden;
       font-weight:400;
@@ -68,11 +58,12 @@
     button,input{font:inherit;}
 
     .container{
-      width:min(1400px, calc(100% - 40px));
+      width:100%;
+      max-width:none;
       margin:0 auto;
+      padding-inline:20px;
     }
 
-    /* CUSTOM CURSOR UPGRADE */
     .cursor-dot,
     .cursor-ring,
     .cursor-glow{
@@ -80,70 +71,64 @@
       top:0;
       left:0;
       pointer-events:none;
-      z-index:999999;
       transform:translate(-50%,-50%);
-      mix-blend-mode:normal;
     }
 
     .cursor-dot{
+      z-index:999999;
       width:8px;
       height:8px;
       border-radius:50%;
       background:var(--blue);
-      box-shadow:0 0 18px rgba(10,22,68,0.18);
+      box-shadow:0 0 16px rgba(10,22,68,0.18);
     }
 
     .cursor-ring{
+      z-index:999998;
       width:42px;
       height:42px;
       border-radius:999px;
-      border:1.6px solid rgba(241,184,30,0.95);
-      background:rgba(255,255,255,0.06);
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,0.15) inset,
-        0 8px 24px rgba(10,22,68,0.10);
-      backdrop-filter:blur(0.3px);
+      border:1.6px solid rgba(241,184,30,0.92);
+      background:rgba(255,255,255,0.05);
+      box-shadow:0 8px 22px rgba(10,22,68,0.10);
+      backdrop-filter:blur(.5px);
       transition:
         width .22s var(--ease),
         height .22s var(--ease),
         border-color .22s ease,
-        background .22s ease,
-        opacity .22s ease;
+        background .22s ease;
     }
 
     .cursor-glow{
-      width:5px;
-      height:5	px;
+      z-index:999997;
+      width:90px;
+      height:90px;
       border-radius:50%;
       background:
-        radial-gradient(circle, rgba(24,183,161,0.14) 0%, rgba(24,183,161,0.08) 28%, rgba(10,22,68,0.03) 50%, transparent 72%);
-      filter:blur(2px);
-      opacity:.9;
-      z-index:999998;
+        radial-gradient(circle, rgba(24,183,161,0.08) 0%, rgba(24,183,161,0.04) 30%, rgba(10,22,68,0.015) 52%, transparent 72%);
+      filter:blur(5px);
+      opacity:.30;
     }
 
     body.cursor-hover .cursor-ring{
-      width:72px;
-      height:72px;
+      width:70px;
+      height:70px;
       border-color:rgba(32,178,170,0.95);
       background:rgba(32,178,170,0.08);
     }
-
+    body.cursor-hover .cursor-dot{
+      background:var(--sea-end);
+    }
     body.cursor-down .cursor-ring{
       width:34px;
       height:34px;
       border-color:rgba(10,22,68,0.9);
     }
 
-    body.cursor-hover .cursor-dot{
-      background:var(--sea-end);
-    }
-
-    /* LOADER */
     #loader{
       position:fixed;
       inset:0;
-      background:#fff;
+      background:#FFFFFF;
       display:flex;
       align-items:center;
       justify-content:center;
@@ -166,9 +151,7 @@
     }
     .loader-logo{
       width:150px;
-      height:auto;
-      display:block;
-      margin:0 auto 14px auto;
+      margin:0 auto 14px;
       border-radius:14px;
       border:1px solid rgba(10,22,68,0.10);
       padding:8px;
@@ -180,7 +163,7 @@
       font-weight:700;
       font-size:16px;
       color:var(--blue);
-      letter-spacing:0.6px;
+      letter-spacing:.6px;
       text-transform:uppercase;
     }
     .loader-sub{
@@ -188,7 +171,7 @@
       font-weight:500;
       font-size:12.5px;
       color:var(--muted2);
-      letter-spacing:0.8px;
+      letter-spacing:.8px;
       text-transform:uppercase;
     }
     .loader-bar{
@@ -213,7 +196,6 @@
       100%{transform:translateX(-60%);}
     }
 
-    /* NAV */
     .nav{
       position:sticky;
       top:0;
@@ -239,7 +221,6 @@
     .logo-img{
       height:64px;
       width:auto;
-      display:block;
       object-fit:contain;
     }
     .brand-title{
@@ -273,16 +254,14 @@
       flex-wrap:wrap;
       justify-content:flex-end;
     }
-
     .nav-links a{
       font-size:14px;
       color:var(--muted);
       padding:9px 12px;
       border-radius:12px;
-      transition:180ms ease;
+      transition:.18s ease;
       font-weight:500;
     }
-
     .nav-links a:hover{
       color:var(--blue);
       background:rgba(10,22,68,0.05);
@@ -301,20 +280,17 @@
       font-size:14px;
       font-weight:700;
     }
-
     .cta:hover,
     .cta-sea:hover{
       transform:translateY(-2px) scale(1.01);
       filter:brightness(1.03);
     }
-
     .cta{
       background:linear-gradient(135deg, var(--mint-start), var(--mint-end));
       border:1px solid rgba(4,120,87,0.18);
       box-shadow:0 14px 32px rgba(16,185,129,0.40);
       color:var(--mint-text) !important;
     }
-
     .cta-sea{
       background:linear-gradient(135deg, var(--sea-start), var(--sea-end));
       border:1px solid rgba(255,255,255,0.15);
@@ -329,30 +305,25 @@
       .brand-title .name{font-size:21px;}
     }
     @media (max-width:640px){
-      .cta,.cta-sea{
-        width:100%;
-      }
-      .nav-links{
-        align-items:stretch;
-      }
+      .cta,.cta-sea{width:100%;}
+      .nav-links{align-items:stretch;}
     }
 
-    /* GENERAL MOTION */
     .motion{
       opacity:0;
-      transform:translateY(34px) scale(.965);
+      transform:translateY(28px) scale(.97);
+      filter:blur(6px);
       transition:
         opacity .9s var(--ease),
-        transform 1.05s var(--ease),
+        transform 1s var(--ease),
         filter .9s var(--ease);
-      will-change:transform,opacity,filter;
-      filter:blur(6px);
     }
     .motion.in-view{
       opacity:1;
       transform:translateY(0) scale(1);
       filter:blur(0);
     }
+
     .zoom-in{
       transform:translateY(34px) scale(.92);
     }
@@ -366,12 +337,12 @@
       transform:translateY(0) scale(1);
     }
 
-    /* HERO */
     .hero-wrap{
       width:100%;
       display:flex;
       flex-direction:column;
       padding:18px 0 28px;
+      background:#FFFFFF;
     }
     .hero-top{
       position:relative;
@@ -749,7 +720,6 @@
       box-shadow:0 20px 44px rgba(46,139,87,0.5);
     }
 
-    /* TRACK BOX */
     .track-card{
       border-radius:var(--radius);
       border:1px solid rgba(10,22,68,0.10);
@@ -847,7 +817,6 @@
       grid-template-columns:repeat(6,1fr);
       gap:12px;
     }
-
     @media (max-width:1040px){
       .feature-grid{grid-template-columns:repeat(3,1fr);}
     }
@@ -887,6 +856,7 @@
 
     section{
       padding:54px 0;
+      background:#FFFFFF;
     }
 
     .section-title{
@@ -1014,7 +984,6 @@
       display:block;
     }
 
-    /* ABOUT */
     .about-wrap{
       display:grid;
       grid-template-columns:1.1fr 0.9fr;
@@ -1164,14 +1133,12 @@
       .exp-img{min-height:150px;}
     }
 
-    /* FOOTER */
     footer{
       border-top:1px solid rgba(10,22,68,0.10);
       background:#fff;
       padding:38px 0;
       position:relative;
     }
-
     .foot-grid{
       display:grid;
       grid-template-columns:1.2fr 0.7fr 0.7fr;
@@ -1192,7 +1159,6 @@
     .footer-logo-img{
       height:64px;
       width:auto;
-      display:block;
       object-fit:contain;
     }
 
@@ -1245,13 +1211,12 @@
       font-weight:400;
     }
 
-    /* CHAT PANEL + FLOATING */
     .chat-panel{
       position:fixed;
       right:18px;
       bottom:128px;
       width:min(320px, calc(100vw - 30px));
-      background:rgba(255,255,255,0.96);
+      background:rgba(255,255,255,0.97);
       border:1px solid rgba(10,22,68,0.10);
       border-radius:20px;
       box-shadow:0 24px 60px rgba(10,22,68,0.18);
@@ -1264,46 +1229,31 @@
       transform-origin:bottom right;
       transition:opacity .25s ease, transform .28s var(--ease), visibility .25s ease;
     }
-
     .chat-panel.open{
       opacity:1;
       visibility:visible;
       transform:translateY(0) scale(1);
     }
-
     .chat-head{
       padding:15px 16px 13px;
       background:linear-gradient(135deg, var(--blue), var(--blue2), var(--teal));
       color:#fff;
     }
-
     .chat-head strong{
       display:block;
       font-size:15px;
       margin-bottom:2px;
     }
-
     .chat-head span{
       display:block;
       opacity:.92;
       font-size:12.5px;
     }
-
     .chat-body{
       padding:14px;
       display:grid;
       gap:10px;
     }
-
-    .chat-note{
-      padding:11px 12px;
-      border-radius:14px;
-      background:rgba(10,22,68,0.05);
-      color:var(--muted);
-      font-size:13.5px;
-      line-height:1.6;
-    }
-
     .chat-link{
       display:flex;
       align-items:center;
@@ -1318,7 +1268,6 @@
       font-weight:600;
       transition:transform .2s var(--ease), background .2s ease, box-shadow .2s ease;
     }
-
     .chat-link:hover{
       transform:translateY(-2px);
       background:rgba(10,22,68,0.03);
@@ -1334,7 +1283,6 @@
       gap:10px;
       z-index:9999;
     }
-
     .float-btn{
       width:48px;
       height:48px;
@@ -1344,47 +1292,41 @@
       justify-content:center;
       box-shadow:0 18px 50px rgba(10,22,68,0.20);
       border:1px solid rgba(255,255,255,0.35);
-      transition:transform .2s var(--ease), box-shadow .2s ease, filter .2s ease;
+      transition:transform .2s var(--ease), box-shadow .2s ease;
       background:#fff;
       cursor:pointer;
     }
-
     .float-btn:hover{
       transform:translateY(-3px) scale(1.04);
       box-shadow:0 22px 54px rgba(10,22,68,0.24);
     }
-
     .float-btn svg{
       width:24px;
       height:24px;
       display:block;
     }
-
     .float-chat{
       background:linear-gradient(135deg, var(--blue), var(--blue2), var(--teal));
       color:#fff;
     }
-
-    .float-wa{
-      background:var(--wa);
-    }
-
-    .float-li{
-      background:var(--li);
-    }
-
+    .float-wa{background:var(--wa);}
+    .float-li{background:var(--li);}
     .float-wa svg,
-    .float-li svg{
-      fill:#fff;
-    }
+    .float-li svg{fill:#fff;}
 
-    /* MAGNETIC TARGETS */
     .magnetic{
       will-change:transform;
       transition:transform .16s var(--ease), box-shadow .2s ease, filter .2s ease;
     }
 
-    /* REDUCED MOTION */
+    @media (max-width:640px){
+      .container{
+        padding-inline:12px;
+      }
+      .cta,.cta-sea{width:100%;}
+      .nav-links{align-items:stretch;}
+    }
+
     @media (prefers-reduced-motion:reduce){
       html{scroll-behavior:auto;}
       *,
@@ -1400,11 +1342,8 @@
       }
     }
 
-    /* MOBILE / TOUCH */
     @media (hover:none), (pointer:coarse){
-      body{
-        cursor:auto;
-      }
+      body{cursor:auto;}
       .cursor-dot,
       .cursor-ring,
       .cursor-glow{
@@ -1419,7 +1358,6 @@
   <div class="cursor-dot" id="cursorDot"></div>
   <div class="cursor-ring" id="cursorRing"></div>
 
-  <!-- LOADER -->
   <div id="loader">
     <div class="loader-box">
       <img class="loader-logo" src="images/RV LOGO.png" alt="RAIVEGA Loader Logo" />
@@ -1429,7 +1367,6 @@
     </div>
   </div>
 
-  <!-- NAV -->
   <div class="nav">
     <div class="container">
       <div class="nav-inner">
@@ -1448,41 +1385,24 @@
           <a class="magnetic" href="#about">About Us</a>
           <a class="magnetic" href="pages/contact.html">Contact</a>
           <a class="cta magnetic" href="pages/get-a-quote.html">Get a Quote</a>
-          <a class="cta magnetic" href="pages/get-instant-rates.html">Get Instant Rates</a>
+          <a class="cta-sea magnetic" href="pages/get-instant-rates.html">Get Instant Rates</a>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- HERO -->
   <main class="hero-wrap" id="home">
     <div class="container">
       <div class="hero-top">
         <div class="hero-shell motion zoom-out">
 
-          <!-- CAROUSEL -->
-          <div class="carousel-panel magnetic-soft">
+          <div class="carousel-panel">
             <div class="carousel-header">
               <div class="hero-badge"><i></i><span>Reliable • Innovative • Customer Centric</span></div>
             </div>
 
             <div class="marquee">
               <div class="marquee-track" id="marqueeTrack">
-
-                <div class="slide">
-                  <img src="images/ship.jpg" alt="Ocean Freight" />
-                  <div class="slide-content">
-                    <div class="slide-text">
-                      <h1>Ocean Freight built for global cargo movement</h1>
-                      <p>LCL, FCL, Project, Break Bulk, Bulk, RORO, Reefer solutions with reliable routing and consistent operational control.</p>
-                    </div>
-                    <div class="slide-action">
-                      <a class="btn primary magnetic" href="pages/ocean-freight.html">Ocean Freight</a>
-                      <a class="btn quote-btn magnetic" href="pages/get-a-quote.html">Get a Quote</a>
-                    </div>
-                  </div>
-                </div>
-
                 <div class="slide">
                   <img src="images/air freight.jpg" alt="Air Freight" />
                   <div class="slide-content">
@@ -1553,21 +1473,6 @@
                   </div>
                 </div>
 
-                <!-- DUPLICATE FOR INFINITE -->
-                <div class="slide">
-                  <img src="images/ship.jpg" alt="Ocean Freight" />
-                  <div class="slide-content">
-                    <div class="slide-text">
-                      <h1>Ocean Freight built for global cargo movement</h1>
-                      <p>LCL, FCL, Project, Break Bulk, Bulk, RORO, Reefer solutions with reliable routing and consistent operational control.</p>
-                    </div>
-                    <div class="slide-action">
-                      <a class="btn primary magnetic" href="pages/ocean-freight.html">Ocean Freight</a>
-                      <a class="btn quote-btn magnetic" href="pages/get-a-quote.html">Get a Quote</a>
-                    </div>
-                  </div>
-                </div>
-
                 <div class="slide">
                   <img src="images/air freight.jpg" alt="Air Freight" />
                   <div class="slide-content">
@@ -1581,63 +1486,6 @@
                     </div>
                   </div>
                 </div>
-
-                <div class="slide">
-                  <img src="images/ground freight.jpg" alt="Ground Freight" />
-                  <div class="slide-content">
-                    <div class="slide-text">
-                      <h1>Ground Freight with road + rail connectivity</h1>
-                      <p>Stable schedules, cost-optimised routing, dependable inland movement and distribution support.</p>
-                    </div>
-                    <div class="slide-action">
-                      <a class="btn primary magnetic" href="pages/ground-freight.html">Ground Freight</a>
-                      <a class="btn quote-btn magnetic" href="pages/get-a-quote.html">Get a Quote</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="slide">
-                  <img src="images/project.jpg" alt="Project Cargo" />
-                  <div class="slide-content">
-                    <div class="slide-text">
-                      <h1>Project & specialised cargo handled with precision</h1>
-                      <p>Heavy-lift planning and execution for special shipments, oversized cargo and complex logistics requirements.</p>
-                    </div>
-                    <div class="slide-action">
-                      <a class="btn primary magnetic" href="pages/get-a-quote.html">Project Logistics</a>
-                      <a class="btn quote-btn magnetic" href="pages/get-a-quote.html">Get a Quote</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="slide">
-                  <img src="images/roro.jpg" alt="RoRo Cargo" />
-                  <div class="slide-content">
-                    <div class="slide-text">
-                      <h1>RORO & vehicle cargo movement made simple</h1>
-                      <p>Seamless handling for automobiles and rolling cargo through proven carrier options and secure documentation flow.</p>
-                    </div>
-                    <div class="slide-action">
-                      <a class="btn primary magnetic" href="pages/get-a-quote.html">RORO Cargo</a>
-                      <a class="btn quote-btn magnetic" href="pages/get-a-quote.html">Get a Quote</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="slide">
-                  <img src="images/bulk.jpg" alt="Bulk Cargo" />
-                  <div class="slide-content">
-                    <div class="slide-text">
-                      <h1>Bulk cargo solutions with dependable execution</h1>
-                      <p>Bulk handling support with robust planning, safe operations, and clear communication across shipment stages.</p>
-                    </div>
-                    <div class="slide-action">
-                      <a class="btn primary magnetic" href="pages/get-a-quote.html">Bulk Cargo</a>
-                      <a class="btn quote-btn magnetic" href="pages/get-a-quote.html">Get a Quote</a>
-                    </div>
-                  </div>
-                </div>
-
               </div>
             </div>
 
@@ -1653,196 +1501,227 @@
             <div class="carousel-scrollbar"><span></span></div>
           </div>
 
-          <!-- RIGHT SIDE -->
           <div class="hero-side">
-            <div class="glass-card motion zoom-in">
-              <h2>Reliable & Innovative</h2>
-              <p>
-                RAIVEGA delivers smooth multimodal freight forwarding with strong execution, transparent communication and disciplined coordination.
-                We focus on service consistency, cost efficiency and reliable routing to support your cargo movement end-to-end.
-              </p>
+            <div class="glass-card motion zoom-in magnetic">
+              <h2>Freight Forwarding Built Around Execution</h2>
+              <p>RAIVEGA delivers multimodal freight forwarding solutions with focused planning, dependable coordination, and practical shipment support across air, ocean, ground, customs, and warehousing services.</p>
+
               <div class="quick-actions">
-                <a class="mini magnetic" href="#services"><strong>Our Services</strong><span>Ocean • Air • Ground • Customs</span></a>
-                <a class="mini magnetic" href="pages/get-a-quote.html"><strong>Get a Quote</strong><span>Fast response support</span></a>
+                <a class="mini magnetic" href="pages/ocean-freight.html">
+                  <strong>Ocean Freight</strong>
+                  <span>Import & Export support</span>
+                </a>
+                <a class="mini magnetic" href="pages/customs-clearance.html">
+                  <strong>Custom Clearance</strong>
+                  <span>Documentation & compliance</span>
+                </a>
+                <a class="mini magnetic" href="pages/warehouse.html">
+                  <strong>Warehousing</strong>
+                  <span>Storage & handling</span>
+                </a>
+                <a class="mini magnetic" href="pages/contact.html">
+                  <strong>Contact RAIVEGA</strong>
+                  <span>Direct response support</span>
+                </a>
               </div>
             </div>
 
-            <div class="instant-wrapper motion zoom-out">
-              <a class="instant-cta magnetic" data-instant-rates href="#">Get Instant Rates</a>
+            <div class="glass-card motion zoom-out magnetic">
+              <h2>Instant Global Rates</h2>
+              <p>Access quick online rate lookup through our connected rates system for faster shipment planning and response.</p>
+              <div class="instant-wrapper" style="margin-top:14px;">
+                <a class="instant-cta magnetic" href="pages/get-instant-rates.html">Get Instant Rates</a>
+              </div>
             </div>
 
-            <div class="track-card motion zoom-in">
+            <div class="track-card motion zoom-in magnetic">
               <div class="track-left">
-                <strong>TRACK YOUR SHIPMENT</strong>
+                <strong>Track Shipment</strong>
                 <div class="track-input-row">
-                  <input class="track-input magnetic" id="trackRef" type="text" placeholder="Enter reference number" />
-                  <div class="track-search magnetic" id="trackBtn">🔍︎</div>
+                  <input class="track-input" type="text" placeholder="Enter tracking number" />
+                  <button class="track-search magnetic" type="button" aria-label="Search">⌕</button>
                 </div>
               </div>
             </div>
-
-            <div class="glass-card motion zoom-out">
-              <h2>We Move Anything, Anywhere</h2>
-              <p>
-                Standard cargo to specialised shipments — RAIVEGA supports end-to-end movement with reliable operations,
-                structured planning and compliance-focused execution. From pickup coordination to final delivery,
-                we ensure smooth transit management with professional service and clear accountability at every stage.
-              </p>
-            </div>
           </div>
 
         </div>
       </div>
 
-      <div class="hero-bottom motion zoom-in">
+      <div class="hero-bottom motion">
         <div class="feature-strip">
           <div class="feature-grid">
-            <div class="feature magnetic"><strong>Door-to-Door</strong><span>Pickup to delivery execution.</span></div>
-            <div class="feature magnetic"><strong>Global Reach</strong><span>Worldwide partner coverage.</span></div>
-            <div class="feature magnetic"><strong>Warehousing</strong><span>Storage & distribution support.</span></div>
-            <div class="feature magnetic"><strong>Customs</strong><span>Compliance-first clearance.</span></div>
-            <div class="feature magnetic"><strong>Tracking</strong><span>Shipment visibility support.</span></div>
-            <div class="feature magnetic"><strong>Support</strong><span>Customer-centric service.</span></div>
+            <div class="feature magnetic">
+              <strong>Ocean Freight</strong>
+              <span>FCL, LCL and global shipping support</span>
+            </div>
+            <div class="feature magnetic">
+              <strong>Air Freight</strong>
+              <span>Priority uplift and secure movement</span>
+            </div>
+            <div class="feature magnetic">
+              <strong>Ground Freight</strong>
+              <span>Road, rail and inland distribution</span>
+            </div>
+            <div class="feature magnetic">
+              <strong>Warehousing</strong>
+              <span>Storage, consolidation and handling</span>
+            </div>
+            <div class="feature magnetic">
+              <strong>Custom Clearance</strong>
+              <span>Compliance-led documentation flow</span>
+            </div>
+            <div class="feature magnetic">
+              <strong>Project Cargo</strong>
+              <span>Special loads and complex logistics</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
+    <section id="services">
+      <div class="container">
+        <div class="section-title motion">
+          <h3>Services</h3>
+          <p>Our service network supports complete cargo movement through coordinated freight solutions, customs support and storage capabilities tailored to practical business needs.</p>
+        </div>
+
+        <div class="services-grid">
+          <div class="service-card motion zoom-out magnetic">
+            <div class="service-top">
+              <h4>Ocean Freight</h4><span class="tag">Sea Freight</span>
+            </div>
+            <ul class="points">
+              <li>FCL / LCL handling</li>
+              <li>Import & export coordination</li>
+              <li>Carrier planning</li>
+              <li>Documentation support</li>
+            </ul>
+            <a class="go" href="pages/ocean-freight.html">Explore →</a>
+            <div class="service-ico"><img src="images/ocean-freight.gif" alt="Ocean Freight Icon"></div>
+          </div>
+
+          <div class="service-card motion zoom-in magnetic">
+            <div class="service-top">
+              <h4>Air Freight</h4><span class="tag">Priority Cargo</span>
+            </div>
+            <ul class="points">
+              <li>Urgent shipment support</li>
+              <li>Airport coordination</li>
+              <li>Secure handling</li>
+              <li>Express movement</li>
+            </ul>
+            <a class="go" href="pages/air-freight.html">Explore →</a>
+            <div class="service-ico"><img src="images/air-freight.gif" alt="Air Freight Icon"></div>
+          </div>
+
+          <div class="service-card motion zoom-out magnetic">
+            <div class="service-top">
+              <h4>Transportation</h4><span class="tag">Road Freight</span>
+            </div>
+            <ul class="points">
+              <li>Pickup & Delivery</li>
+              <li>FTL / LTL Options</li>
+              <li>Domestic Distribution</li>
+              <li>Scheduling</li>
+            </ul>
+            <a class="go" href="pages/ground-freight.html">Explore →</a>
+            <div class="service-ico"><img src="images/long-truck.gif" alt="Transport Icon"></div>
+          </div>
+
+          <div class="service-card motion zoom-in magnetic">
+            <div class="service-top">
+              <h4>Custom Clearance</h4><span class="tag">Compliance</span>
+            </div>
+            <ul class="points">
+              <li>Import / Export</li>
+              <li>Documentation</li>
+              <li>Compliance-first</li>
+              <li>Reduced Delays</li>
+            </ul>
+            <a class="go" href="pages/customs-clearance.html">Explore →</a>
+            <div class="service-ico"><img src="images/customs-clearance.gif" alt="Customs Icon"></div>
+          </div>
+
+          <div class="service-card motion zoom-out magnetic">
+            <div class="service-top">
+              <h4>Warehousing</h4><span class="tag">Storage</span>
+            </div>
+            <ul class="points">
+              <li>Inventory support</li>
+              <li>Safe storage</li>
+              <li>Cargo handling</li>
+              <li>Distribution readiness</li>
+            </ul>
+            <a class="go" href="pages/warehouse.html">Explore →</a>
+            <div class="service-ico"><img src="images/warehouse.gif" alt="Warehouse Icon"></div>
+          </div>
+
+          <div class="service-card motion zoom-in magnetic">
+            <div class="service-top">
+              <h4>Project Cargo</h4><span class="tag">Specialised</span>
+            </div>
+            <ul class="points">
+              <li>Heavy-lift handling</li>
+              <li>Special routing</li>
+              <li>Oversized cargo</li>
+              <li>Execution support</li>
+            </ul>
+            <a class="go" href="pages/get-a-quote.html">Explore →</a>
+            <div class="service-ico"><img src="images/project-cargo.gif" alt="Project Cargo Icon"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-title motion">
+          <h3>About RAIVEGA</h3>
+          <p>We focus on practical freight execution, dependable response, and service consistency to help businesses move cargo with more clarity and less friction.</p>
+        </div>
+
+        <div class="about-wrap">
+          <div class="about-card motion zoom-out magnetic">
+            <h4>Multimodal Freight Forwarding with Reliable Service Discipline</h4>
+            <p>RAIVEGA is built around shipment coordination that values planning, responsiveness and operational control. Our approach combines freight execution with practical customer support across ocean, air, ground, customs and warehousing requirements.</p>
+            <p>We work to simplify movement through clear communication, timely coordination and dependable service follow-through from origin to destination.</p>
+
+            <div class="exp-box magnetic">
+              <div class="exp-img">
+                <img src="images/about-raivega.jpg" alt="RAIVEGA logistics operations">
+              </div>
+              <div class="exp-content">
+                <h4>Execution that supports real cargo movement</h4>
+                <p>From shipment planning to final delivery coordination, our role is to keep cargo moving with clarity, speed and accountability.</p>
+                <div class="exp-highlight">Professional • Responsive • Practical</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-split">
+            <div class="about-mini motion zoom-in magnetic">
+              <strong>Customer-Centric Approach</strong>
+              <span>We prioritise communication, practical advice and service continuity to keep every shipment journey more manageable.</span>
+            </div>
+            <div class="about-mini motion zoom-out magnetic">
+              <strong>Network Coordination</strong>
+              <span>Our freight support connects multiple transport modes and operational touchpoints through disciplined planning.</span>
+            </div>
+            <div class="about-mini motion zoom-in magnetic">
+              <strong>Operational Reliability</strong>
+              <span>We work with an execution mindset that supports consistency, accountability and faster response to shipment needs.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- SERVICES -->
-  <section id="services">
-    <div class="container">
-      <div class="section-title motion zoom-out">
-        <div>
-          <h3>Services</h3>
-          <p>Reliable multimodal freight solutions designed for speed, safety, documentation control and cost-efficiency across global supply chains.</p>
-        </div>
-      </div>
-
-      <div class="services-grid">
-        <div class="service-card motion zoom-in magnetic">
-          <div class="service-top">
-            <h4>Ocean Freight</h4><span class="tag">Sea Cargo</span>
-          </div>
-          <ul class="points">
-            <li>LCL / FCL</li><li>Project / Break Bulk</li><li>Bulk / RORO</li><li>Reefer Cargo</li>
-          </ul>
-          <a class="go" href="pages/ocean-freight.html">Explore →</a>
-          <div class="service-ico"><img src="images/cargo-ship.gif" alt="Ocean Icon"></div>
-        </div>
-
-        <div class="service-card motion zoom-out magnetic">
-          <div class="service-top">
-            <h4>Air Freight</h4><span class="tag">Fast Delivery</span>
-          </div>
-          <ul class="points">
-            <li>Express Air</li><li>Time Critical</li><li>Priority Handling</li><li>Secure Movement</li>
-          </ul>
-          <a class="go" href="pages/air-freight.html">Explore →</a>
-          <div class="service-ico"><img src="images/airplane.gif" alt="Air Icon"></div>
-        </div>
-
-        <div class="service-card motion zoom-in magnetic">
-          <div class="service-top">
-            <h4>Rail Freight</h4><span class="tag">Ground Freight</span>
-          </div>
-          <ul class="points">
-            <li>Rail Connectivity</li><li>Container Movement</li><li>Transit Planning</li><li>Cost Optimised</li>
-          </ul>
-          <a class="go" href="pages/ground-freight.html">Explore →</a>
-          <div class="service-ico"><img src="images/train.gif" alt="Rail Icon"></div>
-        </div>
-
-        <div class="service-card motion zoom-out magnetic">
-          <div class="service-top">
-            <h4>Transportation</h4><span class="tag">Road Freight</span>
-          </div>
-          <ul class="points">
-            <li>Pickup & Delivery</li><li>FTL / LTL Options</li><li>Domestic Distribution</li><li>Scheduling</li>
-          </ul>
-          <a class="go" href="pages/ground-freight.html">Explore →</a>
-          <div class="service-ico"><img src="images/long-truck.gif" alt="Transport Icon"></div>
-        </div>
-
-        <div class="service-card motion zoom-in magnetic">
-          <div class="service-top">
-            <h4>Custom Clearance</h4><span class="tag">Compliance</span>
-          </div>
-          <ul class="points">
-            <li>Import / Export</li><li>Documentation</li><li>Compliance-first</li><li>Reduced Delays</li>
-          </ul>
-          <a class="go" href="pages/customs-clearance.html">Explore →</a>
-          <div class="service-ico"><img src="images/customs-clearance.gif" alt="Customs Icon"></div>
-        </div>
-
-        <div class="service-card motion zoom-out magnetic">
-          <div class="service-top">
-            <h4>Warehousing</h4><span class="tag">Storage</span>
-          </div>
-          <ul class="points">
-            <li>Storage & Handling</li><li>Inventory Support</li><li>Fulfilment</li><li>Distribution</li>
-          </ul>
-          <a class="go" href="pages/warehousing.html">Explore →</a>
-          <div class="service-ico"><img src="images/warehouse.gif" alt="Warehouse Icon"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="container">
-      <div class="section-title motion zoom-in">
-        <div>
-          <h3>About RAIVEGA</h3>
-          <p>RAIVEGA is built on integrity, disciplined execution and customer-first service, delivering dependable logistics across global trade lanes.</p>
-        </div>
-      </div>
-
-      <div class="about-wrap">
-        <div class="about-card motion zoom-out">
-          <h4>Who We Are</h4>
-          <p>
-            RAIVEGA is a growing multimodal freight forwarding organisation committed to delivering reliable cargo movement
-            through strong operational planning, professional documentation control and smooth coordination across stakeholders.
-          </p>
-          <p>
-            We work closely with customers, carriers and partners to keep routing disciplined, communication clear
-            and service delivery consistently dependable.
-          </p>
-          <div class="about-split">
-            <div class="about-mini magnetic">
-              <strong>Customer Focus</strong>
-              <span>Solution-driven support from inquiry to delivery.</span>
-            </div>
-            <div class="about-mini magnetic">
-              <strong>Operational Discipline</strong>
-              <span>Planning, documentation and execution handled with structure.</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="exp-box motion zoom-in">
-          <div class="exp-img">
-            <img src="images/project.jpg" alt="Project Logistics" />
-          </div>
-          <div class="exp-content">
-            <h4>Experience That Scales</h4>
-            <p>
-              From standard FCL and LCL to complex project logistics, RAIVEGA supports cargo movement with an execution-first mindset.
-              We aim to simplify freight planning and coordination through clear communication and responsive service.
-            </p>
-            <div class="exp-highlight">Reliable routing • Clear visibility • Strong execution</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
   <footer>
     <div class="container">
-      <div class="foot-grid motion zoom-out">
+      <div class="foot-grid motion">
         <div class="foot">
           <div class="footer-brand">
             <img class="footer-logo-img" src="images/RV LOGO.png" alt="RAIVEGA Footer Logo" />
@@ -1852,13 +1731,13 @@
               </div>
             </div>
           </div>
-          <p>RAIVEGA provides dependable multimodal freight forwarding with a focus on service consistency and disciplined routing.</p>
+          <p>Multimodal freight forwarding solutions across Ocean, Air and Ground freight with customs and warehousing support.</p>
           <div class="copyright">© 2026 RAIVEGA. All rights reserved.</div>
         </div>
 
         <div class="foot">
           <h5>Links</h5>
-          <a href="#home">Home</a><br>
+          <a href="index.html">Home</a><br>
           <a href="#services">Services</a><br>
           <a href="#about">About Us</a><br>
           <a href="pages/contact.html">Contact</a><br>
@@ -1868,24 +1747,20 @@
 
         <div class="foot">
           <h5>Contact</h5>
-          <p>Email: mgt@raivega.in</p>
+          <p>Email: mgt@raivega.com</p>
           <p>Phone: +91 7011028101</p>
-          <p>Location: Ludhiana, India</p>
+          <p>Location: Ludhiana, Punjab, India</p>
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- CHAT PANEL -->
   <div class="chat-panel" id="chatPanel" aria-hidden="true">
     <div class="chat-head">
       <strong>RAIVEGA Assistant</strong>
       <span>Quick access to rates, quotes and contact</span>
     </div>
     <div class="chat-body">
-      <div class="chat-note">
-        Choose a quick action below to continue.
-      </div>
       <a class="chat-link magnetic" href="pages/get-instant-rates.html">
         <span>Get Instant Rates</span>
         <span>→</span>
@@ -1898,14 +1773,13 @@
         <span>Contact Us</span>
         <span>→</span>
       </a>
-      <a class="chat-link magnetic" href="https://wa.me/911234567890" target="_blank" rel="noopener">
+      <a class="chat-link magnetic" href="https://wa.me/917011028101" target="_blank" rel="noopener noreferrer">
         <span>WhatsApp Support</span>
         <span>→</span>
       </a>
     </div>
   </div>
 
-  <!-- FLOATING -->
   <div class="float-wrap">
     <button class="float-btn float-chat magnetic" id="chatToggle" aria-label="Chat">
       <svg viewBox="0 0 24 24" fill="none">
@@ -1913,14 +1787,14 @@
       </svg>
     </button>
 
-    <a class="float-btn float-wa magnetic" href="https://wa.me/911234567890" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <a class="float-btn float-wa magnetic" href="https://wa.me/917011028101" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
       <svg viewBox="0 0 24 24" fill="currentColor">
         <path d="M16.6 14.1c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.1-.4-2.1-1.3-.8-.7-1.3-1.6-1.4-1.9-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.6 0-.1-.7-1.7-.9-2.3-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7 0 1.6 1.1 3.1 1.3 3.3.2.2 2.2 3.4 5.4 4.7.8.3 1.4.5 1.9.6.8.3 1.5.2 2 .1.6-.1 1.8-.8 2-1.6.3-.8.3-1.4.2-1.5 0-.1-.2-.2-.5-.4Z"/>
         <path d="M12 2.6c-5 0-9 4-9 9 0 1.6.4 3.1 1.2 4.5L3 21.4l5.5-1.4c1.3.7 2.8 1 4.3 1 5 0 9-4 9-9s-4-9-9-9Zm0 16.7c-1.3 0-2.6-.3-3.8-1l-.3-.2-3.3.8.9-3.2-.2-.3a7.1 7.1 0 0 1-1.1-3.8c0-4.1 3.4-7.5 7.6-7.5 4.2 0 7.6 3.4 7.6 7.5s-3.4 7.7-7.4 7.7Z"/>
       </svg>
     </a>
 
-    <a class="float-btn float-li magnetic" href="https://www.linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">
+    <a class="float-btn float-li magnetic" href="https://in.linkedin.com/company/raivega?trk=public_post_feed-actor-image" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
       <svg viewBox="0 0 24 24" fill="currentColor">
         <path d="M6.94 8.5H3.56V20h3.38V8.5ZM5.25 3A1.97 1.97 0 1 0 5.3 6.94 1.97 1.97 0 0 0 5.25 3ZM20.44 12.67c0-3.42-1.82-5.01-4.25-5.01-1.96 0-2.84 1.08-3.33 1.84V8.5H9.48c.05.66 0 11.5 0 11.5h3.38v-6.42c0-.34.02-.68.12-.92.27-.67.88-1.36 1.9-1.36 1.34 0 1.88 1.02 1.88 2.52V20h3.38v-7.33Z"/>
       </svg>
@@ -1928,33 +1802,11 @@
   </div>
 
   <script>
-    const INSTANT_RATES_URL = "get-instant-rates.html";
-
-    document.querySelectorAll("[data-instant-rates]").forEach(el=>{
-      el.setAttribute("href", INSTANT_RATES_URL);
-    });
-
-    // Loader
     window.addEventListener("load", () => {
       const loader = document.getElementById("loader");
       if (loader) loader.classList.add("hide");
     });
 
-    // Track button placeholder
-    const trackBtn = document.getElementById("trackBtn");
-    const trackRef = document.getElementById("trackRef");
-    if (trackBtn && trackRef){
-      trackBtn.addEventListener("click", () => {
-        const ref = trackRef.value.trim();
-        if (ref) {
-          alert("Tracking reference: " + ref + " (connect this to your tracking system)");
-        } else {
-          alert("Please enter your reference number.");
-        }
-      });
-    }
-
-    // Chat panel
     const chatToggle = document.getElementById("chatToggle");
     const chatPanel = document.getElementById("chatPanel");
 
@@ -1973,7 +1825,6 @@
       });
     }
 
-    // Upgraded cursor - FIXED CENTERING
     const isFinePointer = window.matchMedia("(pointer:fine)").matches;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -1989,7 +1840,6 @@
       let glowX = mouseX;
       let glowY = mouseY;
 
-      // Initial center placement
       dot.style.left = mouseX + "px";
       dot.style.top = mouseY + "px";
       ring.style.left = ringX + "px";
@@ -2000,7 +1850,6 @@
       window.addEventListener("mousemove", (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
-
         dot.style.left = mouseX + "px";
         dot.style.top = mouseY + "px";
       });
@@ -2023,7 +1872,7 @@
       };
       follow();
 
-      document.querySelectorAll("a, button, .track-search, .mini, .feature, .service-card, .about-mini, .instant-cta, .cta, .cta-sea, .btn, .float-btn, .chat-link").forEach(el => {
+      document.querySelectorAll("a, button, .btn, .mini-btn, .float-btn, .chat-link").forEach(el => {
         el.addEventListener("mouseenter", () => document.body.classList.add("cursor-hover"));
         el.addEventListener("mouseleave", () => document.body.classList.remove("cursor-hover"));
       });
@@ -2037,7 +1886,6 @@
           const moveY = (relY - rect.height / 2) / rect.height * 10;
           el.style.transform = `translate(${moveX}px, ${moveY}px)`;
         });
-
         el.addEventListener("mouseleave", () => {
           el.style.transform = "";
         });
@@ -2046,7 +1894,6 @@
       document.body.style.cursor = "auto";
     }
 
-    // Scroll zoom / reveal animation
     const motionEls = document.querySelectorAll(".motion");
     if (!reduceMotion && "IntersectionObserver" in window){
       const io = new IntersectionObserver((entries) => {
@@ -2056,7 +1903,7 @@
           }
         });
       }, {
-        threshold: 0.14,
+        threshold: 0.12,
         rootMargin: "0px 0px -6% 0px"
       });
 
@@ -2065,7 +1912,6 @@
       motionEls.forEach(el => el.classList.add("in-view"));
     }
 
-    // Dots animation loop for hero
     const dots = Array.from(document.querySelectorAll("#carouselDots .dot"));
     if (dots.length){
       let dotIndex = 0;
