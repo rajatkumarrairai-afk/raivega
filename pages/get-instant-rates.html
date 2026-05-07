@@ -31,13 +31,16 @@
       --mint-text:#064E3B;
       --sea-start:#20B2AA;
       --sea-end:#2E8B57;
+      --nav-h:96px;
     }
 
     *{box-sizing:border-box;}
+
     html{
       scroll-behavior:smooth;
-      scroll-padding-top:96px;
+      scroll-padding-top:calc(var(--nav-h) + 10px);
     }
+
     body{
       margin:0;
       font-family:"Titillium Web",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
@@ -49,6 +52,7 @@
       overflow-x:hidden;
       font-weight:400;
       cursor:none;
+      padding-top:var(--nav-h);
       -webkit-font-smoothing:antialiased;
       text-rendering:optimizeLegibility;
     }
@@ -116,9 +120,11 @@
       border-color:rgba(32,178,170,0.95);
       background:rgba(32,178,170,0.08);
     }
+
     body.cursor-hover .cursor-dot{
       background:var(--sea-end);
     }
+
     body.cursor-down .cursor-ring{
       width:34px;
       height:34px;
@@ -135,11 +141,13 @@
       z-index:99999;
       transition:opacity 300ms ease,visibility 300ms ease;
     }
+
     #loader.hide{
       opacity:0;
       visibility:hidden;
       pointer-events:none;
     }
+
     .loader-box{
       text-align:center;
       padding:26px 18px;
@@ -149,6 +157,7 @@
       background:#fff;
       width:min(380px, calc(100% - 40px));
     }
+
     .loader-logo{
       width:150px;
       margin:0 auto 14px;
@@ -158,6 +167,7 @@
       background:#fff;
       object-fit:contain;
     }
+
     .loader-title{
       margin:0 0 6px;
       font-weight:700;
@@ -166,6 +176,7 @@
       letter-spacing:.6px;
       text-transform:uppercase;
     }
+
     .loader-sub{
       margin:0 0 14px;
       font-weight:500;
@@ -174,6 +185,7 @@
       letter-spacing:.8px;
       text-transform:uppercase;
     }
+
     .loader-bar{
       width:100%;
       height:10px;
@@ -182,6 +194,7 @@
       border:1px solid rgba(10,22,68,0.10);
       overflow:hidden;
     }
+
     .loader-bar span{
       display:block;
       height:100%;
@@ -190,6 +203,7 @@
       background:linear-gradient(90deg, rgba(24,183,161,0.45), rgba(21,48,122,0.45));
       animation:loadMove 1.1s ease-in-out infinite;
     }
+
     @keyframes loadMove{
       0%{transform:translateX(-60%);}
       50%{transform:translateX(120%);}
@@ -197,13 +211,41 @@
     }
 
     .nav{
-      position:sticky;
+      position:fixed;
       top:0;
+      left:0;
+      right:0;
+      width:100%;
       z-index:50;
-      background:rgba(255,255,255,0.88);
-      border-bottom:1px solid var(--border);
+      background:rgba(255,255,255,0.82);
+      border-bottom:1px solid rgba(10,22,68,0.06);
       backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+      transform:translate3d(0,0,0) scale(1);
+      transform-origin:top center;
+      opacity:1;
+      will-change:transform, opacity;
+      transition:
+        transform .55s cubic-bezier(.22,1,.36,1),
+        opacity .38s ease,
+        background-color .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
     }
+
+    .nav.nav-scrolled{
+      background:rgba(255,255,255,0.94);
+      border-bottom-color:rgba(10,22,68,0.10);
+      box-shadow:0 12px 34px rgba(10,22,68,0.08);
+    }
+
+    .nav.nav-hidden{
+      transform:translate3d(0,-115%,0) scale(.92);
+      opacity:0;
+      pointer-events:none;
+      box-shadow:none;
+    }
+
     .nav-inner{
       display:flex;
       align-items:center;
@@ -218,17 +260,20 @@
       gap:12px;
       min-width:0;
     }
+
     .logo-img{
       height:64px;
       width:auto;
       object-fit:contain;
     }
+
     .brand-title{
       display:flex;
       flex-direction:column;
       gap:3px;
       line-height:1.05;
     }
+
     .brand-title .name{
       font-size:22px;
       font-weight:700;
@@ -236,9 +281,11 @@
       text-transform:uppercase;
       white-space:nowrap;
     }
+
     .brand-title .name .rai{color:var(--blue);}
     .brand-title .name .v{color:var(--gold);}
     .brand-title .name .ega{color:var(--blue);}
+
     .brand-sub{
       font-size:11px;
       font-weight:500;
@@ -254,6 +301,7 @@
       flex-wrap:wrap;
       justify-content:flex-end;
     }
+
     .nav-links a{
       font-size:14px;
       color:var(--muted);
@@ -262,6 +310,7 @@
       transition:.18s ease;
       font-weight:500;
     }
+
     .nav-links a:hover{
       color:var(--blue);
       background:rgba(10,22,68,0.05);
@@ -280,17 +329,20 @@
       font-size:14px;
       font-weight:700;
     }
+
     .cta:hover,
     .cta-sea:hover{
       transform:translateY(-2px) scale(1.01);
       filter:brightness(1.03);
     }
+
     .cta{
       background:linear-gradient(135deg, var(--mint-start), var(--mint-end));
       border:1px solid rgba(4,120,87,0.18);
       box-shadow:0 14px 32px rgba(16,185,129,0.40);
       color:var(--mint-text) !important;
     }
+
     .cta-sea{
       background:linear-gradient(135deg, var(--sea-start), var(--sea-end));
       border:1px solid rgba(255,255,255,0.15);
@@ -304,6 +356,7 @@
       .logo-img{height:58px;}
       .brand-title .name{font-size:21px;}
     }
+
     @media (max-width:640px){
       .cta,.cta-sea{width:100%;}
       .nav-links{align-items:stretch;}
@@ -318,6 +371,7 @@
         transform 1s var(--ease),
         filter .9s var(--ease);
     }
+
     .motion.in-view{
       opacity:1;
       transform:translateY(0) scale(1);
@@ -373,40 +427,48 @@
       padding:38px 0;
       position:relative;
     }
+
     .foot-grid{
       display:grid;
       grid-template-columns:1.2fr 0.7fr 0.7fr;
       gap:18px;
     }
+
     @media (max-width:880px){
       .foot-grid{grid-template-columns:1fr;}
     }
+
     .footer-brand{
       display:flex;
       align-items:center;
       gap:12px;
       margin-bottom:8px;
     }
+
     .footer-logo-img{
       height:64px;
       width:auto;
       object-fit:contain;
     }
+
     .footer-title{
       display:flex;
       flex-direction:column;
       gap:3px;
       line-height:1.05;
     }
+
     .footer-title .name{
       font-size:22px;
       font-weight:700;
       letter-spacing:0.2px;
       text-transform:uppercase;
     }
+
     .footer-title .name .rai{color:var(--blue);}
     .footer-title .name .v{color:var(--gold);}
     .footer-title .name .ega{color:var(--blue);}
+
     .foot h5{
       margin:0 0 10px;
       font-size:13px;
@@ -415,6 +477,7 @@
       color:var(--muted2);
       font-weight:600;
     }
+
     .foot p,
     .foot a{
       margin:0;
@@ -423,11 +486,13 @@
       line-height:1.95;
       font-weight:400;
     }
+
     .foot a:hover{
       color:var(--blue2);
       text-decoration:underline;
       text-underline-offset:3px;
     }
+
     .copyright{
       margin-top:18px;
       color:rgba(10,22,68,0.55);
@@ -453,31 +518,37 @@
       transform-origin:bottom right;
       transition:opacity .25s ease, transform .28s var(--ease), visibility .25s ease;
     }
+
     .chat-panel.open{
       opacity:1;
       visibility:visible;
       transform:translateY(0) scale(1);
     }
+
     .chat-head{
       padding:15px 16px 13px;
       background:linear-gradient(135deg, var(--blue), var(--blue2), var(--teal));
       color:#fff;
     }
+
     .chat-head strong{
       display:block;
       font-size:15px;
       margin-bottom:2px;
     }
+
     .chat-head span{
       display:block;
       opacity:.92;
       font-size:12.5px;
     }
+
     .chat-body{
       padding:14px;
       display:grid;
       gap:10px;
     }
+
     .chat-link{
       display:flex;
       align-items:center;
@@ -492,6 +563,7 @@
       font-weight:600;
       transition:transform .2s var(--ease), background .2s ease, box-shadow .2s ease;
     }
+
     .chat-link:hover{
       transform:translateY(-2px);
       background:rgba(10,22,68,0.03);
@@ -507,6 +579,7 @@
       gap:10px;
       z-index:9999;
     }
+
     .float-btn{
       width:48px;
       height:48px;
@@ -520,21 +593,26 @@
       background:#fff;
       cursor:pointer;
     }
+
     .float-btn:hover{
       transform:translateY(-3px) scale(1.04);
       box-shadow:0 22px 54px rgba(10,22,68,0.24);
     }
+
     .float-btn svg{
       width:24px;
       height:24px;
       display:block;
     }
+
     .float-chat{
       background:linear-gradient(135deg, var(--blue), var(--blue2), var(--teal));
       color:#fff;
     }
+
     .float-wa{background:var(--wa);}
     .float-li{background:var(--li);}
+
     .float-wa svg,
     .float-li svg{fill:#fff;}
 
@@ -571,6 +649,9 @@
         transform:none !important;
         filter:none !important;
       }
+      .nav{
+        transition:none !important;
+      }
     }
 
     @media (hover:none), (pointer:coarse){
@@ -598,7 +679,7 @@
     </div>
   </div>
 
-  <div class="nav">
+  <div class="nav" id="mainNav">
     <div class="container">
       <div class="nav-inner">
         <a class="brand magnetic" href="../index.html">
@@ -831,6 +912,50 @@
       motionEls.forEach(el => io.observe(el));
     } else {
       motionEls.forEach(el => el.classList.add("in-view"));
+    }
+
+    const nav = document.getElementById("mainNav");
+
+    if (nav){
+      const setNavHeight = () => {
+        document.documentElement.style.setProperty("--nav-h", `${nav.offsetHeight}px`);
+      };
+
+      setNavHeight();
+      window.addEventListener("load", setNavHeight);
+      window.addEventListener("resize", setNavHeight);
+
+      let lastScrollY = window.pageYOffset || 0;
+      let ticking = false;
+      const delta = 8;
+      const topSafeZone = 10;
+
+      const updateNav = () => {
+        const currentScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+
+        nav.classList.toggle("nav-scrolled", currentScrollY > 8);
+
+        if (Math.abs(currentScrollY - lastScrollY) >= delta) {
+          if (currentScrollY <= topSafeZone) {
+            nav.classList.remove("nav-hidden");
+          } else if (currentScrollY < lastScrollY) {
+            nav.classList.add("nav-hidden");
+          } else {
+            nav.classList.remove("nav-hidden");
+          }
+
+          lastScrollY = currentScrollY <= 0 ? 0 : currentScrollY;
+        }
+
+        ticking = false;
+      };
+
+      window.addEventListener("scroll", () => {
+        if (!ticking) {
+          requestAnimationFrame(updateNav);
+          ticking = true;
+        }
+      }, { passive:true });
     }
   </script>
 </body>
