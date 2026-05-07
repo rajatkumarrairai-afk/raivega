@@ -351,8 +351,15 @@
     }
 
     @media (max-width:900px){
-      .nav-inner{flex-direction:column;align-items:flex-start;}
-      .nav-links{width:100%;justify-content:flex-start;gap:8px;}
+      .nav-inner{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .nav-links{
+        width:100%;
+        justify-content:flex-start;
+        gap:8px;
+      }
       .logo-img{height:58px;}
       .brand-title .name{font-size:21px;}
     }
@@ -733,8 +740,8 @@
               </div>
             </div>
           </div>
-          <p>RMultimodal freight forwarding solutions across Ocean, Air and Ground freight — with customs and warehousing support.</p>
-          <div class="copyright">© 2025 RAIVEGA. All rights reserved.</div>
+          <p>Multimodal freight forwarding solutions across Ocean, Air and Ground freight — with customs and warehousing support.</p>
+          <div class="copyright">© 2026 RAIVEGA. All rights reserved.</div>
         </div>
 
         <div class="foot">
@@ -775,7 +782,7 @@
         <span>Contact Us</span>
         <span>→</span>
       </a>
-      <a class="chat-link magnetic" href="https://wa.me/7011028101" target="_blank" rel="noopener noreferrer">
+      <a class="chat-link magnetic" href="https://wa.me/917011028101" target="_blank" rel="noopener noreferrer">
         <span>WhatsApp Support</span>
         <span>→</span>
       </a>
@@ -917,6 +924,8 @@
     const nav = document.getElementById("mainNav");
 
     if (nav){
+      const getDelta = () => window.innerWidth <= 900 ? 4 : 8;
+
       const setNavHeight = () => {
         document.documentElement.style.setProperty("--nav-h", `${nav.offsetHeight}px`);
       };
@@ -924,14 +933,19 @@
       setNavHeight();
       window.addEventListener("load", setNavHeight);
       window.addEventListener("resize", setNavHeight);
+      window.addEventListener("orientationchange", setNavHeight);
 
-      let lastScrollY = window.pageYOffset || 0;
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener("resize", setNavHeight);
+      }
+
+      let lastScrollY = Math.max(window.pageYOffset || 0, 0);
       let ticking = false;
-      const delta = 8;
       const topSafeZone = 10;
 
       const updateNav = () => {
-        const currentScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+        const currentScrollY = Math.max(window.pageYOffset || document.documentElement.scrollTop || 0, 0);
+        const delta = getDelta();
 
         nav.classList.toggle("nav-scrolled", currentScrollY > 8);
 
@@ -944,7 +958,7 @@
             nav.classList.remove("nav-hidden");
           }
 
-          lastScrollY = currentScrollY <= 0 ? 0 : currentScrollY;
+          lastScrollY = currentScrollY;
         }
 
         ticking = false;
