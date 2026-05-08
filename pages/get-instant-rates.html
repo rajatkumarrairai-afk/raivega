@@ -462,15 +462,14 @@
     .iframe-wrap{
       position:relative;
       width:100%;
-      min-height:clamp(500px, 78vh, 980px);
       background:#f8fafc;
     }
 
     .iframe-wrap iframe{
       display:block;
       width:100%;
-      height:clamp(500px, 78vh, 980px);
-      min-height:500px;
+      height:1300px;
+      min-height:calc(100svh - var(--nav-h) - 56px);
       border:0;
       background:#fff;
     }
@@ -815,6 +814,11 @@
         visibility:visible;
         pointer-events:auto;
       }
+
+      .iframe-wrap iframe{
+        min-height:calc(100svh - var(--nav-h) - 32px);
+        height:1500px;
+      }
     }
 
     @media (max-width:640px){
@@ -851,13 +855,9 @@
         padding:18px 0 32px;
       }
 
-      .iframe-wrap{
-        min-height:70vh;
-      }
-
       .iframe-wrap iframe{
-        height:70vh;
-        min-height:500px;
+        min-height:calc(100svh - var(--nav-h) - 24px);
+        height:1700px;
       }
 
       .foot-grid{
@@ -1320,6 +1320,55 @@
           ticking = true;
         }
       }, { passive:true });
+    }
+
+    const ratesFrame = document.getElementById("ratesFrame");
+    const FRAME_ORIGIN = "https://swifty-pi.vercel.app";
+    const MIN_FRAME_HEIGHT = 900;
+    const MAX_FRAME_HEIGHT = 16000;
+
+    const setFrameHeight = (value) => {
+      if (!ratesFrame) return;
+      const numeric = Number(value);
+      if (!Number.isFinite(numeric)) return;
+      const clamped = Math.max(MIN_FRAME_HEIGHT, Math.min(Math.round(numeric), MAX_FRAME_HEIGHT));
+      ratesFrame.style.height = clamped + "px";
+    };
+
+    const requestFrameHeight = () => {
+      if (!ratesFrame || !ratesFrame.contentWindow) return;
+      try {
+        ratesFrame.contentWindow.postMessage({ type: "raivega:request-height" }, FRAME_ORIGIN);
+      } catch (_) {}
+    };
+
+    if (ratesFrame) {
+      setFrameHeight(window.innerWidth <= 640 ? 1700 : 1300);
+
+      ratesFrame.addEventListener("load", () => {
+        setFrameHeight(window.innerWidth <= 640 ? 1700 : 1300);
+        setTimeout(requestFrameHeight, 250);
+        setTimeout(requestFrameHeight, 1000);
+        setTimeout(requestFrameHeight, 1800);
+      });
+
+      window.addEventListener("message", (event) => {
+        if (event.origin !== FRAME_ORIGIN) return;
+        const data = event.data || {};
+        if (data.type !== "raivega:iframe-height") return;
+        const nextHeight = Number(data.height);
+        if (!Number.isFinite(nextHeight)) return;
+        setFrameHeight(nextHeight + 8);
+      });
+
+      window.addEventListener("resize", requestFrameHeight);
+      window.addEventListener("orientationchange", () => {
+        setTimeout(requestFrameHeight, 250);
+      });
+
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener("resize", requestFrameHeight);
+      }
     }
   </script>
 </body>
