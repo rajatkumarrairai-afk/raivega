@@ -107,9 +107,7 @@
     }
 
     /* ═══════════════════════════════════════
-       ADAPTIVE TEXT  (mix-blend-mode trick)
-       Wrap any text with <span class="inv-text">
-       → appears white on dark, dark on light
+       ADAPTIVE TEXT (mix-blend-mode)
     ═══════════════════════════════════════ */
     .inv-text{
       color:#ffffff;
@@ -405,9 +403,7 @@
 </head>
 <body>
 
-  <!-- ╔══════════════════════════════════════╗
-       ║  SHIP 3-D CANVAS (fixed background)  ║
-       ╚══════════════════════════════════════╝ -->
+  <!-- SHIP 3-D CANVAS -->
   <canvas id="ship-bg-canvas"></canvas>
   <div id="ship-loading">
     <span id="ship-loading-text">Loading 3D Ship… 0%</span>
@@ -416,16 +412,12 @@
     </div>
   </div>
 
-  <!-- ╔══════════════════════════════════════╗
-       ║  CUSTOM CURSOR                        ║
-       ╚══════════════════════════════════════╝ -->
+  <!-- CUSTOM CURSOR -->
   <div class="cursor-glow" id="cursorGlow"></div>
   <div class="cursor-dot"  id="cursorDot"></div>
   <div class="cursor-ring" id="cursorRing"></div>
 
-  <!-- ╔══════════════════════════════════════╗
-       ║  PAGE LOADER                          ║
-       ╚══════════════════════════════════════╝ -->
+  <!-- PAGE LOADER -->
   <div id="loader">
     <div class="loader-box">
       <img class="loader-logo" src="images/RV LOGO.png" alt="RAIVEGA Loader Logo" />
@@ -435,9 +427,7 @@
     </div>
   </div>
 
-  <!-- ╔══════════════════════════════════════╗
-       ║  NAV                                  ║
-       ╚══════════════════════════════════════╝ -->
+  <!-- NAV -->
   <div class="nav">
     <div class="container">
       <div class="nav-inner">
@@ -462,9 +452,7 @@
     </div>
   </div>
 
-  <!-- ╔══════════════════════════════════════╗
-       ║  MAIN                                 ║
-       ╚══════════════════════════════════════╝ -->
+  <!-- MAIN -->
   <main class="hero-wrap" id="home">
     <div class="container">
       <div class="hero-top">
@@ -640,7 +628,7 @@
       </div>
     </div><!-- /container -->
 
-    <!-- ── Services ── -->
+    <!-- Services -->
     <section id="services">
       <div class="container">
         <div class="section-title motion">
@@ -724,7 +712,7 @@
       </div>
     </section>
 
-    <!-- ── About ── -->
+    <!-- About -->
     <section id="about">
       <div class="container">
         <div class="section-title motion">
@@ -769,9 +757,7 @@
     </section>
   </main>
 
-  <!-- ╔══════════════════════════════════════╗
-       ║  FOOTER                               ║
-       ╚══════════════════════════════════════╝ -->
+  <!-- FOOTER -->
   <footer>
     <div class="container">
       <div class="foot-grid motion">
@@ -808,9 +794,7 @@
     </div>
   </footer>
 
-  <!-- ╔══════════════════════════════════════╗
-       ║  CHAT PANEL                           ║
-       ╚══════════════════════════════════════╝ -->
+  <!-- CHAT PANEL -->
   <div class="chat-panel" id="chatPanel" aria-hidden="true">
     <div class="chat-head">
       <strong>RAIVEGA Assistant</strong>
@@ -824,9 +808,7 @@
     </div>
   </div>
 
-  <!-- ╔══════════════════════════════════════╗
-       ║  FLOAT BUTTONS                        ║
-       ╚══════════════════════════════════════╝ -->
+  <!-- FLOAT BUTTONS -->
   <div class="float-wrap">
     <button class="float-btn float-chat magnetic" id="chatToggle" aria-label="Chat">
       <svg viewBox="0 0 24 24" fill="none">
@@ -848,21 +830,16 @@
     </a>
   </div>
 
-  <!-- ╔══════════════════════════════════════════════════════════════╗
-       ║  THREE.JS SHIP BACKGROUND                                    ║
-       ║  Files: 3d/ship.fbx + 3d/*.png + 3d/internal_ground_ao_texture.jpeg  ║
-       ╚══════════════════════════════════════════════════════════════╝ -->
+  <!-- THREE.JS SHIP BACKGROUND -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.161.0/examples/js/loaders/FBXLoader.js"></script>
   <script>
   (function () {
     'use strict';
 
-    /* ── asset paths ─────────────────────────────────── */
     var FBX  = '3d/ship.fbx';
     var TDIR = '3d/';
 
-    /* ── PBR texture map ─────────────────────────────── */
     var TEX = {
       bridge: [
         { slot: 'map',          file: 'Bridge_Base_color_sRGB.png',    sRGB: true  },
@@ -889,20 +866,18 @@
       ]
     };
 
-    /* ── DOM helpers ─────────────────────────────────── */
     var loadOverlay = document.getElementById('ship-loading');
     var loadText    = document.getElementById('ship-loading-text');
     var loadBar     = document.getElementById('ship-loading-bar-fill');
 
     function setProgress (pct) {
-      if (loadText) loadText.textContent = 'Loading 3D Ship\u2026 ' + pct + '%';
+      if (loadText) loadText.textContent = 'Loading 3D Ship… ' + pct + '%';
       if (loadBar)  loadBar.style.width  = pct + '%';
     }
     function hideOverlay () {
       if (loadOverlay) loadOverlay.classList.add('hidden');
     }
 
-    /* ── Renderer ────────────────────────────────────── */
     var canvas   = document.getElementById('ship-bg-canvas');
     var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -912,11 +887,9 @@
     renderer.toneMappingExposure = 1.15;
     renderer.shadowMap.enabled   = true;
 
-    /* ── Scene ───────────────────────────────────────── */
     var scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x0b1830, 0.014);
 
-    /* sky-to-sea gradient background */
     var bgCv  = document.createElement('canvas');
     bgCv.width = 2; bgCv.height = 512;
     var bgCtx = bgCv.getContext('2d');
@@ -928,13 +901,11 @@
     bgCtx.fillRect(0, 0, 2, 512);
     scene.background = new THREE.CanvasTexture(bgCv);
 
-    /* ── Camera ──────────────────────────────────────── */
     var BASE_Z = 440;
     var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 4000);
     camera.position.set(0, 55, BASE_Z);
     camera.lookAt(0, 0, 0);
 
-    /* ── Lights ──────────────────────────────────────── */
     scene.add(new THREE.AmbientLight(0xffffff, 0.55));
 
     var sun = new THREE.DirectionalLight(0xfff4d0, 2.4);
@@ -950,7 +921,6 @@
     tealRim.position.set(0, 200, -250);
     scene.add(tealRim);
 
-    /* ── Texture loader ──────────────────────────────── */
     var tl = new THREE.TextureLoader();
     function loadTex (file, sRGB) {
       var t = tl.load(TDIR + file);
@@ -959,7 +929,6 @@
       return t;
     }
 
-    /* ── Apply PBR textures by matching material name ── */
     function applyTextures (model) {
       model.traverse(function (node) {
         if (!node.isMesh) return;
@@ -988,7 +957,6 @@
       });
     }
 
-    /* ── FBX Load ────────────────────────────────────── */
     var ship = null;
     var fbxLoader = new THREE.FBXLoader();
     fbxLoader.load(
@@ -1018,7 +986,6 @@
       }
     );
 
-    /* ── Mouse tracking ──────────────────────────────── */
     var mouseX = 0, mouseY = 0;
     var targetRotX = 0, targetRotY = 0;
     var curRotX = 0,    curRotY = 0;
@@ -1028,63 +995,52 @@
       mouseY = -((e.clientY / window.innerHeight) * 2 - 1);
     });
 
-    /* ── Scroll zoom ─────────────────────────────────── */
     var scrollT = 0;
     window.addEventListener('scroll', function () {
       var dH = document.documentElement.scrollHeight - window.innerHeight;
       scrollT = dH > 0 ? Math.min(window.scrollY / dH, 1) : 0;
     }, { passive: true });
 
-    /* ── Resize ──────────────────────────────────────── */
     window.addEventListener('resize', function () {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    /* ── Render loop ─────────────────────────────────── */
     var clock = new THREE.Clock();
     (function animate () {
       requestAnimationFrame(animate);
       var dt = clock.getDelta();
 
       if (ship) {
-        /* Ship nose tracks mouse — yaw (Y) + pitch (X) */
         targetRotX = mouseY * 0.16;
         targetRotY = mouseX * 0.26;
 
-        var f   = 1 - Math.pow(0.04, dt);   /* exponential smoothing */
+        var f   = 1 - Math.pow(0.04, dt);
         curRotX += (targetRotX - curRotX) * f;
         curRotY += (targetRotY - curRotY) * f;
 
         ship.rotation.x = curRotX;
         ship.rotation.y = curRotY;
 
-        /* gentle idle ocean bob */
         ship.position.y = Math.sin(clock.elapsedTime * 0.38) * 2.8;
       }
 
-      /* scroll → zoom: BASE_Z  →  BASE_Z × 0.36 */
       var targetZ = BASE_Z - scrollT * (BASE_Z - BASE_Z * 0.36);
       camera.position.z += (targetZ - camera.position.z) * 0.055;
 
       renderer.render(scene, camera);
     }());
-
   }());
   </script>
 
-  <!-- ╔══════════════════════════════════════╗
-       ║  PAGE SCRIPTS (original + extended)   ║
-       ╚══════════════════════════════════════╝ -->
+  <!-- PAGE SCRIPTS -->
   <script>
-    /* ── Page loader ─────────────────────────────────── */
     window.addEventListener('load', function () {
       var loader = document.getElementById('loader');
       if (loader) loader.classList.add('hide');
     });
 
-    /* ── Chat toggle ─────────────────────────────────── */
     var chatToggle = document.getElementById('chatToggle');
     var chatPanel  = document.getElementById('chatPanel');
     if (chatToggle && chatPanel) {
@@ -1101,7 +1057,6 @@
       });
     }
 
-    /* ── Custom cursor ───────────────────────────────── */
     var isFine       = window.matchMedia('(pointer:fine)').matches;
     var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -1161,7 +1116,6 @@
       document.body.style.cursor = 'auto';
     }
 
-    /* ── Intersection observer (.motion) ─────────────── */
     var motionEls = document.querySelectorAll('.motion');
     if (!reduceMotion && 'IntersectionObserver' in window) {
       var io = new IntersectionObserver(function (entries) {
@@ -1174,7 +1128,6 @@
       motionEls.forEach(function (el) { el.classList.add('in-view'); });
     }
 
-    /* ── Carousel dot ticker ─────────────────────────── */
     var dots = Array.from(document.querySelectorAll('#carouselDots .dot'));
     if (dots.length) {
       var di = 0;
@@ -1185,6 +1138,5 @@
       }, 2200);
     }
   </script>
-
 </body>
 </html>
