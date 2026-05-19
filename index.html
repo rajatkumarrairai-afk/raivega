@@ -28,15 +28,14 @@
       --shadow-hover:0 8px 24px rgba(28,50,97,0.12);
       --radius:18px;
       --ease:cubic-bezier(.22,1,.36,1);
-      --nav-h:93px;
-      --hero-bg:#050b16;
-      --hero-bg-2:#091322;
-      --hero-bg-3:#0b1930;
-      --hero-overlay:rgba(4,9,17,0.36);
+      --hero-dark:#050b16;
+      --hero-dark-2:#0a1527;
+      --hero-dark-3:#102240;
       --hero-panel:rgba(8,18,33,0.54);
       --hero-panel-border:rgba(255,255,255,0.12);
-      --hero-text:rgba(255,255,255,0.88);
+      --hero-text:rgba(255,255,255,0.92);
       --hero-muted:rgba(255,255,255,0.72);
+      --cinematic-scroll-length:240%;
     }
 
     *{box-sizing:border-box;}
@@ -146,259 +145,397 @@
     [data-stagger].visible>*:nth-child(5){opacity:1;transform:none;transition-delay:.45s;}
     [data-stagger].visible>*:nth-child(6){opacity:1;transform:none;transition-delay:.55s;}
 
-    .hero-wrap{
-      width:100%;display:flex;flex-direction:column;
-      padding:0 0 0;background:var(--hero-bg);
-    }
-    .hero-top{
-      position:relative;
-      min-height:100vh;
-      min-height:100svh;
-      background:var(--hero-bg);
-    }
-    .hero-shell{
-      position:relative;
-      display:grid;
-      grid-template-columns:1fr;
-      gap:0;
-      align-items:stretch;
-      min-height:100vh;
-      min-height:100svh;
-    }
+    .hero-wrap{width:100%;display:flex;flex-direction:column;padding:18px 0 10px;background:#FFFFFF;}
+    .hero-top{position:relative;min-height:520px;}
+    .hero-shell{display:grid;grid-template-columns:1.2fr 0.8fr;gap:16px;align-items:stretch;}
+    @media(max-width:920px){.hero-shell{grid-template-columns:1fr;}.hero-top{min-height:unset;}}
 
-    .carousel-panel.cinematic-panel{
+    .carousel-panel{
+      position:relative;border-radius:var(--radius);
+      border:1px solid var(--border);background:#fff;
+      box-shadow:var(--shadow-md);overflow:hidden;min-height:520px;
+    }
+    @media(min-width:921px){.carousel-panel{min-height:540px;}}
+    .carousel-header{
+      position:absolute;top:14px;left:14px;right:14px;z-index:3;
+      display:flex;justify-content:space-between;gap:12px;align-items:flex-start;pointer-events:none;
+    }
+    .hero-badge{
+      pointer-events:auto;display:inline-flex;align-items:center;gap:10px;
+      padding:10px 14px;background:rgba(255,255,255,0.94);
+      border:1px solid rgba(28,50,97,0.12);border-radius:999px;
+      color:var(--muted);font-size:12px;font-weight:500;box-shadow:0 4px 12px rgba(28,50,97,0.06);
+    }
+    .hero-badge i{width:9px;height:9px;border-radius:50%;background:var(--gold);display:inline-block;box-shadow:0 0 10px rgba(200,150,42,0.6);}
+
+    .marquee{position:absolute;inset:0;display:flex;align-items:stretch;border-radius:var(--radius);overflow:hidden;}
+    .marquee-track{display:flex;width:max-content;will-change:transform;transition:transform 0.7s var(--ease);}
+    .slide{width:100%;min-width:100%;height:100%;position:relative;flex:0 0 100%;display:flex;align-items:flex-end;overflow:hidden;border-radius:var(--radius);}
+    @media(max-width:920px){.slide{min-height:420px;}}
+    .slide img{
+      position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;
+      display:block;animation:heroZoom 18s ease-in-out infinite alternate;
+      transform-origin:center center;
+    }
+    @keyframes heroZoom{from{transform:scale(1.02);}to{transform:scale(1.10);}}
+    .slide:before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(28,50,97,0.82),rgba(28,50,97,0.08) 60%,rgba(28,50,97,0.18));z-index:1;}
+    .slide-content{position:relative;z-index:2;width:100%;padding:26px 22px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;color:#fff;}
+    .slide-text{max-width:560px;}
+    .slide-text h1{margin:0 0 8px;font-size:clamp(22px,2.6vw,34px);letter-spacing:-0.3px;font-weight:600;}
+    .slide-text p{margin:0;font-size:14px;line-height:1.65;opacity:0.92;font-weight:400;}
+    .slide-action{display:flex;flex-direction:column;align-items:flex-end;gap:10px;}
+
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      gap:10px;padding:12px 14px;border-radius:14px;
+      border:1px solid rgba(255,255,255,0.22);background:rgba(255,255,255,0.14);
+      color:#fff;font-size:13px;font-weight:600;
+      transition:transform .2s var(--ease),background .2s ease;white-space:nowrap;
+    }
+    .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,0.22);}
+    .btn.primary{background:linear-gradient(135deg,rgba(200,150,42,0.35),rgba(255,255,255,0.14));}
+    .btn.quote-btn{background:var(--gold);border:1px solid rgba(200,150,42,0.30);color:#fff;box-shadow:0 6px 18px rgba(200,150,42,0.35);}
+
+    .carousel-controls{position:absolute;bottom:56px;right:14px;z-index:5;display:flex;gap:8px;}
+    .carousel-btn{
+      width:38px;height:38px;border-radius:999px;
+      background:rgba(255,255,255,0.15);
+      border:1.5px solid rgba(255,255,255,0.30);
+      backdrop-filter:blur(8px);
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;
+      transition:background .2s ease,transform .2s var(--ease),box-shadow .2s ease;
+    }
+    .carousel-btn:hover{
+      background:var(--gold);
+      border-color:rgba(200,150,42,0.5);
+      transform:scale(1.1);
+      box-shadow:0 4px 16px rgba(200,150,42,0.45);
+    }
+    .carousel-btn svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+
+    .carousel-scrollbar{
+      position:absolute;left:18px;right:18px;bottom:14px;z-index:4;
+      height:3px;border-radius:999px;background:rgba(255,255,255,0.18);overflow:hidden;pointer-events:none;
+    }
+    .carousel-scrollbar-fill{
+      display:block;height:100%;border-radius:999px;
+      background:rgba(200,150,42,0.90);
+      transition:width 0.5s var(--ease);
+    }
+    .carousel-dots{position:absolute;left:0;right:120px;bottom:28px;z-index:4;display:flex;justify-content:center;gap:8px;pointer-events:none;}
+    .dot{width:9px;height:9px;border-radius:999px;background:rgba(255,255,255,0.35);border:1px solid rgba(255,255,255,0.50);transition:all 240ms ease;opacity:0.85;cursor:pointer;pointer-events:auto;}
+    .dot.active{width:22px;background:rgba(200,150,42,0.90);border-color:rgba(200,150,42,0.95);opacity:1;}
+
+    .hero-side{display:flex;flex-direction:column;gap:14px;}
+    .glass-card{
+      border-radius:var(--radius);border:1px solid var(--border);
+      background:#fff;box-shadow:var(--shadow-md);padding:20px;
+      transition:transform .25s var(--ease),box-shadow .25s ease;
+    }
+    .glass-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover);}
+    .hero-side h2{margin:0 0 6px;font-size:15.5px;letter-spacing:0.4px;font-weight:700;color:var(--blue);text-transform:uppercase;}
+    .hero-side p{margin:0;color:var(--muted);font-size:14px;line-height:1.85;font-weight:400;}
+    .typing-cursor{display:inline-block;width:2px;height:1em;background:var(--gold);margin-left:2px;vertical-align:middle;animation:blink .7s step-end infinite;}
+    @keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+
+    .quick-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
+    @media(max-width:420px){.quick-actions{grid-template-columns:1fr;}}
+    .mini{
+      padding:12px;border-radius:14px;
+      background:rgba(28,50,97,0.035);border:1px solid rgba(28,50,97,0.10);
+      transition:transform .2s var(--ease),background .2s ease,box-shadow .2s ease;
+    }
+    .mini:hover{transform:translateY(-2px);background:rgba(28,50,97,0.055);box-shadow:var(--shadow-hover);}
+    .mini strong{display:block;font-size:14px;margin-bottom:4px;color:var(--blue);font-weight:600;}
+    .mini span{font-size:12.5px;color:var(--muted2);font-weight:400;}
+
+    .instant-wrapper{display:flex;justify-content:flex-start;}
+    .instant-cta{
+      width:100%;display:inline-flex;align-items:center;justify-content:center;
+      padding:13px 16px;border-radius:16px;background:var(--blue);color:#fff;
+      font-size:15px;font-weight:700;border:1px solid rgba(28,50,97,0.20);
+      box-shadow:var(--shadow-md);
+      transition:transform .2s var(--ease),box-shadow .2s ease,color .2s ease;
+      text-align:center;white-space:nowrap;
+    }
+    .instant-cta:hover{transform:translateY(-2px) scale(1.01);box-shadow:var(--shadow-hover);color:#000 !important;}
+
+    .track-card{
+      border-radius:var(--radius);border:1px solid rgba(200,150,42,0.22);
+      background:rgba(200,150,42,0.04);box-shadow:var(--shadow-md);
+      padding:16px;display:flex;align-items:center;gap:12px;
+    }
+    .track-left{display:flex;flex-direction:column;gap:6px;flex:1;}
+    .track-left strong{font-size:15px;font-weight:700;color:var(--blue);letter-spacing:0.3px;text-transform:uppercase;}
+    .track-input-row{display:flex;gap:10px;align-items:center;width:100%;}
+    .track-input{
+      flex:1;height:44px;padding:0 14px;border-radius:14px;
+      border:1px solid rgba(28,50,97,0.14);background:#fff;
+      outline:none;font-size:14px;color:var(--blue);
+      transition:border-color .2s ease,box-shadow .2s ease;
+    }
+    .track-input:focus{border-color:rgba(200,150,42,0.6);box-shadow:0 0 0 4px rgba(200,150,42,0.10);}
+    .track-input::placeholder{color:rgba(28,50,97,0.40);}
+    .track-search{
+      width:44px;height:44px;border-radius:14px;border:none;
+      display:flex;align-items:center;justify-content:center;
+      background:var(--blue);flex:0 0 auto;cursor:pointer;
+      transition:transform .2s var(--ease),box-shadow .2s ease;
+    }
+    .track-search:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(28,50,97,0.25);}
+    .track-search svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;}
+
+    .hero-bottom{margin-top:18px;}
+    .feature-strip{border-radius:var(--radius);border:1px solid rgba(28,50,97,0.08);background:#fff;box-shadow:var(--shadow);padding:18px;}
+    .feature-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;}
+    @media(max-width:1040px){.feature-grid{grid-template-columns:repeat(3,1fr);}}
+    @media(max-width:580px){.feature-grid{grid-template-columns:repeat(2,1fr);}}
+    .feature{padding:14px;border-radius:16px;background:rgba(28,50,97,0.025);border:1px solid rgba(28,50,97,0.07);transition:transform .2s var(--ease),background .2s ease;min-height:90px;}
+    .feature:hover{transform:translateY(-2px);background:rgba(28,50,97,0.05);box-shadow:var(--shadow-hover);}
+    .feature strong{display:block;font-size:14px;margin-bottom:4px;color:var(--blue);font-weight:600;}
+    .feature span{font-size:12.5px;color:var(--muted2);line-height:1.35;}
+
+    .cinematic-section{
       position:relative;
-      min-height:100vh;
-      min-height:100svh;
-      border:0;
-      border-radius:0;
-      background:var(--hero-bg);
-      box-shadow:none;
+      padding:20px 0 26px;
+      background:linear-gradient(180deg, #ffffff 0%, #f5f7fb 100%);
+    }
+    .cinematic-shell{
+      position:relative;
+      border-radius:28px;
       overflow:hidden;
+      min-height:100vh;
+      background:
+        radial-gradient(circle at 50% 12%, rgba(44,92,168,0.18) 0%, transparent 28%),
+        radial-gradient(circle at 80% 20%, rgba(200,150,42,0.08) 0%, transparent 30%),
+        linear-gradient(180deg, var(--hero-dark-2) 0%, var(--hero-dark) 100%);
+      box-shadow:
+        0 30px 80px rgba(7,16,31,0.26),
+        inset 0 1px 0 rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.08);
       isolation:isolate;
     }
-
-    .hero-cinematic-stage{
+    .cinematic-stage{
       position:relative;
       width:100%;
       height:100vh;
-      height:100svh;
+      min-height:100svh;
       overflow:hidden;
+      transform:translateZ(0);
+      backface-visibility:hidden;
       perspective:1200px;
-      background:
-        radial-gradient(circle at 50% 16%, rgba(39,84,154,0.18) 0%, transparent 28%),
-        radial-gradient(circle at 50% 45%, rgba(14,36,69,0.24) 0%, transparent 48%),
-        linear-gradient(180deg, #06101d 0%, #081325 45%, #050b16 100%);
     }
-
-    .hero-sequence-canvas,
-    .hero-sequence-video,
-    .hero-cinematic-overlay{
+    .cinematic-canvas,
+    .cinematic-video,
+    .cinematic-overlay{
       position:absolute;inset:0;width:100%;height:100%;
     }
-
-    .hero-sequence-canvas{
+    .cinematic-canvas{
       z-index:1;
       display:block;
-      background:#050b16;
+      background:#060d19;
+      image-rendering:auto;
     }
-
-    .hero-sequence-video{
+    .cinematic-video{
       opacity:0;
       visibility:hidden;
       pointer-events:none;
       object-fit:cover;
-      appearance:none;
-      -webkit-appearance:none;
+      object-position:center;
     }
-    .hero-sequence-video::-webkit-media-controls{display:none !important;}
-
-    .hero-cinematic-overlay{
+    .cinematic-overlay{
       z-index:2;
+      pointer-events:none;
       background:
-        linear-gradient(180deg, rgba(4,9,17,0.10) 0%, rgba(4,9,17,0.08) 18%, rgba(4,9,17,0.18) 45%, rgba(4,9,17,0.58) 100%),
-        radial-gradient(circle at 50% 50%, transparent 0%, rgba(4,9,17,0.08) 58%, rgba(4,9,17,0.38) 100%);
-      pointer-events:none;
+        linear-gradient(180deg, rgba(4,9,17,0.16) 0%, rgba(4,9,17,0.06) 22%, rgba(4,9,17,0.14) 48%, rgba(4,9,17,0.72) 100%),
+        radial-gradient(circle at 50% 55%, transparent 0%, rgba(5,11,22,0.08) 56%, rgba(5,11,22,0.34) 100%);
     }
-
-    .hero-sequence-copy{
+    .cinematic-topbar{
       position:absolute;
-      top:max(16px, env(safe-area-inset-top));
-      left:clamp(16px, 3vw, 32px);
-      right:clamp(16px, 3vw, 32px);
+      top:clamp(18px,3vw,28px);
+      left:clamp(18px,3vw,28px);
+      right:clamp(18px,3vw,28px);
       z-index:4;
-      pointer-events:none;
       display:flex;
-      justify-content:flex-start;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:14px;
+      pointer-events:none;
     }
-
-    .hero-badge{
+    .cinematic-pill{
       pointer-events:auto;
       display:inline-flex;
       align-items:center;
       gap:10px;
       padding:10px 14px;
-      background:rgba(7,17,32,0.62);
-      border:1px solid rgba(255,255,255,0.14);
       border-radius:999px;
-      color:rgba(255,255,255,0.86);
+      background:rgba(9,19,35,0.58);
+      border:1px solid rgba(255,255,255,0.12);
+      color:rgba(255,255,255,0.84);
       font-size:12px;
       font-weight:500;
-      box-shadow:0 14px 40px rgba(0,0,0,0.24);
       backdrop-filter:blur(14px);
+      box-shadow:0 10px 28px rgba(0,0,0,0.18);
     }
-    .hero-badge i{
-      width:9px;height:9px;border-radius:50%;
-      background:var(--gold);display:inline-block;
-      box-shadow:0 0 10px rgba(200,150,42,0.6);
+    .cinematic-pill i{
+      width:8px;height:8px;border-radius:50%;
+      background:var(--gold);
+      box-shadow:0 0 10px rgba(200,150,42,0.55);
+      display:block;
     }
 
-    .hero-logo-layer{
+    .cinematic-copy{
+      position:absolute;
+      left:clamp(20px,5vw,64px);
+      right:clamp(20px,5vw,64px);
+      bottom:clamp(26px,6vw,58px);
+      z-index:4;
+      display:grid;
+      grid-template-columns:minmax(0, 1.2fr) minmax(280px, 0.8fr);
+      gap:24px;
+      align-items:end;
+    }
+    .cinematic-copy-main{
+      max-width:760px;
+    }
+    .cinematic-kicker{
+      margin:0 0 12px;
+      color:rgba(255,255,255,0.70);
+      letter-spacing:1.2px;
+      font-size:12px;
+      font-weight:600;
+      text-transform:uppercase;
+    }
+    .cinematic-title{
+      margin:0;
+      font-size:clamp(34px, 5.8vw, 82px);
+      line-height:.96;
+      letter-spacing:-1.8px;
+      color:#fff;
+      font-weight:700;
+      text-wrap:balance;
+      max-width:10ch;
+      text-shadow:0 8px 40px rgba(0,0,0,0.26);
+    }
+    .cinematic-copy-main p{
+      margin:18px 0 0;
+      max-width:60ch;
+      color:var(--hero-muted);
+      font-size:15px;
+      line-height:1.9;
+    }
+
+    .cinematic-side{
+      justify-self:end;
+      width:min(420px, 100%);
+      display:grid;
+      gap:12px;
+    }
+    .cinematic-panel{
+      padding:16px 18px;
+      border-radius:20px;
+      background:rgba(9,20,37,0.58);
+      border:1px solid rgba(255,255,255,0.12);
+      box-shadow:0 18px 40px rgba(0,0,0,0.22);
+      backdrop-filter:blur(18px);
+    }
+    .cinematic-panel strong{
+      display:block;
+      color:#fff;
+      font-size:13px;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      margin-bottom:6px;
+    }
+    .cinematic-panel p{
+      margin:0;
+      color:rgba(255,255,255,0.72);
+      font-size:14px;
+      line-height:1.8;
+    }
+    .cinematic-stats{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      margin-top:14px;
+    }
+    .cinematic-stat{
+      padding:12px 12px 10px;
+      border-radius:16px;
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.08);
+    }
+    .cinematic-stat strong{
+      display:block;
+      color:#fff;
+      font-size:20px;
+      line-height:1;
+      margin-bottom:6px;
+      font-weight:700;
+    }
+    .cinematic-stat span{
+      display:block;
+      color:rgba(255,255,255,0.64);
+      font-size:11px;
+      letter-spacing:.8px;
+      text-transform:uppercase;
+      line-height:1.45;
+      font-weight:500;
+    }
+
+    .cinematic-progress{
+      display:grid;
+      gap:8px;
+      margin-top:14px;
+    }
+    .cinematic-progress-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      color:rgba(255,255,255,0.76);
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      font-weight:600;
+    }
+    .cinematic-progress-bar{
+      width:100%;
+      height:4px;
+      border-radius:999px;
+      overflow:hidden;
+      background:rgba(255,255,255,0.12);
+    }
+    .cinematic-progress-fill{
+      width:0%;
+      height:100%;
+      border-radius:999px;
+      background:linear-gradient(90deg, rgba(200,150,42,1) 0%, rgba(255,214,120,1) 100%);
+      box-shadow:0 0 20px rgba(200,150,42,0.36);
+      transform-origin:left center;
+    }
+
+    .cinematic-logo{
       position:absolute;
       top:50%;
       left:50%;
       z-index:4;
-      width:min(38vw, 340px);
-      min-width:160px;
+      width:min(20vw, 220px);
+      min-width:130px;
       opacity:0;
-      transform:translate3d(-50%,-50%,0) scale(1.14);
+      transform:translate3d(-50%, -50%, 0) scale(1.16);
       transform-origin:center center;
-      will-change:transform,opacity,filter;
       pointer-events:none;
-      filter:drop-shadow(0 20px 60px rgba(0,0,0,0.42));
+      filter:drop-shadow(0 24px 56px rgba(0,0,0,0.34));
+      will-change:transform,opacity;
     }
-    .hero-logo-mark{
+    .cinematic-logo img{
       width:100%;
       height:auto;
       display:block;
+      object-fit:contain;
     }
-
-    .hero-side{
-      position:absolute;
-      right:clamp(16px, 3vw, 32px);
-      bottom:clamp(16px, 3vh, 32px);
-      z-index:5;
-      width:min(420px, calc(100% - 32px));
-      display:flex;
-      flex-direction:column;
-      gap:14px;
-    }
-    .glass-card,
-    .track-card{
-      border-radius:var(--radius);
-      box-shadow:var(--shadow-md);
-      transition:transform .25s var(--ease),box-shadow .25s ease,background .25s ease,border-color .25s ease;
-    }
-    .glass-card{
-      border:1px solid var(--hero-panel-border);
-      background:var(--hero-panel);
-      padding:20px;
-      backdrop-filter:blur(18px);
-    }
-    .glass-card:hover,
-    .track-card:hover{transform:translateY(-3px);box-shadow:0 18px 48px rgba(0,0,0,0.30);}
-    .hero-side h2{
-      margin:0 0 6px;
-      font-size:15.5px;
-      letter-spacing:0.4px;
-      font-weight:700;
-      color:#fff;
-      text-transform:uppercase;
-    }
-    .hero-side p{
-      margin:0;
-      color:var(--hero-muted);
-      font-size:14px;
-      line-height:1.85;
-      font-weight:400;
-    }
-    .typing-cursor{
-      display:inline-block;
-      width:2px;height:1em;
-      background:var(--gold);
-      margin-left:2px;vertical-align:middle;
-      animation:blink .7s step-end infinite;
-    }
-    @keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
-
-    .quick-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
-    .mini{
-      padding:12px;border-radius:14px;
-      background:rgba(255,255,255,0.05);
-      border:1px solid rgba(255,255,255,0.08);
-      transition:transform .2s var(--ease),background .2s ease,box-shadow .2s ease;
-    }
-    .mini:hover{transform:translateY(-2px);background:rgba(255,255,255,0.09);box-shadow:var(--shadow-hover);}
-    .mini strong{display:block;font-size:14px;margin-bottom:4px;color:#fff;font-weight:600;}
-    .mini span{font-size:12.5px;color:rgba(255,255,255,0.70);font-weight:400;}
-
-    .instant-wrapper{display:flex;justify-content:flex-start;}
-    .instant-cta{
-      width:100%;
-      display:inline-flex;align-items:center;justify-content:center;
-      padding:13px 16px;border-radius:16px;background:var(--gold);color:#fff;
-      font-size:15px;font-weight:700;border:1px solid rgba(200,150,42,0.30);
-      box-shadow:0 6px 18px rgba(200,150,42,0.28);
-      transition:transform .2s var(--ease),box-shadow .2s ease,color .2s ease;
-      text-align:center;white-space:nowrap;
-    }
-    .instant-cta:hover{transform:translateY(-2px) scale(1.01);box-shadow:0 10px 28px rgba(200,150,42,0.32);color:#081325 !important;}
-
-    .track-card{
-      border:1px solid rgba(255,255,255,0.10);
-      background:rgba(9,20,37,0.72);
-      backdrop-filter:blur(18px);
-      padding:16px;display:flex;align-items:center;gap:12px;
-    }
-    .track-left{display:flex;flex-direction:column;gap:6px;flex:1;}
-    .track-left strong{font-size:15px;font-weight:700;color:#fff;letter-spacing:0.3px;text-transform:uppercase;}
-    .track-input-row{display:flex;gap:10px;align-items:center;width:100%;}
-    .track-input{
-      flex:1;height:44px;padding:0 14px;border-radius:14px;
-      border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.08);
-      outline:none;font-size:14px;color:#fff;
-      transition:border-color .2s ease,box-shadow .2s ease,background .2s ease;
-    }
-    .track-input:focus{
-      border-color:rgba(200,150,42,0.6);
-      box-shadow:0 0 0 4px rgba(200,150,42,0.10);
-      background:rgba(255,255,255,0.10);
-    }
-    .track-input::placeholder{color:rgba(255,255,255,0.46);}
-    .track-search{
-      width:44px;height:44px;border-radius:14px;border:none;
-      display:flex;align-items:center;justify-content:center;
-      background:var(--gold);flex:0 0 auto;cursor:pointer;
-      transition:transform .2s var(--ease),box-shadow .2s ease;
-    }
-    .track-search:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(200,150,42,0.26);}
-    .track-search svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;}
-
-    .hero-bottom{
-      position:relative;
-      z-index:2;
-      margin-top:0;
-      padding:24px 20px 28px;
-      background:linear-gradient(180deg, #050b16 0%, #06101d 42%, #08111f 100%);
-    }
-    .feature-strip{
-      border-radius:var(--radius);
-      border:1px solid rgba(255,255,255,0.08);
-      background:rgba(9,20,37,0.88);
-      box-shadow:0 18px 40px rgba(0,0,0,0.24);
-      padding:18px;
-    }
-    .feature-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;}
-    .feature{
-      padding:14px;border-radius:16px;
-      background:rgba(255,255,255,0.04);
-      border:1px solid rgba(255,255,255,0.07);
-      transition:transform .2s var(--ease),background .2s ease;
-      min-height:90px;
-    }
-    .feature:hover{transform:translateY(-2px);background:rgba(255,255,255,0.08);box-shadow:var(--shadow-hover);}
-    .feature strong{display:block;font-size:14px;margin-bottom:4px;color:#fff;font-weight:600;}
-    .feature span{font-size:12.5px;color:rgba(255,255,255,0.70);line-height:1.35;}
 
     section{padding:54px 0;background:#FFFFFF;}
     .section-rule{display:block;width:36px;height:3px;border-radius:999px;background:var(--gold);margin-bottom:10px;}
@@ -407,52 +544,79 @@
     .section-title p{margin:0;color:var(--muted);font-size:14px;max-width:680px;line-height:1.85;}
 
     #services{
-      background:linear-gradient(180deg, #07111e 0%, #0a1628 100%);
+      background:linear-gradient(180deg, #08111f 0%, #0c1830 100%);
     }
     #services .section-title h3,
     #services .section-title p{color:#fff;}
     #services .section-rule{background:var(--gold);}
 
     .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+    @media(max-width:980px){.services-grid{grid-template-columns:repeat(2,1fr);}}
+    @media(max-width:620px){.services-grid{grid-template-columns:1fr;}}
+
     .service-card{
       position:relative;
-      border-radius:var(--radius);
-      border:1px solid rgba(255,255,255,0.18);
-      box-shadow:var(--shadow);
-      min-height:270px;
+      border-radius:24px;
+      border:1px solid rgba(255,255,255,0.16);
+      box-shadow:0 16px 40px rgba(0,0,0,0.14);
+      min-height:290px;
       overflow:hidden;
       isolation:isolate;
       background-color:#12315f;
       background-size:cover;
       background-position:center;
       background-repeat:no-repeat;
-      transition:transform .26s var(--ease),border .22s ease,box-shadow .22s ease;
+      transition:transform .26s var(--ease),border-color .22s ease,box-shadow .22s ease;
     }
     .service-card::before{
       content:"";
-      position:absolute;inset:0;
-      background:linear-gradient(135deg,rgba(10,22,45,0.82) 0%,rgba(18,49,95,0.70) 45%,rgba(28,50,97,0.56) 100%);
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(6,14,28,0.10) 0%, rgba(7,18,36,0.40) 26%, rgba(8,19,36,0.86) 100%),
+        linear-gradient(135deg, rgba(10,22,45,0.44) 0%, rgba(18,49,95,0.36) 45%, rgba(28,50,97,0.26) 100%);
       z-index:0;
     }
     .service-card::after{
       content:"";
-      position:absolute;inset:auto -40px -50px auto;
-      width:180px;height:180px;border-radius:50%;
+      position:absolute;
+      inset:auto -60px -70px auto;
+      width:220px;
+      height:220px;
+      border-radius:50%;
       background:radial-gradient(circle,rgba(255,255,255,0.10) 0%,rgba(255,255,255,0) 72%);
       z-index:0;
+      pointer-events:none;
     }
     .service-card:hover{
-      transform:translateY(-5px) scale(1.015);
-      border-color:rgba(200,150,42,0.35);
-      box-shadow:var(--shadow-hover);
+      transform:translateY(-6px) scale(1.012);
+      border-color:rgba(200,150,42,0.38);
+      box-shadow:0 22px 48px rgba(0,0,0,0.20);
     }
     .service-content{
-      position:relative;z-index:2;
-      display:flex;flex-direction:column;height:100%;
-      padding:20px 20px 24px;color:#fff;
+      position:relative;
+      z-index:2;
+      display:flex;
+      flex-direction:column;
+      height:100%;
+      padding:24px;
+      color:#fff;
     }
-    .service-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:12px;padding-right:88px;}
-    .service-top h4{margin:0;font-size:20px;font-weight:600;color:#fff;line-height:1.2;}
+    .service-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:14px;
+      margin-bottom:14px;
+    }
+    .service-top h4{
+      margin:0;
+      font-size:22px;
+      font-weight:700;
+      color:#fff;
+      line-height:1.14;
+      max-width:11ch;
+    }
     .tag{
       font-size:11.5px;color:#fff;padding:6px 10px;border-radius:999px;
       border:1px solid rgba(255,255,255,0.26);
@@ -461,24 +625,28 @@
       backdrop-filter:blur(6px);
     }
     .points{
-      margin:0;padding-left:18px;color:rgba(255,255,255,0.92);
-      font-size:14px;line-height:1.85;max-width:78%;
+      margin:0;
+      padding-left:18px;
+      color:rgba(255,255,255,0.90);
+      font-size:14px;
+      line-height:1.9;
+      max-width:100%;
     }
     .service-card .go{
-      margin-top:auto;display:inline-flex;align-items:center;gap:8px;
-      font-size:14px;color:#fff;text-decoration:underline;text-underline-offset:4px;
-      font-weight:600;transition:gap .2s ease,color .2s ease;width:fit-content;
+      margin-top:auto;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:14px;
+      color:#fff;
+      text-decoration:underline;
+      text-underline-offset:4px;
+      font-weight:700;
+      transition:gap .2s ease,color .2s ease;
+      width:fit-content;
     }
     .service-card .go:hover{gap:12px;color:#ffd777;}
-    .service-corner{
-      position:absolute;right:14px;bottom:12px;width:72px;height:72px;z-index:2;
-      display:flex;align-items:flex-end;justify-content:flex-end;pointer-events:none;
-    }
-    .service-corner img{
-      width:100%;height:100%;object-fit:contain;object-position:bottom right;
-      filter:drop-shadow(0 10px 16px rgba(0,0,0,0.24));opacity:.96;transition:transform .35s var(--ease);
-    }
-    .service-card:hover .service-corner img{transform:translateY(-2px) scale(1.06);}
+
     .ocean-freight{background-image:url('images/ship.jpg');}
     .air-freight{background-image:url('images/air freight.jpg');}
     .transportation{background-image:url('images/ground-freight.jpg');}
@@ -487,6 +655,7 @@
     .project-cargo{background-image:url('images/project.jpg');}
 
     .about-wrap{display:grid;grid-template-columns:1.1fr 0.9fr;gap:16px;align-items:start;}
+    @media(max-width:980px){.about-wrap{grid-template-columns:1fr;}}
     .about-card{border-radius:var(--radius);border:1px solid rgba(28,50,97,0.09);background:#fff;box-shadow:var(--shadow-md);padding:24px;}
     .about-card h4{margin:0 0 10px;font-size:20px;font-weight:700;color:var(--blue);}
     .about-card p{margin:0 0 12px;color:var(--muted);font-size:14.5px;line-height:1.9;}
@@ -518,13 +687,10 @@
       border:1px solid rgba(200,150,42,0.35);background:rgba(200,150,42,0.08);
       color:var(--blue);font-weight:600;font-size:13px;width:fit-content;
     }
+    @media(max-width:700px){.exp-box{grid-template-columns:1fr;}}
 
     .about-split{display:grid;gap:12px;}
-    .about-mini{
-      padding:16px;border-radius:var(--radius);border:1px solid rgba(28,50,97,0.09);
-      background:rgba(28,50,97,0.025);box-shadow:var(--shadow);
-      transition:transform .2s var(--ease),box-shadow .2s ease;
-    }
+    .about-mini{padding:16px;border-radius:var(--radius);border:1px solid rgba(28,50,97,0.09);background:rgba(28,50,97,0.025);box-shadow:var(--shadow);transition:transform .2s var(--ease),box-shadow .2s ease;}
     .about-mini:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover);}
     .about-mini strong{display:block;margin-bottom:6px;font-size:15px;font-weight:700;color:var(--blue);}
     .about-mini span{color:var(--muted);font-size:14px;line-height:1.9;display:block;}
@@ -532,6 +698,7 @@
 
     footer{border-top:1px solid rgba(28,50,97,0.09);background:#fff;padding:40px 0;}
     .foot-grid{display:grid;grid-template-columns:1.2fr 0.7fr 0.7fr;gap:18px;}
+    @media(max-width:880px){.foot-grid{grid-template-columns:1fr;}}
     .footer-brand{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
     .footer-logo-img{height:64px;width:auto;object-fit:contain;}
     .footer-title .name{font-size:22px;font-weight:700;letter-spacing:0.2px;text-transform:uppercase;}
@@ -557,20 +724,11 @@
     .chat-head strong{display:block;font-size:15px;margin-bottom:2px;}
     .chat-head span{display:block;opacity:.88;font-size:12.5px;}
     .chat-body{padding:14px;display:grid;gap:10px;}
-    .chat-link{
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
-      padding:12px 14px;border-radius:14px;border:1px solid rgba(28,50,97,0.08);
-      background:#fff;color:var(--blue);font-size:14px;font-weight:600;
-      transition:transform .2s var(--ease),background .2s ease;
-    }
+    .chat-link{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:14px;border:1px solid rgba(28,50,97,0.08);background:#fff;color:var(--blue);font-size:14px;font-weight:600;transition:transform .2s var(--ease),background .2s ease;}
     .chat-link:hover{transform:translateY(-2px);background:rgba(28,50,97,0.03);}
 
     .float-wrap{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:10px;z-index:9999;}
-    .float-btn{
-      width:48px;height:48px;border-radius:999px;display:flex;align-items:center;justify-content:center;
-      box-shadow:0 4px 16px rgba(28,50,97,0.18);border:1px solid rgba(255,255,255,0.30);
-      transition:transform .2s var(--ease),box-shadow .2s ease;background:#fff;cursor:pointer;
-    }
+    .float-btn{width:48px;height:48px;border-radius:999px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(28,50,97,0.18);border:1px solid rgba(255,255,255,0.30);transition:transform .2s var(--ease),box-shadow .2s ease;background:#fff;cursor:pointer;}
     .float-btn:hover{transform:translateY(-3px) scale(1.04);box-shadow:var(--shadow-hover);}
     .float-btn svg{width:24px;height:24px;display:block;}
     .float-chat{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;}
@@ -579,67 +737,46 @@
     .float-wa svg,.float-li svg{fill:#fff;}
     .magnetic{will-change:transform;transition:transform .16s var(--ease);}
 
-    @media(max-width:1040px){
-      .feature-grid{grid-template-columns:repeat(3,1fr);}
-    }
-    @media(max-width:980px){
-      .services-grid{grid-template-columns:repeat(2,1fr);}
-      .about-wrap{grid-template-columns:1fr;}
-    }
-    @media(max-width:920px){
+    @media(max-width:900px){
       .nav-inner{flex-direction:column;align-items:flex-start;}
       .nav-links{width:100%;justify-content:flex-start;gap:8px;}
       .logo-img{height:58px;}
       .brand-title .name{font-size:21px;}
-
-      .hero-top,
-      .hero-shell,
-      .carousel-panel.cinematic-panel,
-      .hero-cinematic-stage{
-        min-height:100svh;
-      }
-
-      .hero-side{
-        position:absolute;
-        left:16px;
-        right:16px;
-        bottom:16px;
-        width:auto;
-      }
-
-      .hero-logo-layer{width:min(54vw,260px);}
     }
-    @media(max-width:700px){
-      .exp-box{grid-template-columns:1fr;}
+    @media(max-width:760px){
+      .cinematic-shell{border-radius:20px;}
+      .cinematic-copy{
+        grid-template-columns:1fr;
+        align-items:end;
+        gap:16px;
+      }
+      .cinematic-title{max-width:12ch;}
+      .cinematic-side{justify-self:stretch;width:100%;}
+      .cinematic-stats{grid-template-columns:repeat(3,1fr);}
+      .cinematic-logo{width:min(34vw,180px);}
     }
     @media(max-width:640px){
       .cta,.cta-sea{width:100%;}
       .nav-links{align-items:stretch;}
-      .quick-actions{grid-template-columns:1fr;}
-      .feature-grid{grid-template-columns:repeat(2,1fr);}
-      .services-grid{grid-template-columns:1fr;}
-      .foot-grid{grid-template-columns:1fr;}
-
-      .hero-sequence-copy{
-        top:max(12px, env(safe-area-inset-top));
-        left:12px;
-        right:12px;
-      }
-      .hero-logo-layer{width:min(62vw,220px);}
-      .hero-side{left:12px;right:12px;bottom:12px;}
+      .cinematic-stage{height:100svh;min-height:100svh;}
+      .cinematic-topbar{left:14px;right:14px;top:14px;}
+      .cinematic-copy{left:18px;right:18px;bottom:20px;}
+      .cinematic-title{font-size:clamp(30px,10vw,52px);letter-spacing:-1px;}
+      .cinematic-copy-main p{font-size:14px;line-height:1.82;}
+      .cinematic-stats{grid-template-columns:1fr 1fr 1fr;gap:8px;}
+      .cinematic-stat{padding:10px;}
+      .cinematic-stat strong{font-size:17px;}
+      .cinematic-logo{width:min(42vw,160px);}
     }
 
     html.reduced-motion{scroll-behavior:auto;}
-    html.reduced-motion .hero-top,
-    html.reduced-motion .hero-shell,
-    html.reduced-motion .carousel-panel.cinematic-panel,
-    html.reduced-motion .hero-cinematic-stage{
-      min-height:72vh;
-      height:auto;
+    html.reduced-motion .cinematic-stage{
+      height:72vh;
+      min-height:520px;
     }
-    html.reduced-motion .hero-logo-layer{
+    html.reduced-motion .cinematic-logo{
       opacity:1;
-      transform:translate3d(-50%,-50%,0) scale(0.96);
+      transform:translate3d(-50%, -50%, 0) scale(.96);
     }
 
     @media(prefers-reduced-motion:reduce){
@@ -688,102 +825,244 @@
     </div>
   </div>
 
-  <main class="hero-wrap" id="home">
-    <div class="container">
-      <div class="hero-top" id="heroTop">
-        <div class="hero-shell motion zoom-out">
+  <main id="home">
+    <section class="hero-wrap">
+      <div class="container">
+        <div class="hero-top">
+          <div class="hero-shell motion zoom-out">
 
-          <div class="carousel-panel cinematic-panel" id="cinematicHero">
-            <div class="hero-cinematic-stage" data-hero-sequence>
-              <canvas
-                class="hero-sequence-canvas"
-                id="heroSequenceCanvas"
-                aria-hidden="true"
-              ></canvas>
-
-              <video
-                class="hero-sequence-video"
-                id="heroSequenceVideo"
-                preload="auto"
-                muted
-                playsinline
-                webkit-playsinline
-                aria-hidden="true"
-                tabindex="-1"
-              >
-                <source src="hero.mp4" type="video/mp4" />
-              </video>
-
-              <div class="hero-cinematic-overlay"></div>
-
-              <div class="hero-sequence-copy">
-                <span class="hero-badge">
-                  <i></i>
-                  <span>Reliable • Innovative • Customer Centric</span>
-                </span>
+            <div class="carousel-panel">
+              <div class="carousel-header">
+                <div class="hero-badge"><i></i><span>Reliable &bull; Innovative &bull; Customer Centric</span></div>
               </div>
 
-              <div class="hero-logo-layer" id="heroLogoLayer" aria-hidden="true">
-                <img
-                  src="images/RV LOGO.png"
-                  alt=""
-                  class="hero-logo-mark"
-                  loading="eager"
-                  decoding="async"
-                />
+              <div class="marquee" id="carouselMarquee">
+                <div class="marquee-track" id="marqueeTrack">
+
+                  <div class="slide">
+                    <img src="images/air freight.jpg" alt="Air Freight" />
+                    <div class="slide-content">
+                      <div class="slide-text">
+                        <h1>Air Freight for urgent and priority shipments</h1>
+                        <p>Fast global delivery, secure handling, and professional transit planning for time-critical cargo movements.</p>
+                      </div>
+                      <div class="slide-action">
+                        <a class="btn primary" href="pages/air-freight.html">Air Freight</a>
+                        <a class="btn quote-btn" href="pages/get-a-quote.html">Get a Quote</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="slide">
+                    <img src="images/ground-freight.jpg" alt="Ground Freight" />
+                    <div class="slide-content">
+                      <div class="slide-text">
+                        <h1>Ground Freight with road &amp; rail connectivity</h1>
+                        <p>Stable schedules, cost-optimised routing, dependable inland movement and distribution support.</p>
+                      </div>
+                      <div class="slide-action">
+                        <a class="btn primary" href="pages/ground-freight.html">Ground Freight</a>
+                        <a class="btn quote-btn" href="pages/get-a-quote.html">Get a Quote</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="slide">
+                    <img src="images/project.jpg" alt="Project Cargo" />
+                    <div class="slide-content">
+                      <div class="slide-text">
+                        <h1>Project &amp; specialised cargo handled with precision</h1>
+                        <p>Heavy-lift planning and execution for special shipments, oversized cargo and complex logistics requirements.</p>
+                      </div>
+                      <div class="slide-action">
+                        <a class="btn primary" href="pages/get-a-quote.html">Project Logistics</a>
+                        <a class="btn quote-btn" href="pages/get-a-quote.html">Get a Quote</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="slide">
+                    <img src="images/roro.jpg" alt="RoRo Cargo" />
+                    <div class="slide-content">
+                      <div class="slide-text">
+                        <h1>RORO &amp; vehicle cargo movement made simple</h1>
+                        <p>Seamless handling for automobiles and rolling cargo through proven carrier options and secure documentation flow.</p>
+                      </div>
+                      <div class="slide-action">
+                        <a class="btn primary" href="pages/get-a-quote.html">RORO Cargo</a>
+                        <a class="btn quote-btn" href="pages/get-a-quote.html">Get a Quote</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="slide">
+                    <img src="images/bulk.jpg" alt="Bulk Cargo" />
+                    <div class="slide-content">
+                      <div class="slide-text">
+                        <h1>Bulk cargo solutions with dependable execution</h1>
+                        <p>Bulk handling support with robust planning, safe operations, and clear communication across shipment stages.</p>
+                      </div>
+                      <div class="slide-action">
+                        <a class="btn primary" href="pages/get-a-quote.html">Bulk Cargo</a>
+                        <a class="btn quote-btn" href="pages/get-a-quote.html">Get a Quote</a>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
               </div>
+
+              <div class="carousel-controls">
+                <button class="carousel-btn" id="carouselPrev" aria-label="Previous slide">
+                  <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+                </button>
+                <button class="carousel-btn" id="carouselNext" aria-label="Next slide">
+                  <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+                </button>
+              </div>
+
+              <div class="carousel-dots" id="carouselDots">
+                <div class="dot active" data-idx="0"></div>
+                <div class="dot" data-idx="1"></div>
+                <div class="dot" data-idx="2"></div>
+                <div class="dot" data-idx="3"></div>
+                <div class="dot" data-idx="4"></div>
+              </div>
+              <div class="carousel-scrollbar"><span class="carousel-scrollbar-fill" id="scrollbarFill" style="width:20%"></span></div>
             </div>
-          </div>
 
-          <div class="hero-side">
-            <div class="glass-card motion zoom-in magnetic">
-              <h2 id="heroTyped"></h2><span class="typing-cursor" id="typingCursor1"></span>
-              <p id="heroTypedSub" style="min-height:90px;"></p>
-              <div class="quick-actions">
-                <a class="mini magnetic" href="pages/ocean-freight.html"><strong>Ocean Freight</strong><span>Import &amp; Export support</span></a>
-                <a class="mini magnetic" href="pages/customs-clearance.html"><strong>Custom Clearance</strong><span>Documentation &amp; compliance</span></a>
-                <a class="mini magnetic" href="pages/warehouse.html"><strong>Warehousing</strong><span>Storage &amp; handling</span></a>
-                <a class="mini magnetic" href="pages/contact.html"><strong>Contact RAIVEGA</strong><span>Direct response support</span></a>
+            <div class="hero-side">
+              <div class="glass-card motion zoom-in magnetic">
+                <h2 id="heroTyped"></h2><span class="typing-cursor" id="typingCursor1"></span>
+                <p id="heroTypedSub" style="min-height:90px;"></p>
+                <div class="quick-actions">
+                  <a class="mini magnetic" href="pages/ocean-freight.html"><strong>Ocean Freight</strong><span>Import &amp; Export support</span></a>
+                  <a class="mini magnetic" href="pages/customs-clearance.html"><strong>Custom Clearance</strong><span>Documentation &amp; compliance</span></a>
+                  <a class="mini magnetic" href="pages/warehouse.html"><strong>Warehousing</strong><span>Storage &amp; handling</span></a>
+                  <a class="mini magnetic" href="pages/contact.html"><strong>Contact RAIVEGA</strong><span>Direct response support</span></a>
+                </div>
               </div>
-            </div>
 
-            <div class="glass-card motion zoom-out magnetic">
-              <h2>Instant Global Rates</h2>
-              <p>Access quick online rate lookup through our connected rates system for faster shipment planning and response.</p>
-              <div class="instant-wrapper" style="margin-top:14px;">
-                <a class="instant-cta magnetic" href="pages/get-instant-rates.html">Get Instant Rates &rarr;</a>
+              <div class="glass-card motion zoom-out magnetic">
+                <h2>Instant Global Rates</h2>
+                <p>Access quick online rate lookup through our connected rates system for faster shipment planning and response.</p>
+                <div class="instant-wrapper" style="margin-top:14px;">
+                  <a class="instant-cta magnetic" href="pages/get-instant-rates.html">Get Instant Rates &rarr;</a>
+                </div>
               </div>
-            </div>
 
-            <div class="track-card motion zoom-in magnetic">
-              <div class="track-left">
-                <strong>Track Shipment</strong>
-                <div class="track-input-row">
-                  <input class="track-input" id="trackInput" type="text" placeholder="Enter tracking number" />
-                  <button class="track-search magnetic" id="trackBtn" type="button" aria-label="Search">
-                    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
-                  </button>
+              <div class="track-card motion zoom-in magnetic">
+                <div class="track-left">
+                  <strong>Track Shipment</strong>
+                  <div class="track-input-row">
+                    <input class="track-input" id="trackInput" type="text" placeholder="Enter tracking number" />
+                    <button class="track-search magnetic" id="trackBtn" type="button" aria-label="Search">
+                      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-        </div>
-      </div>
-
-      <div class="hero-bottom motion">
-        <div class="feature-strip">
-          <div class="feature-grid" data-stagger>
-            <div class="feature magnetic"><strong>Ocean Freight</strong><span>FCL, LCL and global shipping support</span></div>
-            <div class="feature magnetic"><strong>Air Freight</strong><span>Priority uplift and secure movement</span></div>
-            <div class="feature magnetic"><strong>Ground Freight</strong><span>Road, rail and inland distribution</span></div>
-            <div class="feature magnetic"><strong>Warehousing</strong><span>Storage, consolidation and handling</span></div>
-            <div class="feature magnetic"><strong>Custom Clearance</strong><span>Compliance-led documentation flow</span></div>
-            <div class="feature magnetic"><strong>Project Cargo</strong><span>Special loads and complex logistics</span></div>
           </div>
         </div>
+
+        <div class="hero-bottom motion">
+          <div class="feature-strip">
+            <div class="feature-grid" data-stagger>
+              <div class="feature magnetic"><strong>Ocean Freight</strong><span>FCL, LCL and global shipping support</span></div>
+              <div class="feature magnetic"><strong>Air Freight</strong><span>Priority uplift and secure movement</span></div>
+              <div class="feature magnetic"><strong>Ground Freight</strong><span>Road, rail and inland distribution</span></div>
+              <div class="feature magnetic"><strong>Warehousing</strong><span>Storage, consolidation and handling</span></div>
+              <div class="feature magnetic"><strong>Custom Clearance</strong><span>Compliance-led documentation flow</span></div>
+              <div class="feature magnetic"><strong>Project Cargo</strong><span>Special loads and complex logistics</span></div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <section class="cinematic-section">
+      <div class="container">
+        <div class="cinematic-shell" id="cinematicShell">
+          <div class="cinematic-stage" id="cinematicStage">
+            <canvas class="cinematic-canvas" id="cinematicCanvas" aria-hidden="true"></canvas>
+
+            <video
+              class="cinematic-video"
+              id="cinematicVideo"
+              muted
+              playsinline
+              webkit-playsinline
+              preload="auto"
+              aria-hidden="true"
+              tabindex="-1"
+            >
+              <source src="hero.mp4" type="video/mp4" />
+            </video>
+
+            <div class="cinematic-overlay"></div>
+
+            <div class="cinematic-topbar">
+              <div class="cinematic-pill">
+                <i></i>
+                <span>Cinematic Freight Experience</span>
+              </div>
+            </div>
+
+            <div class="cinematic-logo" id="cinematicLogo" aria-hidden="true">
+              <img src="images/RV LOGO.png" alt="">
+            </div>
+
+            <div class="cinematic-copy">
+              <div class="cinematic-copy-main">
+                <div class="cinematic-kicker">Global movement. Disciplined execution.</div>
+                <h2 class="cinematic-title">Freight that moves with precision.</h2>
+                <p>RAIVEGA connects ocean, air, ground, customs and warehousing into one coordinated operating flow, with a smoother, more premium visual presentation that feels engineered instead of over-animated.</p>
+              </div>
+
+              <div class="cinematic-side">
+                <div class="cinematic-panel">
+                  <strong>Integrated Movement</strong>
+                  <p>Use a high-resolution <code>hero.mp4</code> export for this section so the canvas remains crisp across wide screens, large displays and modern laptops.</p>
+
+                  <div class="cinematic-stats">
+                    <div class="cinematic-stat">
+                      <strong>Air</strong>
+                      <span>Time-critical cargo</span>
+                    </div>
+                    <div class="cinematic-stat">
+                      <strong>Ocean</strong>
+                      <span>Global lane support</span>
+                    </div>
+                    <div class="cinematic-stat">
+                      <strong>Ground</strong>
+                      <span>Domestic reach</span>
+                    </div>
+                  </div>
+
+                  <div class="cinematic-progress">
+                    <div class="cinematic-progress-row">
+                      <span>Scroll Progress</span>
+                      <span id="cinematicPercent">0%</span>
+                    </div>
+                    <div class="cinematic-progress-bar">
+                      <div class="cinematic-progress-fill" id="cinematicProgressFill"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="cinematic-panel">
+                  <strong>Visual Quality</strong>
+                  <p>The canvas uses device-pixel-ratio scaling, high-quality image smoothing and cover-fit drawing so the video fills the screen without the flicker caused by fast image swaps.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <section id="services">
@@ -793,6 +1072,7 @@
       </div>
 
       <div class="services-grid" data-stagger>
+
         <div class="service-card magnetic ocean-freight">
           <div class="service-content">
             <div class="service-top">
@@ -806,9 +1086,6 @@
               <li>Documentation support</li>
             </ul>
             <a class="go" href="pages/ocean-freight.html">Explore &rarr;</a>
-          </div>
-          <div class="service-corner">
-            <img src="images/cargo-ship.gif" alt="Ocean Freight Icon" />
           </div>
         </div>
 
@@ -826,9 +1103,6 @@
             </ul>
             <a class="go" href="pages/air-freight.html">Explore &rarr;</a>
           </div>
-          <div class="service-corner">
-            <img src="images/airplane.gif" alt="Air Freight Icon" />
-          </div>
         </div>
 
         <div class="service-card magnetic transportation">
@@ -844,9 +1118,6 @@
               <li>Scheduling</li>
             </ul>
             <a class="go" href="pages/ground-freight.html">Explore &rarr;</a>
-          </div>
-          <div class="service-corner">
-            <img src="images/long-truck.gif" alt="Transportation Icon" />
           </div>
         </div>
 
@@ -864,9 +1135,6 @@
             </ul>
             <a class="go" href="pages/customs-clearance.html">Explore &rarr;</a>
           </div>
-          <div class="service-corner">
-            <img src="images/customs-clearance.gif" alt="Custom Clearance Icon" />
-          </div>
         </div>
 
         <div class="service-card magnetic warehousing">
@@ -882,9 +1150,6 @@
               <li>Distribution readiness</li>
             </ul>
             <a class="go" href="pages/warehouse.html">Explore &rarr;</a>
-          </div>
-          <div class="service-corner">
-            <img src="images/warehouse.gif" alt="Warehousing Icon" />
           </div>
         </div>
 
@@ -902,10 +1167,8 @@
             </ul>
             <a class="go" href="pages/get-a-quote.html">Explore &rarr;</a>
           </div>
-          <div class="service-corner">
-            <img src="images/project-cargo.gif" alt="Project Cargo Icon" />
-          </div>
         </div>
+
       </div>
     </div>
   </section>
@@ -1013,21 +1276,71 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script>
-    window.heroSequenceConfig = window.heroSequenceConfig || {
-      duration: 8,
-      fps: 30,
-      frameCount: 0,
-      framePath(index) {
-        return `frames/hero/frame-${String(index + 1).padStart(4, "0")}.jpg`;
-      }
-    };
-  </script>
 
   <script>
   window.addEventListener("load", () => {
+
     const loader = document.getElementById("loader");
     if (loader) setTimeout(() => loader.classList.add("hide"), 1800);
+
+    const track = document.getElementById("marqueeTrack");
+    const slides = track ? Array.from(track.querySelectorAll(".slide")) : [];
+    const dotsEl = Array.from(document.querySelectorAll("#carouselDots .dot"));
+    const fillEl = document.getElementById("scrollbarFill");
+    const prevBtn = document.getElementById("carouselPrev");
+    const nextBtn = document.getElementById("carouselNext");
+    const total = slides.length;
+    let current = 0;
+    let autoTimer = null;
+    let isAnimating = false;
+
+    function goTo(idx) {
+      if (!track || !total || isAnimating) return;
+      isAnimating = true;
+      current = (idx + total) % total;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      dotsEl.forEach((d, i) => d.classList.toggle("active", i === current));
+      if (fillEl) fillEl.style.width = ((current + 1) / total * 100) + "%";
+      setTimeout(() => { isAnimating = false; }, 750);
+    }
+
+    function startAuto() {
+      if (!total) return;
+      clearInterval(autoTimer);
+      autoTimer = setInterval(() => goTo(current + 1), 3800);
+    }
+
+    if (track && slides.length) {
+      slides.forEach(s => {
+        s.style.minWidth = "100%";
+        s.style.flex = "0 0 100%";
+      });
+      track.style.transition = "transform 0.7s cubic-bezier(.22,1,.36,1)";
+    }
+
+    prevBtn && prevBtn.addEventListener("click", () => { goTo(current - 1); startAuto(); });
+    nextBtn && nextBtn.addEventListener("click", () => { goTo(current + 1); startAuto(); });
+    dotsEl.forEach((d, i) => d.addEventListener("click", () => { goTo(i); startAuto(); }));
+
+    const panel = document.querySelector(".carousel-panel");
+    if (panel) {
+      panel.addEventListener("mouseenter", () => clearInterval(autoTimer));
+      panel.addEventListener("mouseleave", startAuto);
+    }
+
+    let touchStartX = 0;
+    if (track) {
+      track.addEventListener("touchstart", (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+      track.addEventListener("touchend", (e) => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) {
+          goTo(diff > 0 ? current + 1 : current - 1);
+          startAuto();
+        }
+      });
+    }
+
+    startAuto();
 
     const chatToggle = document.getElementById("chatToggle");
     const chatPanel = document.getElementById("chatPanel");
@@ -1059,7 +1372,7 @@
       if (ring) ring.style.cssText = `left:${rx}px;top:${ry}px`;
       if (glow) glow.style.cssText = `left:${gx}px;top:${gy}px`;
 
-      window.addEventListener("mousemove", (e) => {
+      window.addEventListener("mousemove", e => {
         mx = e.clientX;
         my = e.clientY;
         if (dot) {
@@ -1076,7 +1389,6 @@
         ry += (my - ry) * 0.18;
         gx += (mx - gx) * 0.08;
         gy += (my - gy) * 0.08;
-
         if (ring) {
           ring.style.left = rx + "px";
           ring.style.top = ry + "px";
@@ -1088,13 +1400,13 @@
         requestAnimationFrame(follow);
       })();
 
-      document.querySelectorAll("a,button,.mini,.service-card,.float-btn,.chat-link").forEach((el) => {
+      document.querySelectorAll("a,button,.mini,.service-card,.float-btn,.chat-link").forEach(el => {
         el.addEventListener("mouseenter", () => document.body.classList.add("cursor-hover"));
         el.addEventListener("mouseleave", () => document.body.classList.remove("cursor-hover"));
       });
 
-      document.querySelectorAll(".magnetic").forEach((el) => {
-        el.addEventListener("mousemove", (e) => {
+      document.querySelectorAll(".magnetic").forEach(el => {
+        el.addEventListener("mousemove", e => {
           const r = el.getBoundingClientRect();
           el.style.transform = `translate(${((e.clientX - r.left) - r.width / 2) / r.width * 10}px,${((e.clientY - r.top) - r.height / 2) / r.height * 10}px)`;
         });
@@ -1105,18 +1417,16 @@
     }
 
     if (!noMotion && "IntersectionObserver" in window) {
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in-view", "visible");
-            io.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.08, rootMargin: "0px 0px -4% 0px" });
+      const io = new IntersectionObserver(es => es.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add("in-view","visible");
+          io.unobserve(e.target);
+        }
+      }), { threshold: .08, rootMargin: "0px 0px -4% 0px" });
 
-      document.querySelectorAll(".motion,[data-anim],[data-stagger]").forEach((el) => io.observe(el));
+      document.querySelectorAll(".motion,[data-anim],[data-stagger]").forEach(el => io.observe(el));
     } else {
-      document.querySelectorAll(".motion,[data-anim],[data-stagger]").forEach((el) => el.classList.add("in-view", "visible"));
+      document.querySelectorAll(".motion,[data-anim],[data-stagger]").forEach(el => el.classList.add("in-view","visible"));
     }
 
     const tInput = document.getElementById("trackInput");
@@ -1124,7 +1434,7 @@
     function doTrack(){
       if (!tInput) return;
       const v = tInput.value.trim();
-      if (!v) {
+      if(!v){
         tInput.style.borderColor = "rgba(200,150,42,0.8)";
         tInput.focus();
         return;
@@ -1133,9 +1443,7 @@
       window.open("https://www.track-trace.com/container?id=" + encodeURIComponent(v), "_blank");
     }
     tBtn && tBtn.addEventListener("click", doTrack);
-    tInput && tInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") doTrack();
-    });
+    tInput && tInput.addEventListener("keydown", e => { if(e.key === "Enter") doTrack(); });
 
     const typedH = document.getElementById("heroTyped");
     const typedS = document.getElementById("heroTypedSub");
@@ -1146,86 +1454,65 @@
     function typeText(el, text, speed, done){
       if (!el) return;
       let i = 0;
-      const timer = setInterval(() => {
+      const t = setInterval(() => {
         el.textContent += text[i++];
-        if (i >= text.length) {
-          clearInterval(timer);
-          if (done) done();
+        if(i >= text.length){
+          clearInterval(t);
+          if(done) done();
         }
       }, speed);
     }
 
     setTimeout(() => {
       typeText(typedH, heading, 40, () => {
-        if (cursor1) cursor1.remove();
+        if(cursor1) cursor1.remove();
         typeText(typedS, subtext, 16);
       });
     }, 2000);
 
-    function initCinematicHero() {
-      const heroTop = document.getElementById("heroTop");
-      const stage = document.querySelector("[data-hero-sequence]");
-      const canvas = document.getElementById("heroSequenceCanvas");
-      const video = document.getElementById("heroSequenceVideo");
-      const logo = document.getElementById("heroLogoLayer");
+    function initCinematicSection() {
+      const shell = document.getElementById("cinematicShell");
+      const stage = document.getElementById("cinematicStage");
+      const canvas = document.getElementById("cinematicCanvas");
+      const video = document.getElementById("cinematicVideo");
+      const logo = document.getElementById("cinematicLogo");
+      const progressFill = document.getElementById("cinematicProgressFill");
+      const percentEl = document.getElementById("cinematicPercent");
 
-      if (!heroTop || !stage || !canvas || !video || !logo) return;
+      if (!shell || !stage || !canvas || !video || !logo || !progressFill || !percentEl) return;
 
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const ctx = canvas.getContext("2d", { alpha: false });
+      const ctx = canvas.getContext("2d", { alpha: false, desynchronized: true });
+      if (!ctx) return;
 
-      const defaults = {
-        duration: 8,
-        fps: 30,
-        frameCount: 0,
-        framePath(index) {
-          return `frames/hero/frame-${String(index + 1).padStart(4, "0")}.jpg`;
-        }
-      };
-
-      const customConfig = window.heroSequenceConfig || {};
-      const heroConfig = {
-        ...defaults,
-        ...customConfig,
-        framePath: typeof customConfig.framePath === "function" ? customConfig.framePath : defaults.framePath
-      };
+      ctx.imageSmoothingEnabled = true;
+      if ("imageSmoothingQuality" in ctx) ctx.imageSmoothingQuality = "high";
 
       const state = {
-        usingFrames: Number(heroConfig.frameCount) > 0,
-        frames: [],
-        currentFrame: 0,
-        videoDuration: heroConfig.duration,
-        raf: null,
+        duration: 8,
+        progress: 0,
+        targetProgress: 0,
+        isLoaded: false,
+        rafId: null,
         trigger: null
       };
 
       const clamp = (min, max, value) => Math.min(max, Math.max(min, value));
-      const easeOutQuad = (t) => 1 - (1 - t) * (1 - t);
-      const easeInOutQuad = (t) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
-
-      function queueDraw() {
-        if (state.raf) return;
-        state.raf = requestAnimationFrame(() => {
-          state.raf = null;
-          drawCurrentFrame();
-        });
-      }
+      const lerp = (start, end, amount) => start + (end - start) * amount;
+      const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+      const easeInOutCubic = t => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
       function fitCanvas() {
         const rect = stage.getBoundingClientRect();
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
-
+        const dpr = Math.min(window.devicePixelRatio || 1, 2.2);
         canvas.width = Math.max(1, Math.round(rect.width * dpr));
         canvas.height = Math.max(1, Math.round(rect.height * dpr));
         canvas.style.width = rect.width + "px";
         canvas.style.height = rect.height + "px";
-
-        queueDraw();
+        drawFrame();
       }
 
-      function drawCover(source, sourceWidth, sourceHeight) {
-        if (!sourceWidth || !sourceHeight) return;
-
+      function drawCover(source, sourceWidth, sourceHeight, zoom = 1) {
         const cw = canvas.width;
         const ch = canvas.height;
         const canvasRatio = cw / ch;
@@ -1237,14 +1524,14 @@
         let dy;
 
         if (sourceRatio > canvasRatio) {
-          drawHeight = ch;
-          drawWidth = ch * sourceRatio;
+          drawHeight = ch * zoom;
+          drawWidth = drawHeight * sourceRatio;
           dx = (cw - drawWidth) / 2;
-          dy = 0;
+          dy = (ch - drawHeight) / 2;
         } else {
-          drawWidth = cw;
-          drawHeight = cw / sourceRatio;
-          dx = 0;
+          drawWidth = cw * zoom;
+          drawHeight = drawWidth / sourceRatio;
+          dx = (cw - drawWidth) / 2;
           dy = (ch - drawHeight) / 2;
         }
 
@@ -1252,156 +1539,125 @@
         ctx.drawImage(source, dx, dy, drawWidth, drawHeight);
       }
 
-      function drawCurrentFrame() {
-        if (state.usingFrames && state.frames[state.currentFrame]) {
-          const img = state.frames[state.currentFrame];
-          if (img.complete) {
-            drawCover(img, img.naturalWidth || img.width, img.naturalHeight || img.height);
-            return;
-          }
-        }
-
-        if (video.readyState >= 2 && video.videoWidth && video.videoHeight) {
-          drawCover(video, video.videoWidth, video.videoHeight);
+      function drawFrame() {
+        if (!video.videoWidth || !video.videoHeight) {
+          ctx.fillStyle = "#060d19";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
           return;
         }
 
-        ctx.fillStyle = "#050b16";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        const zoom = 1.02 + (easeInOutCubic(state.progress) * 0.08);
+        drawCover(video, video.videoWidth, video.videoHeight, zoom);
       }
 
-      function updateLogo(progress) {
-        const logoStart = 5 / heroConfig.duration;
-        const logoFadeStart = 0.88;
+      function updateOverlay(progress) {
+        const pct = Math.round(progress * 100);
+        progressFill.style.width = pct + "%";
+        percentEl.textContent = pct + "%";
 
-        const enterProgress = clamp(0, 1, (progress - logoStart) / (logoFadeStart - logoStart));
-        const fadeProgress = clamp(0, 1, (progress - logoFadeStart) / (1 - logoFadeStart));
+        const logoStart = 5 / state.duration;
+        const logoEnd = 0.92;
+        const logoIn = clamp(0, 1, (progress - logoStart) / (logoEnd - logoStart));
+        const logoOut = clamp(0, 1, (progress - 0.90) / 0.10);
 
-        const entered = easeOutQuad(enterProgress);
-        const faded = easeInOutQuad(fadeProgress);
+        const entered = easeOutCubic(logoIn);
+        const faded = easeInOutCubic(logoOut);
 
         const opacity = entered * (1 - faded);
-        const scale = 1.14 - (0.22 * entered);
-        const yShift = 10 - (22 * entered);
-        const depth = -140 * entered;
+        const scale = 1.16 - (0.22 * entered);
+        const y = 14 - (28 * entered);
+        const z = -120 * entered;
 
         logo.style.opacity = opacity.toFixed(3);
-        logo.style.transform = `translate3d(-50%, calc(-50% + ${yShift}px), ${depth}px) scale(${scale})`;
-        logo.style.filter = `drop-shadow(0 20px 60px rgba(0, 0, 0, ${0.28 + opacity * 0.20}))`;
+        logo.style.transform = `translate3d(-50%, calc(-50% + ${y}px), ${z}px) scale(${scale})`;
       }
 
-      function renderByProgress(progress) {
-        const safeProgress = clamp(0, 1, progress);
-
-        if (state.usingFrames && state.frames.length) {
-          const frameIndex = Math.round(safeProgress * (state.frames.length - 1));
-          if (frameIndex !== state.currentFrame) state.currentFrame = frameIndex;
-          queueDraw();
-        } else {
-          const targetTime = safeProgress * Math.max(0.01, state.videoDuration - 0.04);
-          if (Math.abs(video.currentTime - targetTime) > (1 / heroConfig.fps)) {
-            try {
-              video.currentTime = targetTime;
-            } catch (err) {
-              queueDraw();
-            }
-          } else {
-            queueDraw();
-          }
+      function renderLoop() {
+        state.progress = lerp(state.progress, state.targetProgress, 0.12);
+        if (Math.abs(state.targetProgress - state.progress) < 0.00015) {
+          state.progress = state.targetProgress;
         }
 
-        updateLogo(safeProgress);
+        const targetTime = state.progress * Math.max(0.01, (state.duration - 0.02));
+        if (Math.abs(video.currentTime - targetTime) > 0.012) {
+          try { video.currentTime = targetTime; } catch (err) {}
+        }
+
+        updateOverlay(state.progress);
+        drawFrame();
+
+        if (Math.abs(state.targetProgress - state.progress) > 0.00015) {
+          state.rafId = requestAnimationFrame(renderLoop);
+        } else {
+          state.rafId = null;
+        }
       }
 
-      function setupScrollTrigger() {
+      function requestRender() {
+        if (!state.rafId) {
+          state.rafId = requestAnimationFrame(renderLoop);
+        }
+      }
+
+      function setupScroll() {
         if (prefersReducedMotion || typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") {
           document.documentElement.classList.add("reduced-motion");
-          renderByProgress(0);
+          state.targetProgress = 0;
+          state.progress = 0;
+          updateOverlay(0.72);
+          drawFrame();
           logo.style.opacity = "1";
-          logo.style.transform = "translate3d(-50%, -50%, 0) scale(0.96)";
+          logo.style.transform = "translate3d(-50%, -50%, 0) scale(.96)";
           return;
         }
 
         gsap.registerPlugin(ScrollTrigger);
 
         state.trigger = ScrollTrigger.create({
-          trigger: heroTop,
+          trigger: shell,
           start: "top top",
           end: "+=240%",
           pin: true,
-          scrub: 1,
+          scrub: 1.2,
           anticipatePin: 1,
           invalidateOnRefresh: true,
-          onUpdate: (self) => renderByProgress(self.progress)
+          onUpdate: self => {
+            state.targetProgress = clamp(0, 1, self.progress);
+            requestRender();
+          }
         });
 
         ScrollTrigger.refresh();
       }
 
-      function setupVideoFallback() {
-        const onReady = () => {
-          state.videoDuration = Math.min(heroConfig.duration, video.duration || heroConfig.duration);
-          video.pause();
-          fitCanvas();
-          renderByProgress(0);
-          setupScrollTrigger();
-        };
-
-        video.muted = true;
-        video.playsInline = true;
-        video.setAttribute("muted", "");
-        video.setAttribute("playsinline", "");
-        video.setAttribute("webkit-playsinline", "");
-
-        video.addEventListener("loadeddata", queueDraw);
-        video.addEventListener("seeked", queueDraw);
-
-        if (video.readyState >= 1) {
-          onReady();
-        } else {
-          video.addEventListener("loadedmetadata", onReady, { once: true });
-          video.load();
-        }
+      function ready() {
+        state.duration = Math.min(8, video.duration || 8);
+        video.pause();
+        state.isLoaded = true;
+        fitCanvas();
+        drawFrame();
+        updateOverlay(0);
+        setupScroll();
       }
 
-      function preloadFrames() {
-        const total = Number(heroConfig.frameCount) || 0;
+      video.muted = true;
+      video.playsInline = true;
+      video.setAttribute("muted", "");
+      video.setAttribute("playsinline", "");
+      video.setAttribute("webkit-playsinline", "");
+      video.preload = "auto";
 
-        if (!total) {
-          state.usingFrames = false;
-          setupVideoFallback();
-          return;
-        }
+      video.addEventListener("loadeddata", drawFrame);
+      video.addEventListener("seeked", drawFrame);
 
-        const framePromises = Array.from({ length: total }, (_, index) => {
-          return new Promise((resolve) => {
-            const img = new Image();
-            img.decoding = "async";
-            img.loading = "eager";
-            img.src = heroConfig.framePath(index);
-            img.onload = () => resolve(img);
-            img.onerror = () => resolve(null);
-          });
-        });
-
-        Promise.all(framePromises).then((images) => {
-          const validFrames = images.filter(Boolean);
-
-          if (!validFrames.length) {
-            state.usingFrames = false;
-            setupVideoFallback();
-            return;
-          }
-
-          state.frames = validFrames;
-          state.currentFrame = 0;
-          fitCanvas();
-          renderByProgress(0);
-          setupScrollTrigger();
-        });
+      if (video.readyState >= 1) {
+        ready();
+      } else {
+        video.addEventListener("loadedmetadata", ready, { once: true });
+        video.load();
       }
 
-      let resizeTimer;
+      let resizeTimer = null;
       window.addEventListener("resize", () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
@@ -1409,11 +1665,10 @@
           if (typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
         }, 120);
       });
-
-      preloadFrames();
     }
 
-    initCinematicHero();
+    initCinematicSection();
+
   });
   </script>
 </body>
