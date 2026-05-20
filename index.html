@@ -2,1015 +2,1903 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
   <title>RAIVEGA | Multimodal Freight Forwarding</title>
-  <meta name="google-site-verification" content="GyhxezXuB1nSu6Ad0sVW0Fhw3z4h8xECJU3ROw0NAaU" />
-  <meta name="theme-color" content="#1C3261" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/svg+xml" href="images/rv-icon.svg">
+  <meta
+    name="description"
+    content="RAIVEGA provides multimodal freight forwarding and shipment coordination support."
+  />
+  <meta
+    name="google-site-verification"
+    content="GyhxezXuB1nSu6Ad0sVW0Fhw3z4h8xECJU3ROw0NAaU"
+  />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="icon" type="image/svg+xml" href="images/rv-icon.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap"
+    rel="stylesheet"
+  />
 
   <style>
     :root{
-      --bg:#FFFFFF;
-      --border:rgba(28,50,97,0.10);
+      --bg:#ffffff;
+      --surface:#ffffff;
+      --surface-soft:#f5f8fc;
+      --surface-soft-2:#f8fbff;
+      --line:#d8e0eb;
+      --line-2:#c8d3e2;
       --blue:#1C3261;
-      --blue2:#15307a;
+      --blue-dark:#16284d;
       --gold:#C8962A;
-      --wa:#25D366;
-      --li:#0A66C2;
-      --muted:rgba(28,50,97,0.72);
-      --muted2:rgba(28,50,97,0.55);
-      --shadow:0 2px 12px rgba(28,50,97,0.07);
-      --shadow-md:0 4px 16px rgba(28,50,97,0.08);
-      --shadow-hover:0 8px 24px rgba(28,50,97,0.12);
-      --radius:18px;
+      --gold-soft:#fff7e7;
+      --text:#1C3261;
+      --muted:#617292;
+      --muted-2:#7d8ba3;
+      --radius-xl:22px;
+      --radius-lg:18px;
+      --radius-md:14px;
+      --radius-sm:12px;
+      --container:24px;
+      --section-y:58px;
       --ease:cubic-bezier(.22,1,.36,1);
     }
 
-    *{box-sizing:border-box;}
-    html{scroll-behavior:smooth;scroll-padding-top:96px;}
-    body{
+    *{
+      box-sizing:border-box;
       margin:0;
-      font-family:"Titillium Web",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      background:#FFFFFF;
-      color:var(--blue);
+      padding:0;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      min-height:100vh;
+      font-family:"Titillium Web",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      font-size:16px;
+      line-height:1.6;
       overflow-x:hidden;
-      font-weight:400;
-      cursor:none;
       -webkit-font-smoothing:antialiased;
       text-rendering:optimizeLegibility;
-    }
-    a{color:inherit;text-decoration:none;}
-    img{max-width:100%;display:block;}
-    button,input{font:inherit;}
-    .container{width:100%;max-width:none;margin:0 auto;padding-inline:20px;}
-
-    .cursor-dot,.cursor-ring,.cursor-glow{position:fixed;top:0;left:0;pointer-events:none;transform:translate(-50%,-50%);}
-    .cursor-dot{z-index:999999;width:8px;height:8px;border-radius:50%;background:var(--blue);}
-    .cursor-ring{
-      z-index:999998;width:42px;height:42px;border-radius:999px;
-      border:1.6px solid rgba(200,150,42,0.92);background:rgba(255,255,255,0.05);
-      backdrop-filter:blur(.5px);
-      transition:width .22s var(--ease),height .22s var(--ease),border-color .22s ease,background .22s ease;
-    }
-    .cursor-glow{z-index:999997;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,rgba(200,150,42,0.08) 0%,transparent 72%);filter:blur(5px);opacity:.30;}
-    body.cursor-hover .cursor-ring{width:70px;height:70px;border-color:rgba(200,150,42,0.95);background:rgba(200,150,42,0.08);}
-    body.cursor-hover .cursor-dot{background:var(--gold);}
-    body.cursor-down .cursor-ring{width:34px;height:34px;}
-
-    #loader{
-      position:fixed;inset:0;background:var(--blue);
-      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:36px;
-      z-index:99999;transition:opacity 600ms ease,visibility 600ms ease;
-    }
-    #loader.hide{opacity:0;visibility:hidden;pointer-events:none;}
-    .loader-logo-wrap{display:flex;flex-direction:column;align-items:center;gap:12px;}
-    .loader-logo{width:140px;height:auto;object-fit:contain;filter:brightness(0) invert(1);border-radius:12px;}
-    .loader-brand-name{font-size:20px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#fff;}
-    .loader-brand-name .lv{color:var(--gold);}
-    .loader-wave-ring{width:8px;height:8px;border-radius:50%;background:var(--gold);animation:loaderWave 1.2s ease-in infinite;}
-    @keyframes loaderWave{
-      0%{box-shadow:0 0 0 0px rgba(200,150,42,1),0 0 0 16px rgba(200,150,42,0.2),0 0 0 32px rgba(200,150,42,0.5),0 0 0 48px rgba(200,150,42,0.3),0 0 0 64px rgba(200,150,42,0.15);}
-      100%{box-shadow:0 0 0 64px rgba(200,150,42,0),0 0 0 48px rgba(200,150,42,0.2),0 0 0 32px rgba(200,150,42,0.35),0 0 0 16px rgba(200,150,42,0.55),0 0 0 0px rgba(200,150,42,1);}
+      cursor:none;
     }
 
-    .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.92);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);}
-    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:16px;}
-    .brand{display:flex;align-items:center;gap:12px;min-width:0;}
-    .logo-img{height:64px;width:auto;object-fit:contain;}
-    .brand-title{display:flex;flex-direction:column;gap:3px;line-height:1.05;}
-    .brand-title .name{font-size:22px;font-weight:700;letter-spacing:0.2px;text-transform:uppercase;white-space:nowrap;}
-    .brand-title .name .rai{color:var(--blue);}
-    .brand-title .name .v{color:var(--gold);}
-    .brand-title .name .ega{color:var(--blue);}
-    .brand-sub{font-size:11px;font-weight:500;letter-spacing:1px;color:var(--muted2);text-transform:uppercase;}
-    .nav-links{display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:flex-end;}
-    .nav-links a{font-size:14px;color:var(--muted);padding:9px 12px;border-radius:12px;transition:.18s ease;font-weight:500;}
-    .nav-links a:hover{color:var(--blue);background:rgba(28,50,97,0.05);}
-
-    .cta,.cta-sea{
-      display:inline-flex;align-items:center;justify-content:center;
-      gap:10px;padding:10px 18px;border-radius:14px;
-      white-space:nowrap;font-size:14px;font-weight:700;
-      transition:transform .2s var(--ease),box-shadow .2s ease,color .2s ease;
+    a{
+      color:inherit;
+      text-decoration:none;
     }
-    .cta{background:var(--gold);border:1px solid rgba(200,150,42,0.30);box-shadow:var(--shadow-md);color:#fff !important;}
-    .cta:hover{transform:translateY(-2px) scale(1.01);box-shadow:var(--shadow-hover);color:#000 !important;}
-    .cta-sea{
-      background:var(--blue);border:1px solid rgba(28,50,97,0.20);
-      box-shadow:var(--shadow-md);color:#fff !important;
-    }
-    .cta-sea:hover{transform:translateY(-2px) scale(1.02);box-shadow:var(--shadow-hover);color:#000 !important;}
-    @media(max-width:900px){.nav-inner{flex-direction:column;align-items:flex-start;}.nav-links{width:100%;justify-content:flex-start;gap:8px;}.logo-img{height:58px;}.brand-title .name{font-size:21px;}}
-    @media(max-width:640px){.cta,.cta-sea{width:100%;}.nav-links{align-items:stretch;}}
 
-    .motion{opacity:0;transform:translateY(28px) scale(.97);filter:blur(4px);transition:opacity .9s var(--ease),transform 1s var(--ease),filter .8s var(--ease);}
-    .motion.in-view{opacity:1;transform:none;filter:blur(0);}
-    .zoom-in{transform:translateY(34px) scale(.92);}
-    .zoom-in.in-view{transform:none;}
-    .zoom-out{transform:translateY(26px) scale(1.06);}
-    .zoom-out.in-view{transform:none;}
-    [data-anim]{opacity:0;transition:opacity .85s var(--ease),transform .9s var(--ease);}
-    [data-anim="up"]{transform:translateY(50px);}
-    [data-anim="left"]{transform:translateX(-50px);}
-    [data-anim="right"]{transform:translateX(50px);}
-    [data-anim="scale"]{transform:scale(.90);}
-    [data-anim="fade"]{transform:translateY(20px);}
-    [data-anim].visible{opacity:1;transform:none;}
-    [data-stagger]>*{opacity:0;transform:translateY(30px);transition:opacity .7s var(--ease),transform .7s var(--ease);}
-    [data-stagger].visible>*:nth-child(1){opacity:1;transform:none;transition-delay:.05s;}
-    [data-stagger].visible>*:nth-child(2){opacity:1;transform:none;transition-delay:.15s;}
-    [data-stagger].visible>*:nth-child(3){opacity:1;transform:none;transition-delay:.25s;}
-    [data-stagger].visible>*:nth-child(4){opacity:1;transform:none;transition-delay:.35s;}
-    [data-stagger].visible>*:nth-child(5){opacity:1;transform:none;transition-delay:.45s;}
-    [data-stagger].visible>*:nth-child(6){opacity:1;transform:none;transition-delay:.55s;}
-
-    .hero-wrap{width:100%;display:flex;flex-direction:column;padding:18px 0 28px;background:#FFFFFF;}
-    .hero-top{position:relative;min-height:520px;}
-    .hero-shell{display:grid;grid-template-columns:1.2fr 0.8fr;gap:16px;align-items:stretch;}
-    @media(max-width:920px){.hero-shell{grid-template-columns:1fr;}.hero-top{min-height:unset;}}
-
-    .carousel-panel{
-      position:relative;border-radius:var(--radius);
-      border:1px solid var(--border);background:#fff;
-      box-shadow:var(--shadow-md);overflow:hidden;min-height:520px;
+    img,svg,video{
+      display:block;
+      max-width:100%;
+      height:auto;
     }
-    @media(min-width:921px){.carousel-panel{min-height:540px;}}
-    .carousel-header{
-      position:absolute;top:14px;left:14px;right:14px;z-index:3;
-      display:flex;justify-content:space-between;gap:12px;align-items:flex-start;pointer-events:none;
-    }
-    .hero-badge{
-      pointer-events:auto;display:inline-flex;align-items:center;gap:10px;
-      padding:10px 14px;background:rgba(255,255,255,0.94);
-      border:1px solid rgba(28,50,97,0.12);border-radius:999px;
-      color:var(--muted);font-size:12px;font-weight:500;box-shadow:0 4px 12px rgba(28,50,97,0.06);
-    }
-    .hero-badge i{width:9px;height:9px;border-radius:50%;background:var(--gold);display:inline-block;box-shadow:0 0 10px rgba(200,150,42,0.6);}
 
-    .marquee{position:absolute;inset:0;display:flex;align-items:stretch;border-radius:var(--radius);overflow:hidden;}
-    .marquee-track{display:flex;width:max-content;will-change:transform;transition:transform 0.7s var(--ease);}
-    .slide{width:100%;min-width:100%;height:100%;position:relative;flex:0 0 100%;display:flex;align-items:flex-end;overflow:hidden;border-radius:var(--radius);}
-    @media(max-width:920px){.slide{min-height:420px;}}
-    .slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;animation:heroZoom 18s ease-in-out infinite alternate;}
-    @keyframes heroZoom{from{transform:scale(1.02);}to{transform:scale(1.10);}}
-    .slide:before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(28,50,97,0.82),rgba(28,50,97,0.08) 60%,rgba(28,50,97,0.18));z-index:1;}
-    .slide-content{position:relative;z-index:2;width:100%;padding:26px 22px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;color:#fff;}
-    .slide-text{max-width:560px;}
-    .slide-text h1{margin:0 0 8px;font-size:clamp(22px,2.6vw,34px);letter-spacing:-0.3px;font-weight:600;}
-    .slide-text p{margin:0;font-size:14px;line-height:1.65;opacity:0.92;font-weight:400;}
-    .slide-action{display:flex;flex-direction:column;align-items:flex-end;gap:10px;}
-
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;
-      gap:10px;padding:12px 14px;border-radius:14px;
-      border:1px solid rgba(255,255,255,0.22);background:rgba(255,255,255,0.14);
-      color:#fff;font-size:13px;font-weight:600;
-      transition:transform .2s var(--ease),background .2s ease;white-space:nowrap;
+    button,input,textarea,select{
+      font:inherit;
+      color:inherit;
     }
-    .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,0.22);}
-    .btn.primary{background:linear-gradient(135deg,rgba(200,150,42,0.35),rgba(255,255,255,0.14));}
-    .btn.quote-btn{background:var(--gold);border:1px solid rgba(200,150,42,0.30);color:#fff;box-shadow:0 6px 18px rgba(200,150,42,0.35);}
 
-    .carousel-controls{position:absolute;bottom:56px;right:14px;z-index:5;display:flex;gap:8px;}
-    .carousel-btn{
-      width:38px;height:38px;border-radius:999px;
-      background:rgba(255,255,255,0.15);
-      border:1.5px solid rgba(255,255,255,0.30);
-      backdrop-filter:blur(8px);
-      display:flex;align-items:center;justify-content:center;
-      cursor:pointer;
-      transition:background .2s ease,transform .2s var(--ease),box-shadow .2s ease;
+    button{
+      border:none;
+      background:none;
+      cursor:none;
     }
-    .carousel-btn:hover{
+
+    a,input,textarea,select{
+      cursor:none;
+    }
+
+    .container{
+      width:100%;
+      max-width:none;
+      padding-inline:var(--container);
+      margin-inline:auto;
+    }
+
+    .section{
+      padding-block:var(--section-y);
+      background:#ffffff;
+    }
+
+    .section-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:16px;
+      flex-wrap:wrap;
+      margin-bottom:24px;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-bottom:10px;
+      color:var(--gold);
+      font-size:12px;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+
+    .eyebrow::before{
+      content:"";
+      width:34px;
+      height:3px;
+      border-radius:999px;
       background:var(--gold);
-      border-color:rgba(200,150,42,0.5);
-      transform:scale(1.1);
-      box-shadow:0 4px 16px rgba(200,150,42,0.45);
+      display:inline-block;
     }
-    .carousel-btn svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
 
-    .carousel-scrollbar{
-      position:absolute;left:18px;right:18px;bottom:14px;z-index:4;
-      height:3px;border-radius:999px;background:rgba(255,255,255,0.18);overflow:hidden;pointer-events:none;
+    .section-head h2{
+      font-size:30px;
+      line-height:1.1;
+      font-weight:700;
+      color:var(--blue);
+      letter-spacing:-0.2px;
     }
-    .carousel-scrollbar-fill{
-      display:block;height:100%;border-radius:999px;
-      background:rgba(200,150,42,0.90);
-      transition:width 0.5s var(--ease);
-    }
-    .carousel-dots{position:absolute;left:0;right:120px;bottom:28px;z-index:4;display:flex;justify-content:center;gap:8px;pointer-events:none;}
-    .dot{width:9px;height:9px;border-radius:999px;background:rgba(255,255,255,0.35);border:1px solid rgba(255,255,255,0.50);transition:all 240ms ease;opacity:0.85;cursor:pointer;pointer-events:auto;}
-    .dot.active{width:22px;background:rgba(200,150,42,0.90);border-color:rgba(200,150,42,0.95);opacity:1;}
 
-    .hero-side{display:flex;flex-direction:column;gap:14px;}
-    .glass-card{
-      border-radius:var(--radius);border:1px solid var(--border);
-      background:#fff;box-shadow:var(--shadow-md);padding:20px;
-      transition:transform .25s var(--ease),box-shadow .25s ease;
+    .section-head p{
+      max-width:800px;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.85;
     }
-    .glass-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover);}
-    .hero-side h2{margin:0 0 6px;font-size:15.5px;letter-spacing:0.4px;font-weight:700;color:var(--blue);text-transform:uppercase;}
-    .hero-side p{margin:0;color:var(--muted);font-size:14px;line-height:1.85;font-weight:400;}
-    .typing-cursor{display:inline-block;width:2px;height:1em;background:var(--gold);margin-left:2px;vertical-align:middle;animation:blink .7s step-end infinite;}
-    @keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
 
-    .quick-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
-    @media(max-width:420px){.quick-actions{grid-template-columns:1fr;}}
-    .mini{
-      padding:12px;border-radius:14px;
-      background:rgba(28,50,97,0.035);border:1px solid rgba(28,50,97,0.10);
-      transition:transform .2s var(--ease),background .2s ease,box-shadow .2s ease;
+    .card{
+      background:#ffffff;
+      border:1px solid var(--line);
+      border-radius:var(--radius-xl);
+      padding:22px;
     }
-    .mini:hover{transform:translateY(-2px);background:rgba(28,50,97,0.055);box-shadow:var(--shadow-hover);}
-    .mini strong{display:block;font-size:14px;margin-bottom:4px;color:var(--blue);font-weight:600;}
-    .mini span{font-size:12.5px;color:var(--muted2);font-weight:400;}
 
-    .instant-wrapper{display:flex;justify-content:flex-start;}
-    .instant-cta{
-      width:100%;display:inline-flex;align-items:center;justify-content:center;
-      padding:13px 16px;border-radius:16px;background:var(--blue);color:#fff;
-      font-size:15px;font-weight:700;border:1px solid rgba(28,50,97,0.20);
-      box-shadow:var(--shadow-md);
-      transition:transform .2s var(--ease),box-shadow .2s ease,color .2s ease;
-      text-align:center;white-space:nowrap;
+    .soft-card{
+      background:var(--surface-soft);
+      border:1px solid var(--line);
+      border-radius:var(--radius-xl);
+      padding:22px;
     }
-    .instant-cta:hover{transform:translateY(-2px) scale(1.01);box-shadow:var(--shadow-hover);color:#000 !important;}
 
-    .track-card{
-      border-radius:var(--radius);border:1px solid rgba(200,150,42,0.22);
-      background:rgba(200,150,42,0.04);box-shadow:var(--shadow-md);
-      padding:16px;display:flex;align-items:center;gap:12px;
+    .btn,
+    .btn-primary,
+    .btn-gold,
+    .btn-outline{
+      min-height:44px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:10px 18px;
+      border-radius:14px;
+      font-size:14px;
+      font-weight:700;
+      white-space:nowrap;
+      border:1px solid transparent;
+      transition:transform .22s var(--ease), box-shadow .22s ease, background .22s ease, color .22s ease;
     }
-    .track-left{display:flex;flex-direction:column;gap:6px;flex:1;}
-    .track-left strong{font-size:15px;font-weight:700;color:var(--blue);letter-spacing:0.3px;text-transform:uppercase;}
-    .track-input-row{display:flex;gap:10px;align-items:center;width:100%;}
-    .track-input{
-      flex:1;height:44px;padding:0 14px;border-radius:14px;
-      border:1px solid rgba(28,50,97,0.14);background:#fff;
-      outline:none;font-size:14px;color:var(--blue);
-      transition:border-color .2s ease,box-shadow .2s ease;
+
+    .btn-primary{
+      background:var(--blue);
+      color:#ffffff !important;
+      border-color:var(--blue);
     }
-    .track-input:focus{border-color:rgba(200,150,42,0.6);box-shadow:0 0 0 4px rgba(200,150,42,0.10);}
-    .track-input::placeholder{color:rgba(28,50,97,0.40);}
-    .track-search{
-      width:44px;height:44px;border-radius:14px;border:none;
-      display:flex;align-items:center;justify-content:center;
-      background:var(--blue);flex:0 0 auto;cursor:pointer;
-      transition:transform .2s var(--ease),box-shadow .2s ease;
+
+    .btn-gold{
+      background:var(--gold);
+      color:#ffffff !important;
+      border-color:var(--gold);
     }
-    .track-search:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(28,50,97,0.25);}
-    .track-search svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;}
 
-    .hero-bottom{margin-top:18px;}
-    .feature-strip{border-radius:var(--radius);border:1px solid rgba(28,50,97,0.08);background:#fff;box-shadow:var(--shadow);padding:18px;}
-    .feature-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;}
-    @media(max-width:1040px){.feature-grid{grid-template-columns:repeat(3,1fr);}}
-    @media(max-width:580px){.feature-grid{grid-template-columns:repeat(2,1fr);}}
-    .feature{padding:14px;border-radius:16px;background:rgba(28,50,97,0.025);border:1px solid rgba(28,50,97,0.07);transition:transform .2s var(--ease),background .2s ease;min-height:90px;}
-    .feature:hover{transform:translateY(-2px);background:rgba(28,50,97,0.05);box-shadow:var(--shadow-hover);}
-    .feature strong{display:block;font-size:14px;margin-bottom:4px;color:var(--blue);font-weight:600;}
-    .feature span{font-size:12.5px;color:var(--muted2);line-height:1.35;}
+    .btn-outline{
+      background:#ffffff;
+      color:var(--blue);
+      border-color:var(--line-2);
+    }
 
-    section{padding:54px 0;background:#FFFFFF;}
-    .section-rule{display:block;width:36px;height:3px;border-radius:999px;background:var(--gold);margin-bottom:10px;}
-    .section-title{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:22px;}
-    .section-title h3{margin:0;font-size:26px;letter-spacing:-0.2px;color:var(--blue);font-weight:700;}
-    .section-title p{margin:0;color:var(--muted);font-size:14px;max-width:680px;line-height:1.85;}
+    .btn-primary:hover,
+    .btn-gold:hover,
+    .btn-outline:hover{
+      transform:translateY(-2px);
+      box-shadow:0 10px 26px rgba(28,50,97,.12);
+    }
 
-    .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-    @media(max-width:980px){.services-grid{grid-template-columns:repeat(2,1fr);}}
-    @media(max-width:620px){.services-grid{grid-template-columns:1fr;}}
+    .nav{
+      position:sticky;
+      top:0;
+      z-index:100;
+      background:rgba(255,255,255,0.96);
+      border-bottom:1px solid var(--line);
+      backdrop-filter:blur(12px);
+    }
+
+    .nav-inner{
+      min-height:86px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      padding-block:12px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+
+    .brand img{
+      width:auto;
+      height:62px;
+      object-fit:contain;
+      flex:0 0 auto;
+    }
+
+    .brand-copy{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      line-height:1.05;
+    }
+
+    .brand-name{
+      font-size:22px;
+      font-weight:700;
+      letter-spacing:.2px;
+      text-transform:uppercase;
+      white-space:nowrap;
+    }
+
+    .brand-name .rai{color:var(--blue);}
+    .brand-name .v{color:var(--gold);}
+    .brand-name .ega{color:var(--blue);}
+
+    .brand-sub{
+      font-size:11px;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      color:var(--muted);
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .nav-links a{
+      padding:10px 12px;
+      border-radius:12px;
+      color:var(--blue);
+      font-size:14px;
+      font-weight:600;
+      white-space:nowrap;
+      transition:background .18s ease,color .18s ease,transform .18s ease;
+    }
+
+    .nav-links a:hover{
+      background:var(--surface-soft);
+      transform:translateY(-1px);
+    }
+
+    .hero{
+      padding-top:24px;
+      padding-bottom:28px;
+      background:#ffffff;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr);
+      gap:18px;
+      align-items:stretch;
+    }
+
+    .hero-carousel{
+      background:#ffffff;
+      border:1px solid var(--line);
+      border-radius:var(--radius-xl);
+      overflow:hidden;
+      display:grid;
+      grid-template-rows:auto minmax(0,1fr) auto;
+      min-height:680px;
+    }
+
+    .hero-topbar{
+      padding:18px 18px 0;
+    }
+
+    .hero-badge{
+      width:fit-content;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:9px 14px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:#ffffff;
+      color:var(--blue);
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.4px;
+      text-transform:uppercase;
+    }
+
+    .hero-badge::before{
+      content:"";
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--gold);
+      display:block;
+      flex:0 0 8px;
+    }
+
+    .carousel-stage{
+      padding:18px;
+      padding-top:14px;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+      min-height:0;
+    }
+
+    .carousel-shell{
+      position:relative;
+      width:100%;
+      min-height:440px;
+      background:var(--surface-soft-2);
+      border:1px solid var(--line);
+      border-radius:18px;
+      overflow:hidden;
+    }
+
+    .carousel-slide{
+      width:100%;
+      min-height:440px;
+      display:none;
+      grid-template-rows:minmax(0,1fr) auto;
+      background:#ffffff;
+    }
+
+    .carousel-slide.active{
+      display:grid;
+    }
+
+    .carousel-image{
+      background:#ffffff;
+      border-bottom:1px solid var(--line);
+      min-height:350px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:14px;
+    }
+
+    .carousel-image img{
+      width:100%;
+      height:100%;
+      min-height:320px;
+      max-height:420px;
+      object-fit:contain;
+      object-position:center;
+    }
+
+    .carousel-copy{
+      padding:18px;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:16px;
+      align-items:end;
+      background:#ffffff;
+    }
+
+    .carousel-copy h1{
+      font-size:34px;
+      line-height:1.08;
+      letter-spacing:-0.35px;
+      color:var(--blue);
+      font-weight:700;
+      margin-bottom:8px;
+    }
+
+    .carousel-copy p{
+      max-width:760px;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.85;
+    }
+
+    .carousel-cta{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      min-width:180px;
+    }
+
+    .carousel-bar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .carousel-nav{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .carousel-btn{
+      width:44px;
+      height:44px;
+      border-radius:12px;
+      border:1px solid var(--line-2);
+      background:#ffffff;
+      color:var(--blue);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex:0 0 44px;
+      transition:transform .2s var(--ease), box-shadow .2s ease, background .2s ease;
+    }
+
+    .carousel-btn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 10px 22px rgba(28,50,97,.10);
+      background:var(--surface-soft);
+    }
+
+    .carousel-btn svg{
+      width:18px;
+      height:18px;
+      stroke:currentColor;
+      fill:none;
+      stroke-width:2.2;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .carousel-dots{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .carousel-dot{
+      width:12px;
+      height:12px;
+      border-radius:999px;
+      border:1px solid var(--line-2);
+      background:#ffffff;
+      transition:all .22s ease;
+    }
+
+    .carousel-dot.active{
+      width:28px;
+      background:var(--gold);
+      border-color:var(--gold);
+    }
+
+    .hero-side{
+      display:grid;
+      grid-template-rows:auto auto auto;
+      gap:16px;
+      align-content:start;
+    }
+
+    .hero-panel{
+      background:#ffffff;
+      border:1px solid var(--line);
+      border-radius:var(--radius-xl);
+      padding:22px;
+      transition:transform .22s var(--ease), box-shadow .22s ease;
+    }
+
+    .hero-panel:hover{
+      transform:translateY(-2px);
+      box-shadow:0 12px 28px rgba(28,50,97,.08);
+    }
+
+    .hero-panel h3{
+      color:var(--blue);
+      font-size:16px;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.5px;
+      margin-bottom:8px;
+    }
+
+    .hero-panel .hero-main{
+      color:var(--blue);
+      font-size:28px;
+      line-height:1.15;
+      font-weight:700;
+      margin-bottom:10px;
+    }
+
+    .hero-panel p{
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.85;
+    }
+
+    .quick-links{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:16px;
+    }
+
+    .quick-link{
+      display:block;
+      background:var(--surface-soft);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px;
+      min-height:96px;
+      transition:transform .22s var(--ease), box-shadow .22s ease, background .22s ease;
+    }
+
+    .quick-link:hover{
+      transform:translateY(-2px);
+      background:#ffffff;
+      box-shadow:0 12px 24px rgba(28,50,97,.08);
+    }
+
+    .quick-link strong{
+      display:block;
+      color:var(--blue);
+      font-size:14px;
+      font-weight:700;
+      margin-bottom:4px;
+    }
+
+    .quick-link span{
+      display:block;
+      color:var(--muted);
+      font-size:12.5px;
+      line-height:1.55;
+    }
+
+    .track-row{
+      display:flex;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .track-row input{
+      flex:1;
+      min-width:0;
+      height:46px;
+      border-radius:14px;
+      border:1px solid var(--line-2);
+      background:#ffffff;
+      padding:0 14px;
+      outline:none;
+      color:var(--blue);
+      transition:border-color .18s ease, box-shadow .18s ease;
+    }
+
+    .track-row input:focus{
+      border-color:var(--gold);
+      box-shadow:0 0 0 4px rgba(200,150,42,.12);
+    }
+
+    .track-row input::placeholder{
+      color:var(--muted-2);
+    }
+
+    .track-row button{
+      width:52px;
+      height:46px;
+      border-radius:14px;
+      background:var(--blue);
+      border:1px solid var(--blue);
+      color:#ffffff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex:0 0 52px;
+      transition:transform .2s var(--ease), box-shadow .2s ease;
+    }
+
+    .track-row button:hover{
+      transform:translateY(-2px);
+      box-shadow:0 10px 22px rgba(28,50,97,.16);
+    }
+
+    .track-row button svg{
+      width:18px;
+      height:18px;
+      stroke:#ffffff;
+      fill:none;
+      stroke-width:2.1;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .services-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+    }
 
     .service-card{
       position:relative;
-      border-radius:var(--radius);
-      border:1px solid rgba(255,255,255,0.18);
-      box-shadow:var(--shadow);
-      min-height:270px;
+      min-height:320px;
+      border-radius:var(--radius-xl);
       overflow:hidden;
-      isolation:isolate;
-      background-color:#12315f;
-      background-size:cover;
+      border:1px solid var(--line);
+      background:#ffffff;
       background-position:center;
+      background-size:cover;
       background-repeat:no-repeat;
-      transition:transform .26s var(--ease),border .22s ease,box-shadow .22s ease;
+      display:flex;
+      align-items:stretch;
+      isolation:isolate;
+      transition:transform .24s var(--ease), box-shadow .24s ease;
     }
+
+    .service-card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 16px 30px rgba(28,50,97,.10);
+    }
+
     .service-card::before{
       content:"";
       position:absolute;
       inset:0;
-      background:linear-gradient(135deg,rgba(10,22,45,0.82) 0%,rgba(18,49,95,0.70) 45%,rgba(28,50,97,0.56) 100%);
+      background:linear-gradient(180deg, rgba(255,255,255,.82) 0%, rgba(255,255,255,.93) 100%);
       z-index:0;
-    }
-    .service-card::after{
-      content:"";
-      position:absolute;
-      inset:auto -40px -50px auto;
-      width:180px;
-      height:180px;
-      border-radius:50%;
-      background:radial-gradient(circle,rgba(255,255,255,0.10) 0%,rgba(255,255,255,0) 72%);
-      z-index:0;
-    }
-    .service-card:hover{
-      transform:translateY(-5px) scale(1.015);
-      border-color:rgba(200,150,42,0.35);
-      box-shadow:var(--shadow-hover);
     }
 
-    .service-content{
+    .service-body{
       position:relative;
-      z-index:2;
+      z-index:1;
+      width:100%;
+      padding:22px;
       display:flex;
       flex-direction:column;
-      height:100%;
-      padding:20px 20px 24px;
-      color:#fff;
     }
-    .service-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:12px;padding-right:88px;}
-    .service-top h4{margin:0;font-size:20px;font-weight:600;color:#fff;line-height:1.2;}
-    .tag{
-      font-size:11.5px;color:#fff;padding:6px 10px;border-radius:999px;
-      border:1px solid rgba(255,255,255,0.26);
-      background:rgba(255,255,255,0.10);
-      white-space:nowrap;font-weight:500;
-      backdrop-filter:blur(6px);
+
+    .service-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:12px;
     }
-    .points{
-      margin:0;
-      padding-left:18px;
-      color:rgba(255,255,255,0.92);
+
+    .service-top h4{
+      color:var(--blue);
+      font-size:21px;
+      line-height:1.15;
+      font-weight:700;
+    }
+
+    .service-tag{
+      flex:0 0 auto;
+      border:1px solid var(--line-2);
+      border-radius:999px;
+      background:#ffffff;
+      padding:6px 10px;
+      font-size:11px;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.5px;
+      color:var(--blue);
+    }
+
+    .service-body p{
+      color:var(--muted);
       font-size:14px;
-      line-height:1.85;
-      max-width:78%;
+      line-height:1.82;
+      margin-bottom:12px;
+      max-width:48ch;
     }
-    .service-card .go{
+
+    .service-points{
+      padding-left:18px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.82;
+      margin-bottom:16px;
+    }
+
+    .service-actions{
       margin-top:auto;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .service-actions a{
+      min-height:42px;
       display:inline-flex;
       align-items:center;
-      gap:8px;
-      font-size:14px;
-      color:#fff;
-      text-decoration:underline;
-      text-underline-offset:4px;
-      font-weight:600;
-      transition:gap .2s ease,color .2s ease;
-      width:fit-content;
+      justify-content:center;
+      padding:10px 14px;
+      border-radius:12px;
+      border:1px solid var(--line-2);
+      background:#ffffff;
+      color:var(--blue);
+      font-size:13px;
+      font-weight:700;
+      transition:transform .2s var(--ease), box-shadow .2s ease, background .2s ease;
     }
-    .service-card .go:hover{gap:12px;color:#ffd777;}
 
-    .service-corner{
-      position:absolute;
-      right:14px;
-      bottom:12px;
-      width:72px;
-      height:72px;
-      z-index:2;
-      display:flex;
-      align-items:flex-end;
-      justify-content:flex-end;
-      pointer-events:none;
+    .service-actions a:hover{
+      transform:translateY(-2px);
+      box-shadow:0 10px 22px rgba(28,50,97,.10);
     }
-    .service-corner img{
-      width:100%;
-      height:100%;
-      object-fit:contain;
-      object-position:bottom right;
-      filter:drop-shadow(0 10px 16px rgba(0,0,0,0.24));
-      opacity:.96;
-      transition:transform .35s var(--ease);
+
+    .service-actions a.primary{
+      background:var(--blue);
+      border-color:var(--blue);
+      color:#ffffff;
     }
-    .service-card:hover .service-corner img{transform:translateY(-2px) scale(1.06);}
 
-    .ocean-freight{background-image:url('images/ship.jpg');}
-    .air-freight{background-image:url('images/air freight.jpg');}
-    .transportation{background-image:url('images/ground-freight.jpg');}
-    .custom-clearance{background-image:url('images/cc.png');}
-    .warehousing{background-image:url('images/contact.png');}
-    .project-cargo{background-image:url('images/project.jpg');}
-
-    .about-wrap{display:grid;grid-template-columns:1.1fr 0.9fr;gap:16px;align-items:start;}
-    @media(max-width:980px){.about-wrap{grid-template-columns:1fr;}}
-    .about-card{border-radius:var(--radius);border:1px solid rgba(28,50,97,0.09);background:#fff;box-shadow:var(--shadow-md);padding:24px;}
-    .about-card h4{margin:0 0 10px;font-size:20px;font-weight:700;color:var(--blue);}
-    .about-card p{margin:0 0 12px;color:var(--muted);font-size:14.5px;line-height:1.9;}
-
-    .about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0 0;}
-    @media(max-width:640px){.about-stats{grid-template-columns:1fr 1fr;}}
-    .stat-box{padding:14px;border-radius:16px;background:rgba(200,150,42,0.06);border:1px solid rgba(200,150,42,0.18);text-align:center;}
-    .stat-box strong{display:block;font-size:22px;font-weight:700;color:var(--blue);line-height:1.1;}
-    .stat-box span{font-size:11.5px;color:var(--muted2);text-transform:uppercase;letter-spacing:.6px;font-weight:500;}
-
-    .exp-box{
-      margin-top:20px;border-radius:18px;
-      border:1px solid rgba(28,50,97,0.09);box-shadow:var(--shadow-md);
-      background:#fff;overflow:hidden;
-      display:grid;grid-template-columns:1fr 1fr;
-      transition:transform .25s var(--ease),box-shadow .25s ease;
+    .about-grid{
+      display:grid;
+      grid-template-columns:1.08fr .92fr;
+      gap:18px;
+      align-items:start;
     }
-    .exp-box:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover);}
-    .exp-img{
-      width:100%;
-      background:#f0f3f9;
-      display:flex;align-items:center;justify-content:center;
-      min-height:220px;
+
+    .about-main h3,
+    .about-side h3,
+    .process-card h4{
+      color:var(--blue);
+      font-weight:700;
+    }
+
+    .about-main h3{
+      font-size:22px;
+      line-height:1.2;
+      margin-bottom:12px;
+    }
+
+    .about-main p,
+    .about-side p{
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.9;
+      margin-bottom:12px;
+    }
+
+    .about-image-box{
+      margin-top:20px;
+      background:var(--surface-soft);
+      border:1px solid var(--line);
+      border-radius:18px;
       overflow:hidden;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:0;
     }
-    .exp-img img{
+
+    .about-image{
+      min-height:240px;
+      background:#f1f5fb;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:14px;
+    }
+
+    .about-image img{
       width:100%;
       height:100%;
-      min-height:220px;
+      max-height:260px;
       object-fit:contain;
-      object-position:center;
+    }
+
+    .about-image-copy{
+      padding:22px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .about-image-copy h4{
+      color:var(--blue);
+      font-size:19px;
+      line-height:1.2;
+      font-weight:700;
+      margin-bottom:10px;
+    }
+
+    .about-image-copy p{
+      margin-bottom:0;
+      font-size:14px;
+      line-height:1.9;
+    }
+
+    .about-side{
+      display:grid;
+      gap:12px;
+    }
+
+    .about-mini{
+      background:var(--surface-soft);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:18px;
+      transition:transform .22s var(--ease), box-shadow .22s ease;
+    }
+
+    .about-mini:hover{
+      transform:translateY(-2px);
+      box-shadow:0 10px 24px rgba(28,50,97,.08);
+    }
+
+    .about-mini strong{
       display:block;
-      padding:12px;
-      transition:transform 1.1s var(--ease);
+      color:var(--blue);
+      font-size:15px;
+      font-weight:700;
+      margin-bottom:6px;
     }
-    .exp-box:hover .exp-img img{transform:scale(1.04);}
-    .exp-content{padding:22px;display:flex;flex-direction:column;justify-content:center;}
-    .exp-content h4{margin:0 0 10px;font-size:18px;font-weight:700;color:var(--blue);}
-    .exp-content p{margin:0;color:var(--muted);font-size:14px;line-height:1.9;}
-    .exp-highlight{margin-top:14px;display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;border:1px solid rgba(200,150,42,0.35);background:rgba(200,150,42,0.08);color:var(--blue);font-weight:600;font-size:13px;width:fit-content;}
-    @media(max-width:700px){.exp-box{grid-template-columns:1fr;}}
 
-    .about-split{display:grid;gap:12px;}
-    .about-mini{padding:16px;border-radius:var(--radius);border:1px solid rgba(28,50,97,0.09);background:rgba(28,50,97,0.025);box-shadow:var(--shadow);transition:transform .2s var(--ease),box-shadow .2s ease;}
-    .about-mini:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover);}
-    .about-mini strong{display:block;margin-bottom:6px;font-size:15px;font-weight:700;color:var(--blue);}
-    .about-mini span{color:var(--muted);font-size:14px;line-height:1.9;display:block;}
-    .about-mini .am-icon{font-size:22px;margin-bottom:6px;display:block;}
-
-    footer{border-top:1px solid rgba(28,50,97,0.09);background:#fff;padding:40px 0;}
-    .foot-grid{display:grid;grid-template-columns:1.2fr 0.7fr 0.7fr;gap:18px;}
-    @media(max-width:880px){.foot-grid{grid-template-columns:1fr;}}
-    .footer-brand{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
-    .footer-logo-img{height:64px;width:auto;object-fit:contain;}
-    .footer-title .name{font-size:22px;font-weight:700;letter-spacing:0.2px;text-transform:uppercase;}
-    .footer-title .name .rai{color:var(--blue);}
-    .footer-title .name .v{color:var(--gold);}
-    .footer-title .name .ega{color:var(--blue);}
-    .foot h5{margin:0 0 10px;font-size:13px;letter-spacing:0.9px;text-transform:uppercase;color:var(--muted2);font-weight:600;}
-    .foot p,.foot a{margin:0;font-size:14px;color:var(--muted);line-height:2;}
-    .foot a:hover{color:var(--gold);text-decoration:underline;text-underline-offset:3px;}
-    .copyright{margin-top:18px;color:rgba(28,50,97,0.50);font-size:12.5px;}
-
-    .chat-panel{
-      position:fixed;right:18px;bottom:128px;width:min(320px,calc(100vw - 30px));
-      background:rgba(255,255,255,0.97);border:1px solid rgba(28,50,97,0.10);
-      border-radius:20px;box-shadow:0 12px 40px rgba(28,50,97,0.14);
-      backdrop-filter:blur(14px);z-index:9998;overflow:hidden;
-      opacity:0;visibility:hidden;transform:translateY(16px) scale(.96);
-      transform-origin:bottom right;
-      transition:opacity .25s ease,transform .28s var(--ease),visibility .25s ease;
+    .about-mini span{
+      display:block;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.85;
     }
-    .chat-panel.open{opacity:1;visibility:visible;transform:translateY(0) scale(1);}
-    .chat-head{padding:15px 16px 13px;background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;}
-    .chat-head strong{display:block;font-size:15px;margin-bottom:2px;}
-    .chat-head span{display:block;opacity:.88;font-size:12.5px;}
-    .chat-body{padding:14px;display:grid;gap:10px;}
-    .chat-link{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:14px;border:1px solid rgba(28,50,97,0.08);background:#fff;color:var(--blue);font-size:14px;font-weight:600;transition:transform .2s var(--ease),background .2s ease;}
-    .chat-link:hover{transform:translateY(-2px);background:rgba(28,50,97,0.03);}
 
-    .float-wrap{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:10px;z-index:9999;}
-    .float-btn{width:48px;height:48px;border-radius:999px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(28,50,97,0.18);border:1px solid rgba(255,255,255,0.30);transition:transform .2s var(--ease),box-shadow .2s ease;background:#fff;cursor:pointer;}
-    .float-btn:hover{transform:translateY(-3px) scale(1.04);box-shadow:var(--shadow-hover);}
-    .float-btn svg{width:24px;height:24px;display:block;}
-    .float-chat{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;}
-    .float-wa{background:var(--wa);}
-    .float-li{background:var(--li);}
-    .float-wa svg,.float-li svg{fill:#fff;}
-    .magnetic{will-change:transform;transition:transform .16s var(--ease);}
-
-    @media(prefers-reduced-motion:reduce){
-      html{scroll-behavior:auto;}
-      *,*::before,*::after{animation:none !important;transition:none !important;}
-      .motion,[data-anim],[data-stagger]>*{opacity:1 !important;transform:none !important;filter:none !important;}
+    .process-grid{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:14px;
     }
-    @media(hover:none),(pointer:coarse){body{cursor:auto;}.cursor-dot,.cursor-ring,.cursor-glow{display:none !important;}}
+
+    .process-card{
+      background:#ffffff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:18px;
+      transition:transform .22s var(--ease), box-shadow .22s ease;
+    }
+
+    .process-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 10px 22px rgba(28,50,97,.08);
+    }
+
+    .process-no{
+      width:36px;
+      height:36px;
+      border-radius:12px;
+      background:var(--gold-soft);
+      border:1px solid #ead39d;
+      color:var(--blue);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:14px;
+      font-weight:700;
+      margin-bottom:14px;
+    }
+
+    .process-card h4{
+      font-size:16px;
+      line-height:1.2;
+      margin-bottom:8px;
+    }
+
+    .process-card p{
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.8;
+    }
+
+    .contact-band{
+      background:var(--surface-soft);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:24px;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:18px;
+      align-items:center;
+    }
+
+    .contact-band h3{
+      color:var(--blue);
+      font-size:28px;
+      line-height:1.15;
+      font-weight:700;
+      margin-bottom:8px;
+    }
+
+    .contact-band p{
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.85;
+      max-width:880px;
+    }
+
+    .contact-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .footer{
+      background:#ffffff;
+      border-top:1px solid var(--line);
+      padding-top:40px;
+      padding-bottom:40px;
+    }
+
+    .footer-grid{
+      display:grid;
+      grid-template-columns:1.2fr .8fr .8fr;
+      gap:18px;
+    }
+
+    .footer-brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:12px;
+    }
+
+    .footer-brand img{
+      width:auto;
+      height:62px;
+      object-fit:contain;
+    }
+
+    .footer-name{
+      font-size:22px;
+      font-weight:700;
+      letter-spacing:.2px;
+      text-transform:uppercase;
+    }
+
+    .footer-name .rai{color:var(--blue);}
+    .footer-name .v{color:var(--gold);}
+    .footer-name .ega{color:var(--blue);}
+
+    .footer h5{
+      color:var(--muted);
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:.9px;
+      margin-bottom:10px;
+      font-weight:700;
+    }
+
+    .footer p,
+    .footer a{
+      color:var(--muted);
+      font-size:14px;
+      line-height:2;
+    }
+
+    .copyright{
+      margin-top:18px;
+      color:var(--muted-2);
+      font-size:12.5px;
+    }
+
+    .cursor-dot,
+    .cursor-ring,
+    .cursor-glow{
+      position:fixed;
+      top:0;
+      left:0;
+      pointer-events:none;
+      transform:translate(-50%,-50%);
+      z-index:9999;
+    }
+
+    .cursor-dot{
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--blue);
+      z-index:10002;
+    }
+
+    .cursor-ring{
+      width:42px;
+      height:42px;
+      border-radius:999px;
+      border:1.6px solid rgba(200,150,42,.92);
+      background:rgba(255,255,255,.05);
+      backdrop-filter:blur(.5px);
+      transition:width .22s var(--ease),height .22s var(--ease),border-color .22s ease,background .22s ease;
+      z-index:10001;
+    }
+
+    .cursor-glow{
+      width:90px;
+      height:90px;
+      border-radius:50%;
+      background:radial-gradient(circle,rgba(200,150,42,.09) 0%,transparent 72%);
+      filter:blur(5px);
+      opacity:.32;
+      z-index:10000;
+    }
+
+    body.cursor-hover .cursor-ring{
+      width:70px;
+      height:70px;
+      border-color:rgba(200,150,42,.95);
+      background:rgba(200,150,42,.08);
+    }
+
+    body.cursor-hover .cursor-dot{
+      background:var(--gold);
+    }
+
+    body.cursor-down .cursor-ring{
+      width:34px;
+      height:34px;
+    }
+
+    @media (max-width:1200px){
+      .process-grid{
+        grid-template-columns:repeat(3,1fr);
+      }
+    }
+
+    @media (max-width:1040px){
+      .hero-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero-side{
+        grid-template-columns:1fr;
+        grid-template-rows:none;
+      }
+
+      .services-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .about-grid{
+        grid-template-columns:1fr;
+      }
+
+      .footer-grid{
+        grid-template-columns:1fr;
+      }
+
+      .contact-band{
+        grid-template-columns:1fr;
+      }
+
+      .contact-actions{
+        justify-content:flex-start;
+      }
+    }
+
+    @media (max-width:768px){
+      :root{
+        --container:16px;
+      }
+
+      .nav-inner{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .nav-links{
+        width:100%;
+        justify-content:flex-start;
+        align-items:stretch;
+      }
+
+      .nav-links a,
+      .btn-primary,
+      .btn-gold,
+      .btn-outline{
+        width:100%;
+      }
+
+      .hero-carousel{
+        min-height:auto;
+      }
+
+      .carousel-shell,
+      .carousel-slide{
+        min-height:320px;
+      }
+
+      .carousel-image{
+        min-height:320px;
+        padding:10px;
+        border-bottom:none;
+      }
+
+      .carousel-image img{
+        min-height:280px;
+        max-height:320px;
+      }
+
+      .carousel-copy{
+        display:none;
+      }
+
+      .hero-side{
+        grid-template-columns:1fr;
+      }
+
+      .quick-links{
+        grid-template-columns:1fr;
+      }
+
+      .services-grid{
+        grid-template-columns:1fr;
+      }
+
+      .about-image-box{
+        grid-template-columns:1fr;
+      }
+
+      .process-grid{
+        grid-template-columns:1fr 1fr;
+      }
+    }
+
+    @media (max-width:560px){
+      .brand img,
+      .footer-brand img{
+        height:56px;
+      }
+
+      .brand-name,
+      .footer-name{
+        font-size:21px;
+      }
+
+      .section-head h2{
+        font-size:26px;
+      }
+
+      .hero-panel .hero-main{
+        font-size:24px;
+      }
+
+      .process-grid{
+        grid-template-columns:1fr;
+      }
+
+      .track-row{
+        flex-direction:column;
+      }
+
+      .track-row button{
+        width:100%;
+      }
+    }
+
+    @media (hover:none), (pointer:coarse){
+      body,
+      a,
+      button,
+      input,
+      textarea,
+      select{
+        cursor:auto;
+      }
+
+      .cursor-dot,
+      .cursor-ring,
+      .cursor-glow{
+        display:none !important;
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      html{
+        scroll-behavior:auto;
+      }
+
+      *,
+      *::before,
+      *::after{
+        transition:none !important;
+        animation:none !important;
+      }
+    }
   </style>
 </head>
 <body>
-
   <div class="cursor-glow" id="cursorGlow"></div>
   <div class="cursor-dot" id="cursorDot"></div>
   <div class="cursor-ring" id="cursorRing"></div>
 
-  <div id="loader">
-    <div class="loader-logo-wrap">
-      <img class="loader-logo" src="images/RV LOGO.png" alt="RAIVEGA" />
-      <div class="loader-brand-name">RAI<span class="lv">V</span>EGA</div>
-    </div>
-    <div class="loader-wave-ring"></div>
-  </div>
-
-  <div class="nav">
+  <header class="nav">
     <div class="container">
       <div class="nav-inner">
-        <a class="brand magnetic" href="#home">
-          <img class="logo-img" src="images/RV LOGO.png" alt="RAIVEGA Logo" />
-          <div class="brand-title">
-            <div class="name"><span class="rai">RAI</span><span class="v">V</span><span class="ega">EGA</span></div>
-            <div class="brand-sub">MULTIMODAL FREIGHT FORWARDING</div>
+        <a class="brand" href="#home" aria-label="RAIVEGA home">
+          <img src="images/RV LOGO.png" alt="RAIVEGA Logo" />
+          <div class="brand-copy">
+            <div class="brand-name">
+              <span class="rai">RAI</span><span class="v">V</span><span class="ega">EGA</span>
+            </div>
+            <div class="brand-sub">Multimodal Freight Forwarding</div>
           </div>
         </a>
-        <div class="nav-links">
-          <a class="magnetic" href="#services">Services</a>
-          <a class="magnetic" href="#about">About Us</a>
-          <a class="magnetic" href="pages/contact.html">Contact</a>
-          <a class="cta magnetic" href="pages/get-a-quote.html">Get a Quote</a>
-          <a class="cta-sea magnetic" href="pages/get-instant-rates.html">Get Instant Rates</a>
-        </div>
+
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="#services">Services</a>
+          <a href="#about">About Us</a>
+          <a href="#workflow">Workflow</a>
+          <a href="pages/contact.html">Contact</a>
+          <a class="btn-gold" href="pages/get-a-quote.html">Get a Quote</a>
+          <a class="btn-primary" href="pages/get-instant-rates.html">Get Instant Rates</a>
+        </nav>
       </div>
     </div>
-  </div>
+  </header>
 
-  <main class="hero-wrap" id="home">
-    <div class="container">
-      <div class="hero-top">
-        <div class="hero-shell motion zoom-out">
+  <main id="home">
 
-          <div class="carousel-panel">
-            <div class="carousel-header">
-              <div class="hero-badge"><i></i><span>Reliable &bull; Innovative &bull; Customer Centric</span></div>
-            </div>
+    <section class="hero">
+      <div class="container">
 
-            <div class="marquee" id="carouselMarquee">
-              <div class="marquee-track" id="marqueeTrack">
+        <div class="hero-grid">
 
-                <div class="slide">
-                  <img src="images/air freight.jpg" alt="Air Freight" />
-                  <div class="slide-content">
-                    <div class="slide-text">
-                      <h1>Air Freight for urgent and priority shipments</h1>
-                      <p>Fast global delivery, secure handling, and professional transit planning for time-critical cargo movements.</p>
-                    </div>
-                    <div class="slide-action">
-                      <a class="btn primary" href="pages/air-freight.html">Air Freight</a>
-                      <a class="btn quote-btn" href="pages/get-a-quote.html">Get a Quote</a>
-                    </div>
-                  </div>
-                </div>
+          <div>
+            <div class="hero-carousel">
 
-                <div class="slide">
-                  <img src="images/ground-freight.jpg" alt="Ground Freight" />
-                  <div class="slide-content">
-                    <div class="slide-text">
-                      <h1>Ground Freight with road &amp; rail connectivity</h1>
-                      <p>Stable schedules, cost-optimised routing, dependable inland movement and distribution support.</p>
-                    </div>
-                    <div class="slide-action">
-                      <a class="btn primary" href="pages/ground-freight.html">Ground Freight</a>
-                      <a class="btn quote-btn" href="pages/get-a-quote.html">Get a Quote</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="slide">
-                  <img src="images/project.jpg" alt="Project Cargo" />
-                  <div class="slide-content">
-                    <div class="slide-text">
-                      <h1>Project &amp; specialised cargo handled with precision</h1>
-                      <p>Heavy-lift planning and execution for special shipments, oversized cargo and complex logistics requirements.</p>
-                    </div>
-                    <div class="slide-action">
-                      <a class="btn primary" href="pages/get-a-quote.html">Project Logistics</a>
-                      <a class="btn quote-btn" href="pages/get-a-quote.html">Get a Quote</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="slide">
-                  <img src="images/roro.jpg" alt="RoRo Cargo" />
-                  <div class="slide-content">
-                    <div class="slide-text">
-                      <h1>RORO &amp; vehicle cargo movement made simple</h1>
-                      <p>Seamless handling for automobiles and rolling cargo through proven carrier options and secure documentation flow.</p>
-                    </div>
-                    <div class="slide-action">
-                      <a class="btn primary" href="pages/get-a-quote.html">RORO Cargo</a>
-                      <a class="btn quote-btn" href="pages/get-a-quote.html">Get a Quote</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="slide">
-                  <img src="images/bulk.jpg" alt="Bulk Cargo" />
-                  <div class="slide-content">
-                    <div class="slide-text">
-                      <h1>Bulk cargo solutions with dependable execution</h1>
-                      <p>Bulk handling support with robust planning, safe operations, and clear communication across shipment stages.</p>
-                    </div>
-                    <div class="slide-action">
-                      <a class="btn primary" href="pages/get-a-quote.html">Bulk Cargo</a>
-                      <a class="btn quote-btn" href="pages/get-a-quote.html">Get a Quote</a>
-                    </div>
-                  </div>
-                </div>
-
+              <div class="hero-topbar">
+                <div class="hero-badge">Reliable • Innovative • Customer Centric</div>
               </div>
-            </div>
 
-            <div class="carousel-controls">
-              <button class="carousel-btn" id="carouselPrev" aria-label="Previous slide">
-                <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-              </button>
-              <button class="carousel-btn" id="carouselNext" aria-label="Next slide">
-                <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
-              </button>
-            </div>
+              <div class="carousel-stage">
 
-            <div class="carousel-dots" id="carouselDots">
-              <div class="dot active" data-idx="0"></div>
-              <div class="dot" data-idx="1"></div>
-              <div class="dot" data-idx="2"></div>
-              <div class="dot" data-idx="3"></div>
-              <div class="dot" data-idx="4"></div>
-            </div>
-            <div class="carousel-scrollbar"><span class="carousel-scrollbar-fill" id="scrollbarFill" style="width:20%"></span></div>
-          </div>
+                <div class="carousel-shell">
 
-          <div class="hero-side">
-            <div class="glass-card motion zoom-in magnetic">
-              <h2 id="heroTyped"></h2><span class="typing-cursor" id="typingCursor1"></span>
-              <p id="heroTypedSub" style="min-height:90px;"></p>
-              <div class="quick-actions">
-                <a class="mini magnetic" href="pages/ocean-freight.html"><strong>Ocean Freight</strong><span>Import &amp; Export support</span></a>
-                <a class="mini magnetic" href="pages/customs-clearance.html"><strong>Custom Clearance</strong><span>Documentation &amp; compliance</span></a>
-                <a class="mini magnetic" href="pages/warehouse.html"><strong>Warehousing</strong><span>Storage &amp; handling</span></a>
-                <a class="mini magnetic" href="pages/contact.html"><strong>Contact RAIVEGA</strong><span>Direct response support</span></a>
-              </div>
-            </div>
+                  <article class="carousel-slide active">
+                    <div class="carousel-image">
+                      <img src="images/ship.jpg" alt="Ocean Freight" />
+                    </div>
+                    <div class="carousel-copy">
+                      <div>
+                        <h1>Ocean Freight</h1>
+                        <p>FCL and LCL shipment handling with import and export coordination across global trade lanes.</p>
+                      </div>
+                      <div class="carousel-cta">
+                        <a class="btn-primary" href="pages/ocean-freight.html">Ocean Freight</a>
+                        <a class="btn-gold" href="pages/get-a-quote.html">Get a Quote</a>
+                      </div>
+                    </div>
+                  </article>
 
-            <div class="glass-card motion zoom-out magnetic">
-              <h2>Instant Global Rates</h2>
-              <p>Access quick online rate lookup through our connected rates system for faster shipment planning and response.</p>
-              <div class="instant-wrapper" style="margin-top:14px;">
-                <a class="instant-cta magnetic" href="pages/get-instant-rates.html">Get Instant Rates &rarr;</a>
-              </div>
-            </div>
+                  <article class="carousel-slide">
+                    <div class="carousel-image">
+                      <img src="images/air freight.jpg" alt="Air Freight" />
+                    </div>
+                    <div class="carousel-copy">
+                      <div>
+                        <h1>Air Freight</h1>
+                        <p>Time-sensitive cargo movement with airport coordination, secure handling and faster transit planning.</p>
+                      </div>
+                      <div class="carousel-cta">
+                        <a class="btn-primary" href="pages/air-freight.html">Air Freight</a>
+                        <a class="btn-gold" href="pages/get-a-quote.html">Get a Quote</a>
+                      </div>
+                    </div>
+                  </article>
 
-            <div class="track-card motion zoom-in magnetic">
-              <div class="track-left">
-                <strong>Track Shipment</strong>
-                <div class="track-input-row">
-                  <input class="track-input" id="trackInput" type="text" placeholder="Enter tracking number" />
-                  <button class="track-search magnetic" id="trackBtn" type="button" aria-label="Search">
-                    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
-                  </button>
+                  <article class="carousel-slide">
+                    <div class="carousel-image">
+                      <img src="images/ground-freight.jpg" alt="Ground Freight" />
+                    </div>
+                    <div class="carousel-copy">
+                      <div>
+                        <h1>Transportation</h1>
+                        <p>Road and rail support for pickup, delivery, scheduling and inland cargo distribution.</p>
+                      </div>
+                      <div class="carousel-cta">
+                        <a class="btn-primary" href="pages/ground-freight.html">Transportation</a>
+                        <a class="btn-gold" href="pages/get-a-quote.html">Get a Quote</a>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="carousel-slide">
+                    <div class="carousel-image">
+                      <img src="images/warehouse.png" alt="Warehousing" />
+                    </div>
+                    <div class="carousel-copy">
+                      <div>
+                        <h1>Warehousing</h1>
+                        <p>Storage, inventory handling, cargo staging and dispatch readiness support for planned movement.</p>
+                      </div>
+                      <div class="carousel-cta">
+                        <a class="btn-primary" href="pages/warehouse.html">Warehousing</a>
+                        <a class="btn-gold" href="pages/get-a-quote.html">Get a Quote</a>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="carousel-slide">
+                    <div class="carousel-image">
+                      <img src="images/project.jpg" alt="Project Cargo" />
+                    </div>
+                    <div class="carousel-copy">
+                      <div>
+                        <h1>Project Cargo</h1>
+                        <p>Support for heavy-lift, oversized and specialised cargo requiring coordinated execution.</p>
+                      </div>
+                      <div class="carousel-cta">
+                        <a class="btn-primary" href="pages/get-a-quote.html">Project Cargo</a>
+                        <a class="btn-gold" href="pages/get-a-quote.html">Get a Quote</a>
+                      </div>
+                    </div>
+                  </article>
+
                 </div>
+
+                <div class="carousel-bar">
+                  <div class="carousel-nav" aria-label="Carousel controls">
+                    <button class="carousel-btn" id="carouselPrev" type="button" aria-label="Previous slide">
+                      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+                    <button class="carousel-btn" id="carouselNext" type="button" aria-label="Next slide">
+                      <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"></polyline></svg>
+                    </button>
+                  </div>
+
+                  <div class="carousel-dots" id="carouselDots" aria-label="Carousel dots">
+                    <button class="carousel-dot active" type="button" aria-label="Go to slide 1"></button>
+                    <button class="carousel-dot" type="button" aria-label="Go to slide 2"></button>
+                    <button class="carousel-dot" type="button" aria-label="Go to slide 3"></button>
+                    <button class="carousel-dot" type="button" aria-label="Go to slide 4"></button>
+                    <button class="carousel-dot" type="button" aria-label="Go to slide 5"></button>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
+
+          <aside class="hero-side">
+            <div class="hero-panel">
+              <h3>Freight Forwarding</h3>
+              <div class="hero-main">Multimodal logistics support across ocean, air, ground, customs and warehousing.</div>
+              <p>
+                RAIVEGA handles shipment coordination with planning discipline, responsive follow-up and practical execution support across key cargo movement requirements.
+              </p>
+
+              <div class="quick-links">
+                <a class="quick-link" href="pages/ocean-freight.html">
+                  <strong>Ocean Freight</strong>
+                  <span>Import and export shipment support.</span>
+                </a>
+                <a class="quick-link" href="pages/customs-clearance.html">
+                  <strong>Custom Clearance</strong>
+                  <span>Documentation and compliance handling.</span>
+                </a>
+                <a class="quick-link" href="pages/warehouse.html">
+                  <strong>Warehousing</strong>
+                  <span>Storage and cargo handling support.</span>
+                </a>
+                <a class="quick-link" href="pages/contact.html">
+                  <strong>Contact RAIVEGA</strong>
+                  <span>Direct enquiry and shipment discussion.</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="hero-panel">
+              <h3>Instant Global Rates</h3>
+              <p>
+                Access quick online rate lookup for faster shipment planning and response.
+              </p>
+              <div style="margin-top:14px;">
+                <a class="btn-primary" href="pages/get-instant-rates.html">Get Instant Rates</a>
+              </div>
+            </div>
+
+            <div class="hero-panel">
+              <h3>Track Shipment</h3>
+              <p>
+                Enter your tracking number below to continue to container tracking.
+              </p>
+              <div class="track-row">
+                <input
+                  id="trackInput"
+                  type="text"
+                  placeholder="Enter tracking number"
+                  aria-label="Tracking number"
+                />
+                <button id="trackBtn" type="button" aria-label="Track shipment">
+                  <svg viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <line x1="16.5" y1="16.5" x2="22" y2="22"></line>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </aside>
 
         </div>
       </div>
+    </section>
 
-      <div class="hero-bottom motion">
-        <div class="feature-strip">
-          <div class="feature-grid" data-stagger>
-            <div class="feature magnetic"><strong>Ocean Freight</strong><span>FCL, LCL and global shipping support</span></div>
-            <div class="feature magnetic"><strong>Air Freight</strong><span>Priority uplift and secure movement</span></div>
-            <div class="feature magnetic"><strong>Ground Freight</strong><span>Road, rail and inland distribution</span></div>
-            <div class="feature magnetic"><strong>Warehousing</strong><span>Storage, consolidation and handling</span></div>
-            <div class="feature magnetic"><strong>Custom Clearance</strong><span>Compliance-led documentation flow</span></div>
-            <div class="feature magnetic"><strong>Project Cargo</strong><span>Special loads and complex logistics</span></div>
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Services</div>
+            <h2>Freight and logistics services</h2>
+          </div>
+          <p>
+            Integrated freight coordination, shipment planning, documentation, movement execution and delivery support.
+          </p>
+        </div>
+
+        <div class="services-grid">
+
+          <article class="service-card" style="background-image:url('images/ship.jpg');">
+            <div class="service-body">
+              <div class="service-top">
+                <h4>Ocean Freight</h4>
+                <span class="service-tag">FCL / LCL</span>
+              </div>
+              <p>
+                Shipment coordination across import and export movements with planned container handling and carrier support.
+              </p>
+              <ul class="service-points">
+                <li>FCL and LCL handling</li>
+                <li>Import and export coordination</li>
+                <li>Carrier planning support</li>
+                <li>Documentation handling</li>
+              </ul>
+              <div class="service-actions">
+                <a class="primary" href="pages/ocean-freight.html">Explore</a>
+                <a href="pages/get-a-quote.html">Quote</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-card" style="background-image:url('images/air freight.jpg');">
+            <div class="service-body">
+              <div class="service-top">
+                <h4>Air Freight</h4>
+                <span class="service-tag">Priority</span>
+              </div>
+              <p>
+                Air cargo support for urgent and scheduled shipments with airport coordination and secure handling.
+              </p>
+              <ul class="service-points">
+                <li>Urgent shipment support</li>
+                <li>Airport coordination</li>
+                <li>Secure handling</li>
+                <li>Express movement planning</li>
+              </ul>
+              <div class="service-actions">
+                <a class="primary" href="pages/air-freight.html">Explore</a>
+                <a href="pages/get-a-quote.html">Quote</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-card" style="background-image:url('images/ground-freight.jpg');">
+            <div class="service-body">
+              <div class="service-top">
+                <h4>Transportation</h4>
+                <span class="service-tag">Road / Rail</span>
+              </div>
+              <p>
+                Inland cargo movement support for pickup, delivery and domestic distribution across planned routes.
+              </p>
+              <ul class="service-points">
+                <li>Pickup and delivery</li>
+                <li>FTL and LTL support</li>
+                <li>Domestic distribution</li>
+                <li>Movement scheduling</li>
+              </ul>
+              <div class="service-actions">
+                <a class="primary" href="pages/ground-freight.html">Explore</a>
+                <a href="pages/get-a-quote.html">Quote</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-card" style="background-image:url('images/cc.png');">
+            <div class="service-body">
+              <div class="service-top">
+                <h4>Custom Clearance</h4>
+                <span class="service-tag">Compliance</span>
+              </div>
+              <p>
+                Customs handling support with planned documentation and compliance follow-through for cargo movement.
+              </p>
+              <ul class="service-points">
+                <li>Import and export documentation</li>
+                <li>Compliance handling</li>
+                <li>Paper trail support</li>
+                <li>Delay reduction support</li>
+              </ul>
+              <div class="service-actions">
+                <a class="primary" href="pages/customs-clearance.html">Explore</a>
+                <a href="pages/get-a-quote.html">Quote</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-card" style="background-image:url('images/warehouse.png');">
+            <div class="service-body">
+              <div class="service-top">
+                <h4>Warehousing</h4>
+                <span class="service-tag">Storage</span>
+              </div>
+              <p>
+                Warehousing support for storage, inventory handling, cargo staging and dispatch readiness.
+              </p>
+              <ul class="service-points">
+                <li>Inventory support</li>
+                <li>Safe storage</li>
+                <li>Cargo handling</li>
+                <li>Distribution readiness</li>
+              </ul>
+              <div class="service-actions">
+                <a class="primary" href="pages/warehouse.html">Explore</a>
+                <a href="pages/get-a-quote.html">Quote</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-card" style="background-image:url('images/project.jpg');">
+            <div class="service-body">
+              <div class="service-top">
+                <h4>Project Cargo</h4>
+                <span class="service-tag">Specialised</span>
+              </div>
+              <p>
+                Planned handling support for oversized, heavy-lift and special cargo movement requirements.
+              </p>
+              <ul class="service-points">
+                <li>Heavy-lift handling</li>
+                <li>Special routing</li>
+                <li>Oversized cargo support</li>
+                <li>Execution coordination</li>
+              </ul>
+              <div class="service-actions">
+                <a class="primary" href="pages/get-a-quote.html">Explore</a>
+                <a href="pages/get-a-quote.html">Quote</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">About RAIVEGA</div>
+            <h2>Multimodal freight forwarding</h2>
+          </div>
+          <p>
+            Shipment support across ocean, air, ground, customs and warehousing requirements.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <div class="card about-main">
+            <h3>Reliable service discipline for cargo movement</h3>
+            <p>
+              RAIVEGA is built around shipment coordination that values planning, responsiveness and operational control.
+            </p>
+            <p>
+              Our approach combines freight execution with practical customer support across ocean, air, ground, customs and warehousing requirements.
+            </p>
+            <p>
+              We work to simplify movement through clear communication, timely coordination and dependable service follow-through from origin to destination.
+            </p>
+            <p>
+              Our team supports FCL and LCL ocean bookings, air uplift, domestic road and rail coordination, customs brokerage and warehousing.
+            </p>
+
+            <div class="about-image-box">
+              <div class="about-image">
+                <img src="images/about-raivega.png" alt="RAIVEGA logistics operations" />
+              </div>
+              <div class="about-image-copy">
+                <h4>Execution support across shipment stages</h4>
+                <p>
+                  From planning to final delivery coordination, our role is to keep cargo moving with clarity, speed and accountability.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-side">
+            <div class="about-mini">
+              <strong>Customer-Centric Approach</strong>
+              <span>Communication, practical advice and service continuity for shipment handling needs.</span>
+            </div>
+            <div class="about-mini">
+              <strong>Network Coordination</strong>
+              <span>Freight support across multiple transport modes and operational touchpoints.</span>
+            </div>
+            <div class="about-mini">
+              <strong>Operational Reliability</strong>
+              <span>Planning discipline, accountability and responsive follow-up across shipment requirements.</span>
+            </div>
+            <div class="about-mini">
+              <strong>Compliance and Documentation</strong>
+              <span>Customs documentation, regulatory handling and shipment paper trail support.</span>
+            </div>
+            <div class="about-mini">
+              <strong>Industry Support</strong>
+              <span>Handling requirements across export, import, industrial cargo and project movement needs.</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
+
+    <section class="section" id="workflow">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Workflow</div>
+            <h2>Shipment handling process</h2>
+          </div>
+          <p>
+            Requirement review, routing, documentation, movement execution and delivery follow-through.
+          </p>
+        </div>
+
+        <div class="process-grid">
+          <div class="process-card">
+            <div class="process-no">01</div>
+            <h4>Requirement Review</h4>
+            <p>Shipment scope, cargo type, timelines and movement requirements are reviewed first.</p>
+          </div>
+
+          <div class="process-card">
+            <div class="process-no">02</div>
+            <h4>Routing and Planning</h4>
+            <p>Mode selection, route planning, schedule alignment and movement coordination are prepared.</p>
+          </div>
+
+          <div class="process-card">
+            <div class="process-no">03</div>
+            <h4>Documentation</h4>
+            <p>Commercial paperwork, customs documentation and shipment records are organized.</p>
+          </div>
+
+          <div class="process-card">
+            <div class="process-no">04</div>
+            <h4>Execution</h4>
+            <p>Freight, transport, warehousing and handling steps are coordinated through movement stages.</p>
+          </div>
+
+          <div class="process-card">
+            <div class="process-no">05</div>
+            <h4>Delivery Follow-Up</h4>
+            <p>Status closure, movement updates and final coordination are completed after shipment progress.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact-cta">
+      <div class="container">
+        <div class="contact-band">
+          <div>
+            <div class="eyebrow" style="margin-bottom:12px;">Contact</div>
+            <h3>Discuss your shipment requirement</h3>
+            <p>
+              Connect with RAIVEGA for freight support, shipment planning, quotes and cargo coordination.
+            </p>
+          </div>
+
+          <div class="contact-actions">
+            <a class="btn-gold" href="pages/get-a-quote.html">Get a Quote</a>
+            <a class="btn-primary" href="pages/contact.html">Contact RAIVEGA</a>
+            <a class="btn-outline" href="pages/get-instant-rates.html">Get Instant Rates</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-  <section id="services">
+  <footer class="footer">
     <div class="container">
-      <div class="section-title" data-anim="up">
-        <div><span class="section-rule"></span><h3>Services</h3></div>
-      </div>
-
-      <div class="services-grid" data-stagger>
-
-        <div class="service-card magnetic ocean-freight">
-          <div class="service-content">
-            <div class="service-top">
-              <h4>Ocean Freight</h4>
-              <span class="tag">Ocean Freight</span>
-            </div>
-            <ul class="points">
-              <li>FCL / LCL handling</li>
-              <li>Import &amp; export coordination</li>
-              <li>Carrier planning</li>
-              <li>Documentation support</li>
-            </ul>
-            <a class="go" href="pages/ocean-freight.html">Explore &rarr;</a>
-          </div>
-          <div class="service-corner">
-            <img src="images/cargo-ship.gif" alt="Ocean Freight Icon" />
-          </div>
-        </div>
-
-        <div class="service-card magnetic air-freight">
-          <div class="service-content">
-            <div class="service-top">
-              <h4>Air Freight</h4>
-              <span class="tag">Priority Cargo</span>
-            </div>
-            <ul class="points">
-              <li>Urgent shipment support</li>
-              <li>Airport coordination</li>
-              <li>Secure handling</li>
-              <li>Express movement</li>
-            </ul>
-            <a class="go" href="pages/air-freight.html">Explore &rarr;</a>
-          </div>
-          <div class="service-corner">
-            <img src="images/airplane.gif" alt="Air Freight Icon" />
-          </div>
-        </div>
-
-        <div class="service-card magnetic transportation">
-          <div class="service-content">
-            <div class="service-top">
-              <h4>Transportation</h4>
-              <span class="tag">Road Freight</span>
-            </div>
-            <ul class="points">
-              <li>Pickup &amp; Delivery</li>
-              <li>FTL / LTL Options</li>
-              <li>Domestic Distribution</li>
-              <li>Scheduling</li>
-            </ul>
-            <a class="go" href="pages/ground-freight.html">Explore &rarr;</a>
-          </div>
-          <div class="service-corner">
-            <img src="images/long-truck.gif" alt="Transportation Icon" />
-          </div>
-        </div>
-
-        <div class="service-card magnetic custom-clearance">
-          <div class="service-content">
-            <div class="service-top">
-              <h4>Custom Clearance</h4>
-              <span class="tag">Compliance</span>
-            </div>
-            <ul class="points">
-              <li>Import &amp; Export</li>
-              <li>Documentation</li>
-              <li>Compliance-first</li>
-              <li>Reduced Delays</li>
-            </ul>
-            <a class="go" href="pages/customs-clearance.html">Explore &rarr;</a>
-          </div>
-          <div class="service-corner">
-            <img src="images/customs-clearance.gif" alt="Custom Clearance Icon" />
-          </div>
-        </div>
-
-        <div class="service-card magnetic warehousing">
-          <div class="service-content">
-            <div class="service-top">
-              <h4>Warehousing</h4>
-              <span class="tag">Storage</span>
-            </div>
-            <ul class="points">
-              <li>Inventory support</li>
-              <li>Safe storage</li>
-              <li>Cargo handling</li>
-              <li>Distribution readiness</li>
-            </ul>
-            <a class="go" href="pages/warehouse.html">Explore &rarr;</a>
-          </div>
-          <div class="service-corner">
-            <img src="images/warehouse.gif" alt="Warehousing Icon" />
-          </div>
-        </div>
-
-        <div class="service-card magnetic project-cargo">
-          <div class="service-content">
-            <div class="service-top">
-              <h4>Project Cargo</h4>
-              <span class="tag">Specialised</span>
-            </div>
-            <ul class="points">
-              <li>Heavy-lift handling</li>
-              <li>Special routing</li>
-              <li>Oversized cargo</li>
-              <li>Execution support</li>
-            </ul>
-            <a class="go" href="pages/get-a-quote.html">Explore &rarr;</a>
-          </div>
-          <div class="service-corner">
-            <img src="images/project-cargo.gif" alt="Project Cargo Icon" />
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <section id="about">
-    <div class="container">
-      <div class="section-title" data-anim="up">
-        <div><span class="section-rule"></span><h3>About RAIVEGA</h3></div>
-      </div>
-      <div class="about-wrap">
-        <div class="about-card" data-anim="left">
-          <h4>Multimodal Freight Forwarding with Reliable Service Discipline</h4>
-          <p>RAIVEGA is built around shipment coordination that values planning, responsiveness and operational control. Our approach combines freight execution with practical customer support across ocean, air, ground, customs and warehousing requirements.</p>
-          <p>We work to simplify movement through clear communication, timely coordination and dependable service follow-through from origin to destination.</p>
-          <p>Founded with a focus on execution over promises, RAIVEGA has grown into a trusted multimodal freight partner for businesses across India and global trade lanes. We work directly with shippers, traders and procurement teams to keep cargo moving on schedule.</p>
-          <p>Our team combines deep logistics knowledge with hands-on coordination â€” covering FCL/LCL ocean bookings, air uplift, domestic road and rail, customs brokerage, and bonded warehousing under one responsive team.</p>
-          <p>We are headquartered in Ludhiana, Punjab â€” a strategic hub for industrial exports â€” and serve clients across textiles, auto components, engineering goods, FMCG and project cargo sectors.</p>
-
-          <div class="exp-box magnetic">
-            <div class="exp-img">
-              <img src="images/about-raivega.png" alt="RAIVEGA logistics operations">
-            </div>
-            <div class="exp-content">
-              <h4>Execution that supports real cargo movement</h4>
-              <p>From shipment planning to final delivery coordination, our role is to keep cargo moving with clarity, speed and accountability.</p>
-              <div class="exp-highlight">Professional &bull; Responsive &bull; Practical</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="about-split" data-anim="right">
-          <div class="about-mini magnetic"><span class="am-icon"></span><strong>Customer-Centric Approach</strong><span>We prioritise communication, practical advice and service continuity to keep every shipment journey more manageable.</span></div>
-          <div class="about-mini magnetic"><span class="am-icon"></span><strong>Network Coordination</strong><span>Our freight support connects multiple transport modes and operational touchpoints through disciplined planning.</span></div>
-          <div class="about-mini magnetic"><span class="am-icon"></span><strong>Operational Reliability</strong><span>We work with an execution mindset that supports consistency, accountability and faster response to shipment needs.</span></div>
-          <div class="about-mini magnetic"><span class="am-icon"></span><strong>Compliance &amp; Documentation</strong><span>Every shipment is backed by complete customs documentation, regulatory compliance and traceable paper trails.</span></div>
-          <div class="about-mini magnetic"><span class="am-icon"></span><strong>Industry Expertise</strong><span>Specialised experience in textiles, auto components, engineering goods, FMCG, and project cargo across Indian and international markets.</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="container">
-      <div class="foot-grid" data-stagger>
-        <div class="foot">
+      <div class="footer-grid">
+        <div>
           <div class="footer-brand">
-            <img class="footer-logo-img" src="images/RV LOGO.png" alt="RAIVEGA Footer Logo" />
-            <div class="footer-title">
-              <div class="name"><span class="rai">RAI</span><span class="v">V</span><span class="ega">EGA</span></div>
+            <img src="images/RV LOGO.png" alt="RAIVEGA Footer Logo" />
+            <div class="footer-name">
+              <span class="rai">RAI</span><span class="v">V</span><span class="ega">EGA</span>
             </div>
           </div>
-          <p>Multimodal freight forwarding solutions across Ocean, Air and Ground freight with customs and warehousing support.</p>
-          <div class="copyright">&copy; 2025 RAIVEGA. All rights reserved.</div>
+          <p>
+            Multimodal freight forwarding solutions across ocean, air and ground freight with customs and warehousing support.
+          </p>
+          <div class="copyright">© 2025 RAIVEGA. All rights reserved.</div>
         </div>
 
-        <div class="foot">
+        <div>
           <h5>Links</h5>
-          <a href="index.html">Home</a><br>
-          <a href="#services">Services</a><br>
-          <a href="#about">About Us</a><br>
-          <a href="pages/contact.html">Contact</a><br>
-          <a href="pages/get-a-quote.html">Get a Quote</a><br>
-          <a href="pages/get-instant-rates.html">Get Instant Rates</a>
+          <p><a href="#home">Home</a></p>
+          <p><a href="#services">Services</a></p>
+          <p><a href="#about">About Us</a></p>
+          <p><a href="#workflow">Workflow</a></p>
+          <p><a href="pages/contact.html">Contact</a></p>
+          <p><a href="pages/get-a-quote.html">Get a Quote</a></p>
+          <p><a href="pages/get-instant-rates.html">Get Instant Rates</a></p>
         </div>
 
-        <div class="foot">
+        <div>
           <h5>Contact</h5>
-          <p><a href="mailto:mgt@raivega.in">mgt@raivega.in</a><br><a href="mailto:akrai@raivega.in">akrai@raivega.in</a></p>
-          <p style="margin-top:8px;"><a href="tel:+917011028101">+91 70110 28101</a><br><a href="tel:+919915521596">+91 99155 21596</a></p>
+          <p>
+            <a href="mailto:mgt@raivega.in">mgt@raivega.in</a><br />
+            <a href="mailto:akrai@raivega.in">akrai@raivega.in</a>
+          </p>
+          <p style="margin-top:8px;">
+            <a href="tel:+917011028101">+91 70110 28101</a><br />
+            <a href="tel:+919915521596">+91 99155 21596</a>
+          </p>
           <p style="margin-top:8px;">Ludhiana, Punjab, India</p>
+          <p style="margin-top:8px;">
+            <a href="https://in.linkedin.com/company/raivega" target="_blank" rel="noopener noreferrer">LinkedIn</a><br />
+            <a href="https://wa.me/917011028101" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          </p>
         </div>
       </div>
     </div>
   </footer>
 
-  <div class="chat-panel" id="chatPanel" aria-hidden="true">
-    <div class="chat-head"><strong>RAIVEGA Assistant</strong><span>Quick access to rates, quotes and contact</span></div>
-    <div class="chat-body">
-      <a class="chat-link magnetic" href="pages/get-instant-rates.html"><span>Get Instant Rates</span><span>&rarr;</span></a>
-      <a class="chat-link magnetic" href="pages/get-a-quote.html"><span>Get a Quote</span><span>&rarr;</span></a>
-      <a class="chat-link magnetic" href="pages/contact.html"><span>Contact Us</span><span>&rarr;</span></a>
-      <a class="chat-link magnetic" href="https://wa.me/917011028101" target="_blank" rel="noopener noreferrer"><span>WhatsApp Support</span><span>&rarr;</span></a>
-    </div>
-  </div>
-
-  <div class="float-wrap">
-    <button class="float-btn float-chat magnetic" id="chatToggle" aria-label="Chat">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M7 10.5h10M7 14h6M20 11.2c0 4.2-3.7 7.6-8.2 7.6-.8 0-1.6-.1-2.3-.3L4 20l1.6-4.8C4.6 14 4 12.7 4 11.2 4 7 7.7 3.6 12.2 3.6S20 7 20 11.2Z"/>
-      </svg>
-    </button>
-    <a class="float-btn float-wa magnetic" href="https://wa.me/917011028101" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-      <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M16.6 14.1c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.1-.4-2.1-1.3-.8-.7-1.3-1.6-1.4-1.9-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.6 0-.1-.7-1.7-.9-2.3-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7 0 1.6 1.1 3.1 1.3 3.3.2.2 2.2 3.4 5.4 4.7.8.3 1.4.5 1.9.6.8.3 1.5.2 2 .1.6-.1 1.8-.8 2-1.6.3-.8.3-1.4.2-1.5 0-.1-.2-.2-.5-.4Z"/>
-        <path d="M12 2.6c-5 0-9 4-9 9 0 1.6.4 3.1 1.2 4.5L3 21.4l5.5-1.4c1.3.7 2.8 1 4.3 1 5 0 9-4 9-9s-4-9-9-9Zm0 16.7c-1.3 0-2.6-.3-3.8-1l-.3-.2-3.3.8.9-3.2-.2-.3a7.1 7.1 0 0 1-1.1-3.8c0-4.1 3.4-7.5 7.6-7.5 4.2 0 7.6 3.4 7.6 7.5s-3.4 7.7-7.4 7.7Z"/>
-      </svg>
-    </a>
-    <a class="float-btn float-li magnetic" href="https://in.linkedin.com/company/raivega" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-      <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M6.94 8.5H3.56V20h3.38V8.5ZM5.25 3A1.97 1.97 0 1 0 5.3 6.94 1.97 1.97 0 0 0 5.25 3ZM20.44 12.67c0-3.42-1.82-5.01-4.25-5.01-1.96 0-2.84 1.08-3.33 1.84V8.5H9.48c.05.66 0 11.5 0 11.5h3.38v-6.42c0-.34.02-.68.12-.92.27-.67.88-1.36 1.9-1.36 1.34 0 1.88 1.02 1.88 2.52V20h3.38v-7.33Z"/>
-      </svg>
-    </a>
-  </div>
-
   <script>
-  window.addEventListener("load", () => {
+    (function () {
+      const slides = Array.from(document.querySelectorAll(".carousel-slide"));
+      const dots = Array.from(document.querySelectorAll(".carousel-dot"));
+      const prev = document.getElementById("carouselPrev");
+      const next = document.getElementById("carouselNext");
+      let current = 0;
+      let timer = null;
 
-    const loader = document.getElementById("loader");
-    if (loader) setTimeout(() => loader.classList.add("hide"), 1800);
+      function showSlide(index) {
+        if (!slides.length) return;
+        current = (index + slides.length) % slides.length;
 
-    const track = document.getElementById("marqueeTrack");
-    const slides = track ? Array.from(track.querySelectorAll(".slide")) : [];
-    const dotsEl = Array.from(document.querySelectorAll("#carouselDots .dot"));
-    const fillEl = document.getElementById("scrollbarFill");
-    const prevBtn = document.getElementById("carouselPrev");
-    const nextBtn = document.getElementById("carouselNext");
-    const total = slides.length;
-    let current = 0;
-    let autoTimer = null;
-    let isAnimating = false;
+        slides.forEach((slide, i) => {
+          slide.classList.toggle("active", i === current);
+        });
 
-    function goTo(idx) {
-      if (!track || !total || isAnimating) return;
-      isAnimating = true;
-      current = (idx + total) % total;
-      track.style.transform = `translateX(-${current * 100}%)`;
-      dotsEl.forEach((d, i) => d.classList.toggle("active", i === current));
-      if (fillEl) fillEl.style.width = ((current + 1) / total * 100) + "%";
-      setTimeout(() => { isAnimating = false; }, 750);
-    }
+        dots.forEach((dot, i) => {
+          dot.classList.toggle("active", i === current);
+        });
+      }
 
-    function startAuto() {
-      if (!total) return;
-      clearInterval(autoTimer);
-      autoTimer = setInterval(() => goTo(current + 1), 3800);
-    }
+      function startAuto() {
+        stopAuto();
+        timer = setInterval(() => {
+          showSlide(current + 1);
+        }, 4200);
+      }
 
-    if (track && slides.length) {
-      slides.forEach(s => { s.style.minWidth = "100%"; s.style.flex = "0 0 100%"; });
-      track.style.transition = "transform 0.7s cubic-bezier(.22,1,.36,1)";
-    }
+      function stopAuto() {
+        if (timer) clearInterval(timer);
+      }
 
-    prevBtn && prevBtn.addEventListener("click", () => { goTo(current - 1); startAuto(); });
-    nextBtn && nextBtn.addEventListener("click", () => { goTo(current + 1); startAuto(); });
-    dotsEl.forEach((d, i) => d.addEventListener("click", () => { goTo(i); startAuto(); }));
+      if (prev) {
+        prev.addEventListener("click", function () {
+          showSlide(current - 1);
+          startAuto();
+        });
+      }
 
-    const panel = document.querySelector(".carousel-panel");
-    if (panel) {
-      panel.addEventListener("mouseenter", () => clearInterval(autoTimer));
-      panel.addEventListener("mouseleave", startAuto);
-    }
+      if (next) {
+        next.addEventListener("click", function () {
+          showSlide(current + 1);
+          startAuto();
+        });
+      }
 
-    let touchStartX = 0;
-    if (track) {
-      track.addEventListener("touchstart", (e) => { touchStartX = e.touches[0].clientX; }, {passive:true});
-      track.addEventListener("touchend", (e) => {
-        const diff = touchStartX - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 40) { goTo(diff > 0 ? current + 1 : current - 1); startAuto(); }
+      dots.forEach((dot, index) => {
+        dot.addEventListener("click", function () {
+          showSlide(index);
+          startAuto();
+        });
       });
-    }
 
-    startAuto();
+      const shell = document.querySelector(".carousel-shell");
+      let startX = 0;
 
-    const chatToggle = document.getElementById("chatToggle");
-    const chatPanel = document.getElementById("chatPanel");
-    if (chatToggle && chatPanel) {
-      chatToggle.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const open = chatPanel.classList.toggle("open");
-        chatPanel.setAttribute("aria-hidden", !open);
-      });
-      document.addEventListener("click", (e) => {
-        if (!chatPanel.contains(e.target) && !chatToggle.contains(e.target)) {
-          chatPanel.classList.remove("open");
-          chatPanel.setAttribute("aria-hidden","true");
+      if (shell) {
+        shell.addEventListener("mouseenter", stopAuto);
+        shell.addEventListener("mouseleave", startAuto);
+
+        shell.addEventListener("touchstart", function (e) {
+          startX = e.changedTouches[0].clientX;
+        }, { passive: true });
+
+        shell.addEventListener("touchend", function (e) {
+          const endX = e.changedTouches[0].clientX;
+          const diff = startX - endX;
+          if (Math.abs(diff) > 40) {
+            if (diff > 0) showSlide(current + 1);
+            else showSlide(current - 1);
+            startAuto();
+          }
+        }, { passive: true });
+      }
+
+      showSlide(0);
+      startAuto();
+
+      const trackInput = document.getElementById("trackInput");
+      const trackBtn = document.getElementById("trackBtn");
+
+      function doTrack() {
+        if (!trackInput) return;
+        const value = trackInput.value.trim();
+        if (!value) {
+          trackInput.focus();
+          return;
         }
-      });
-    }
 
-    const isFine = window.matchMedia("(pointer:fine)").matches;
-    const noMotion = window.matchMedia("(prefers-reduced-motion:reduce)").matches;
-    if (isFine && !noMotion) {
-      const dot = document.getElementById("cursorDot");
-      const ring = document.getElementById("cursorRing");
-      const glow = document.getElementById("cursorGlow");
-      let mx = window.innerWidth/2, my = window.innerHeight/2;
-      let rx = mx, ry = my, gx = mx, gy = my;
+        window.open(
+          "https://www.track-trace.com/container?id=" + encodeURIComponent(value),
+          "_blank"
+        );
+      }
 
-      if (dot) dot.style.cssText = `left:${mx}px;top:${my}px`;
-      if (ring) ring.style.cssText = `left:${rx}px;top:${ry}px`;
-      if (glow) glow.style.cssText = `left:${gx}px;top:${gy}px`;
+      if (trackBtn) {
+        trackBtn.addEventListener("click", doTrack);
+      }
 
-      window.addEventListener("mousemove", e => {
-        mx = e.clientX; my = e.clientY;
+      if (trackInput) {
+        trackInput.addEventListener("keydown", function (e) {
+          if (e.key === "Enter") doTrack();
+        });
+      }
+
+      const isFinePointer = window.matchMedia("(pointer:fine)").matches;
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (isFinePointer && !reducedMotion) {
+        const dot = document.getElementById("cursorDot");
+        const ring = document.getElementById("cursorRing");
+        const glow = document.getElementById("cursorGlow");
+
+        let mx = window.innerWidth / 2;
+        let my = window.innerHeight / 2;
+        let rx = mx;
+        let ry = my;
+        let gx = mx;
+        let gy = my;
+
         if (dot) {
           dot.style.left = mx + "px";
           dot.style.top = my + "px";
         }
-      });
-
-      window.addEventListener("mousedown", () => document.body.classList.add("cursor-down"));
-      window.addEventListener("mouseup", () => document.body.classList.remove("cursor-down"));
-
-      (function follow(){
-        rx += (mx-rx)*.18; ry += (my-ry)*.18;
-        gx += (mx-gx)*.08; gy += (my-gy)*.08;
         if (ring) {
           ring.style.left = rx + "px";
           ring.style.top = ry + "px";
@@ -1019,72 +1907,58 @@
           glow.style.left = gx + "px";
           glow.style.top = gy + "px";
         }
-        requestAnimationFrame(follow);
-      })();
 
-      document.querySelectorAll("a,button,.mini,.service-card,.float-btn,.chat-link").forEach(el => {
-        el.addEventListener("mouseenter", () => document.body.classList.add("cursor-hover"));
-        el.addEventListener("mouseleave", () => document.body.classList.remove("cursor-hover"));
-      });
+        window.addEventListener("mousemove", function (e) {
+          mx = e.clientX;
+          my = e.clientY;
 
-      document.querySelectorAll(".magnetic").forEach(el => {
-        el.addEventListener("mousemove", e => {
-          const r = el.getBoundingClientRect();
-          el.style.transform = `translate(${((e.clientX-r.left)-r.width/2)/r.width*10}px,${((e.clientY-r.top)-r.height/2)/r.height*10}px)`;
+          if (dot) {
+            dot.style.left = mx + "px";
+            dot.style.top = my + "px";
+          }
         });
-        el.addEventListener("mouseleave", () => { el.style.transform = ""; });
-      });
-    } else {
-      document.body.style.cursor="auto";
-    }
 
-    if (!noMotion && "IntersectionObserver" in window) {
-      const io = new IntersectionObserver(es => es.forEach(e => {
-        if(e.isIntersecting){ e.target.classList.add("in-view","visible"); io.unobserve(e.target); }
-      }), {threshold:.08, rootMargin:"0px 0px -4% 0px"});
-      document.querySelectorAll(".motion,[data-anim],[data-stagger]").forEach(el => io.observe(el));
-    } else {
-      document.querySelectorAll(".motion,[data-anim],[data-stagger]").forEach(el => el.classList.add("in-view","visible"));
-    }
+        window.addEventListener("mousedown", function () {
+          document.body.classList.add("cursor-down");
+        });
 
-    const tInput = document.getElementById("trackInput");
-    const tBtn = document.getElementById("trackBtn");
-    function doTrack(){
-      if (!tInput) return;
-      const v = tInput.value.trim();
-      if(!v){ tInput.style.borderColor="rgba(200,150,42,0.8)"; tInput.focus(); return; }
-      tInput.style.borderColor="";
-      window.open("https://www.track-trace.com/container?id="+encodeURIComponent(v),"_blank");
-    }
-    tBtn && tBtn.addEventListener("click", doTrack);
-    tInput && tInput.addEventListener("keydown", e => { if(e.key==="Enter") doTrack(); });
+        window.addEventListener("mouseup", function () {
+          document.body.classList.remove("cursor-down");
+        });
 
-    const typedH = document.getElementById("heroTyped");
-    const typedS = document.getElementById("heroTypedSub");
-    const cursor1 = document.getElementById("typingCursor1");
-    const heading = "Freight Forwarding Built Around Execution";
-    const subtext = "RAIVEGA delivers multimodal freight forwarding solutions with focused planning, dependable coordination, and practical shipment support across air, ocean, ground, customs, and warehousing services.";
+        (function followCursor() {
+          rx += (mx - rx) * 0.18;
+          ry += (my - ry) * 0.18;
+          gx += (mx - gx) * 0.08;
+          gy += (my - gy) * 0.08;
 
-    function typeText(el, text, speed, done){
-      if (!el) return;
-      let i=0;
-      const t=setInterval(()=>{
-        el.textContent += text[i++];
-        if(i>=text.length){
-          clearInterval(t);
-          if(done)done();
-        }
-      },speed);
-    }
+          if (ring) {
+            ring.style.left = rx + "px";
+            ring.style.top = ry + "px";
+          }
 
-    setTimeout(()=>{
-      typeText(typedH, heading, 40, ()=>{
-        if(cursor1) cursor1.remove();
-        typeText(typedS, subtext, 16);
-      });
-    }, 2000);
+          if (glow) {
+            glow.style.left = gx + "px";
+            glow.style.top = gy + "px";
+          }
 
-  });
+          requestAnimationFrame(followCursor);
+        })();
+
+        const hoverTargets = document.querySelectorAll(
+          "a, button, input, textarea, select, .quick-link, .service-card, .hero-panel, .carousel-btn, .carousel-dot"
+        );
+
+        hoverTargets.forEach(function (el) {
+          el.addEventListener("mouseenter", function () {
+            document.body.classList.add("cursor-hover");
+          });
+          el.addEventListener("mouseleave", function () {
+            document.body.classList.remove("cursor-hover");
+          });
+        });
+      }
+    })();
   </script>
 </body>
 </html>
