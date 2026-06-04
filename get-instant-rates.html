@@ -1,1 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instant Rates — RAIVEGA</title>
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css" />
 
+  <style>
+    /* ==========================================================================
+       1. VARIABLES & RESET
+       ========================================================================== */
+    :root {
+      --text: #111111;
+      --muted: #555555;
+      --light-muted: #8a8a8a;
+      --line: #e8e8e8;
+      --bg: #ffffff;
+      --bg-alt: #fafafa;
+      --bg-card: #fbfbfb;
+      --focus-ring: rgba(17, 17, 17, 0.15);
+      --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --font-stack: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%; /* Ensures the body stretches to full viewport height */
+    }
+
+    body {
+      font-family: var(--font-stack);
+      font-weight: 300;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.75;
+      letter-spacing: -0.01em;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column; /* Flex layout to sandwich the iframe */
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    a:focus-visible, 
+    button:focus-visible {
+      outline: 2px solid var(--text);
+      outline-offset: 4px;
+    }
+
+    /* ==========================================================================
+       2. NAVIGATION
+       ========================================================================== */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 16px 6vw;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: var(--transition-smooth);
+    }
+
+    .nav-logo {
+      height: 32px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.25s ease;
+      position: relative;
+      padding: 4px 0;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--text);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: var(--text);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .nav-cta {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      padding: 10px 24px;
+      border: 1px solid var(--text);
+      color: var(--text);
+      transition: var(--transition-smooth);
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .nav-cta:hover {
+      background: var(--text);
+      color: var(--bg);
+      box-shadow: 0 4px 12px var(--focus-ring);
+    }
+
+    /* ==========================================================================
+       3. APP WRAPPER (IFRAME)
+       ========================================================================== */
+    main.app-container {
+      flex: 1; /* Pushes the footer to the bottom of the screen */
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      background: var(--bg-alt);
+    }
+
+    main.app-container iframe {
+      width: 100%;
+      flex: 1; /* Fills all available vertical space inside main */
+      border: none;
+    }
+
+    /* ==========================================================================
+       4. FOOTER
+       ========================================================================== */
+    footer {
+      padding: 32px 6vw;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+      background: var(--bg);
+    }
+
+    footer p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    footer .footer-links a {
+      font-size: 12px;
+      color: var(--muted);
+      margin-left: 24px;
+      transition: color 0.2s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    footer .footer-links a:hover {
+      color: var(--text);
+    }
+
+    /* ==========================================================================
+       5. RESPONSIVE QUERIES
+       ========================================================================== */
+    @media (max-width: 960px) {
+      nav { padding: 16px 5vw; }
+    }
+
+    @media (max-width: 780px) {
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header / Navigation Layer -->
+  <nav>
+    <div class="nav-left">
+      <a href="index.html" aria-label="Go to homepage">
+        <picture>
+          <source srcset="images/rv-icon.svg" type="image/svg+xml">
+          <img src="images/RV LOGO.png" alt="RAIVEGA" class="nav-logo" />
+        </picture>
+      </a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#process">Process</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="get-instant-rates.html" class="active">Instant Rates</a></li>
+    </ul>
+    <a href="index.html#contact" class="nav-cta"><i class="bi bi-telephone-outbound"></i> Get a Quote</a>
+  </nav>
+
+  <!-- External Application Frame -->
+  <main class="app-container">
+    <iframe src="https://swifty-pi.vercel.app/global" title="RAIVEGA Instant Rates Global Platform" allowfullscreen></iframe>
+  </main>
+
+  <!-- Page Footer -->
+  <footer>
+    <p>© 2026 RAIVEGA. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="index.html#services">Services</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#process">Process</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="get-instant-rates.html">Instant Rates</a>
+    </div>
+  </footer>
+
+</body>
+</html>
