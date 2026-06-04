@@ -36,11 +36,7 @@
       --font-stack: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     html {
       scroll-behavior: smooth;
@@ -58,14 +54,9 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
+    a { text-decoration: none; color: inherit; }
 
-    a:focus-visible, 
-    button:focus-visible, 
-    [role="button"]:focus-visible {
+    a:focus-visible, button:focus-visible, [role="button"]:focus-visible {
       outline: 2px solid var(--text);
       outline-offset: 4px;
     }
@@ -113,10 +104,7 @@
       padding: 4px 0;
     }
 
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--text);
-    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
 
     .nav-links a::after {
       content: '';
@@ -131,8 +119,7 @@
       transition: transform 0.3s ease;
     }
 
-    .nav-links a:hover::after,
-    .nav-links a.active::after {
+    .nav-links a:hover::after, .nav-links a.active::after {
       transform: scaleX(1);
       transform-origin: left;
     }
@@ -160,7 +147,7 @@
     }
 
     /* ==========================================================================
-       3. HERO SECTION
+       3. HERO SECTION & LOGO ANIMATION
        ========================================================================== */
     .hero {
       min-height: 88vh;
@@ -174,17 +161,9 @@
       align-items: center;
     }
 
-    #particles-js {
-      position: absolute;
-      inset: 0;
-      opacity: 0.45;
-      pointer-events: none;
-    }
+    #particles-js { position: absolute; inset: 0; opacity: 0.45; pointer-events: none; }
 
-    .hero-left, .hero-right {
-      position: relative;
-      z-index: 1;
-    }
+    .hero-left, .hero-right { position: relative; z-index: 1; }
 
     .hero-tag {
       font-size: 11px;
@@ -212,7 +191,7 @@
       font-size: 16px;
       font-weight: 300;
       color: var(--muted);
-      max-width: 540px;
+      max-width: 600px;
       line-height: 1.8;
     }
 
@@ -242,32 +221,24 @@
       color: var(--bg);
       border: 1px solid var(--text);
     }
-
     .btn-dark:hover {
       background: #222;
       transform: translateY(-2px);
       box-shadow: 0 6px 20px var(--focus-ring);
     }
-
-    .btn-dark:active {
-      transform: translateY(0);
-    }
+    .btn-dark:active { transform: translateY(0); }
 
     .btn-outline {
       background: transparent;
       border: 1px solid #cccccc;
       color: var(--text);
     }
-
     .btn-outline:hover {
       border-color: var(--text);
       background: rgba(17, 17, 17, 0.02);
       transform: translateY(-2px);
     }
-
-    .btn-outline:active {
-      transform: translateY(0);
-    }
+    .btn-outline:active { transform: translateY(0); }
 
     .logo-orbit-wrapper {
       width: min(340px, 60vw);
@@ -302,13 +273,21 @@
       transform: translateX(-50%);
     }
 
-    .logo-center {
-      width: 72%;
-      height: 72%;
-      object-fit: contain;
-      transform-origin: center center;
+    /* Fixed Logo Alignment */
+    .logo-center-wrapper {
+      width: 70%;
+      height: 70%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       animation: logoSpinIntro 4s ease-in-out 1;
       cursor: pointer;
+      transform-origin: center center;
+    }
+    .logo-center-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
 
     @keyframes logoSpinIntro {
@@ -319,10 +298,7 @@
     /* ==========================================================================
        4. SECTIONS COMMON
        ========================================================================== */
-    section {
-      padding: 100px 6vw;
-      border-top: 1px solid var(--line);
-    }
+    section { padding: 100px 6vw; border-top: 1px solid var(--line); }
 
     .label {
       font-size: 11px;
@@ -350,7 +326,7 @@
       font-size: 16px;
       font-weight: 300;
       color: var(--muted);
-      max-width: 600px;
+      max-width: 660px;
       margin-bottom: 54px;
       line-height: 1.75;
     }
@@ -368,445 +344,116 @@
       align-items: flex-start;
       border-top: none;
     }
-
-    .stat-num {
-      font-size: clamp(38px, 4.5vw, 56px);
-      font-weight: 100;
-      letter-spacing: -0.04em;
-      line-height: 1.1;
-    }
-
-    .stat-label {
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--light-muted);
-      margin-top: 8px;
-    }
+    .stat-num { font-size: clamp(38px, 4.5vw, 56px); font-weight: 100; letter-spacing: -0.04em; line-height: 1.1; }
+    .stat-label { font-size: 12px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--light-muted); margin-top: 8px; }
 
     /* ==========================================================================
        6. SERVICES ACCORDIONS
        ========================================================================== */
-    .services-shell {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 54px;
-      align-items: start;
-    }
-
+    .services-shell { display: grid; grid-template-columns: 1fr 1fr; gap: 54px; align-items: start; }
     .services-visual {
-      position: sticky;
-      top: 130px;
-      border: 1px solid var(--line);
-      background: var(--bg-card);
-      padding: 40px;
-      min-height: 440px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
+      position: sticky; top: 130px; border: 1px solid var(--line); background: var(--bg-card);
+      padding: 40px; min-height: 440px; display: flex; align-items: center; justify-content: center; overflow: hidden;
     }
-
-    .services-visual .blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(36px);
-      opacity: 0.25;
-    }
-
+    .services-visual .blob { position: absolute; border-radius: 50%; filter: blur(36px); opacity: 0.25; }
     .b1 { width: 240px; height: 240px; background: #e2e2e2; top: 10%; left: 10%; }
     .b2 { width: 200px; height: 200px; background: #ececec; bottom: 10%; right: 10%; }
-
-    .services-visual .ring {
-      position: absolute;
-      width: 280px;
-      height: 280px;
-      border: 1px dashed #dcdcdc;
-      border-radius: 50%;
-      animation: spin 20s linear infinite;
-    }
-
-    .services-visual .line {
-      position: absolute;
-      width: 1px;
-      height: 70%;
-      background: linear-gradient(to bottom, transparent, #dcdcdc, transparent);
-      animation: pulse 3s ease-in-out infinite;
-    }
+    .services-visual .ring { position: absolute; width: 280px; height: 280px; border: 1px dashed #dcdcdc; border-radius: 50%; animation: spin 20s linear infinite; }
+    .services-visual .line { position: absolute; width: 1px; height: 70%; background: linear-gradient(to bottom, transparent, #dcdcdc, transparent); animation: pulse 3s ease-in-out infinite; }
     .services-visual .line.l2 { transform: rotate(60deg); }
     .services-visual .line.l3 { transform: rotate(120deg); }
 
-    .services-visual .label-center {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      max-width: 260px;
-    }
+    .services-visual .label-center { position: relative; z-index: 1; text-align: center; max-width: 260px; }
+    .services-visual .label-center i { font-size: 44px; display: block; margin-bottom: 16px; color: var(--text); }
+    .services-visual .label-center h3 { font-size: 18px; font-weight: 400; margin-bottom: 10px; }
+    .services-visual .label-center p { font-size: 13px; color: var(--muted); line-height: 1.6; }
 
-    .services-visual .label-center i {
-      font-size: 44px;
-      display: block;
-      margin-bottom: 16px;
-      color: var(--text);
-    }
-
-    .services-visual .label-center h3 {
-      font-size: 18px;
-      font-weight: 400;
-      margin-bottom: 10px;
-    }
-
-    .services-visual .label-center p {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    .services-list {
-      border-top: 1px solid var(--line);
-    }
-
-    .svc {
-      border-bottom: 1px solid var(--line);
-      background: var(--bg);
-      transition: background 0.3s ease;
-    }
-
+    .services-list { border-top: 1px solid var(--line); }
+    .svc { border-bottom: 1px solid var(--line); background: var(--bg); transition: background 0.3s ease; }
     .svc-head {
-      padding: 26px 8px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      cursor: pointer;
-      background: transparent;
-      border: none;
-      width: 100%;
-      text-align: left;
-      font-family: inherit;
+      padding: 26px 8px; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      cursor: pointer; background: transparent; border: none; width: 100%; text-align: left; font-family: inherit;
     }
-
-    .svc-title {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .svc-icon {
-      font-size: 22px;
-      color: var(--text);
-      transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
-
-    .svc-head:hover .svc-icon {
-      transform: scale(1.15) rotate(-4deg);
-    }
-
-    .svc h3 {
-      font-size: 16px;
-      font-weight: 400;
-      color: var(--text);
-    }
-
-    .svc-toggle {
-      font-size: 18px;
-      color: var(--light-muted);
-      transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
-
-    .svc-body {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1), padding 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-      padding: 0 8px;
-    }
-
-    .svc.open {
-      background: rgba(17, 17, 17, 0.01);
-    }
-
-    .svc.open .svc-toggle {
-      transform: rotate(45deg);
-      color: var(--text);
-    }
-
-    .svc.open .svc-body {
-      max-height: 400px;
-      padding: 4px 8px 32px 46px;
-    }
-
-    .svc p {
-      font-size: 14.5px;
-      color: var(--muted);
-      margin-bottom: 14px;
-      line-height: 1.6;
-    }
-
-    .svc ul {
-      margin-left: 18px;
-      color: var(--muted);
-      font-size: 14px;
-      display: grid;
-      gap: 6px;
-    }
+    .svc-title { display: flex; align-items: center; gap: 16px; }
+    .svc-icon { font-size: 22px; color: var(--text); transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
+    .svc-head:hover .svc-icon { transform: scale(1.15) rotate(-4deg); }
+    .svc h3 { font-size: 16px; font-weight: 400; color: var(--text); }
+    .svc-toggle { font-size: 18px; color: var(--light-muted); transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
+    .svc-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1), padding 0.4s cubic-bezier(0.25, 1, 0.5, 1); padding: 0 8px; }
+    .svc.open { background: rgba(17, 17, 17, 0.01); }
+    .svc.open .svc-toggle { transform: rotate(45deg); color: var(--text); }
+    .svc.open .svc-body { max-height: 500px; padding: 4px 8px 32px 46px; }
+    .svc p { font-size: 14.5px; color: var(--muted); margin-bottom: 14px; line-height: 1.6; }
+    .svc ul { margin-left: 18px; color: var(--muted); font-size: 14px; display: grid; gap: 6px; }
 
     /* ==========================================================================
        7. ABOUT & PILLARS
        ========================================================================== */
-    .about-split {
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-      gap: 60px;
-    }
-
-    .about-split p {
-      font-size: 15px;
-      color: var(--muted);
-      margin-bottom: 20px;
-      line-height: 1.8;
-    }
-
-    .pillars {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1px;
-      background: var(--line);
-      border: 1px solid var(--line);
-      margin-top: 16px;
-    }
-
-    .pillar {
-      background: var(--bg);
-      padding: 28px 24px;
-      transition: var(--transition-smooth);
-    }
-
-    .pillar:hover {
-      background: var(--bg-alt);
-    }
-
-    .pillar-icon {
-      font-size: 22px;
-      margin-bottom: 16px;
-      color: var(--text);
-    }
-
-    .pillar h4 {
-      font-size: 14px;
-      font-weight: 500;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-    }
-
-    .pillar p {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.6;
-      margin-bottom: 0;
-    }
+    .about-split { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 60px; }
+    .about-split p { font-size: 15px; color: var(--muted); margin-bottom: 20px; line-height: 1.8; }
+    .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 16px; }
+    .pillar { background: var(--bg); padding: 28px 24px; transition: var(--transition-smooth); }
+    .pillar:hover { background: var(--bg-alt); }
+    .pillar-icon { font-size: 22px; margin-bottom: 16px; color: var(--text); }
+    .pillar h4 { font-size: 14px; font-weight: 500; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.02em; }
+    .pillar p { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 0; }
 
     /* ==========================================================================
        8. PROCESS
        ========================================================================== */
-    .process-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1px;
-      background: var(--line);
-      border: 1px solid var(--line);
-    }
-
-    .step {
-      background: var(--bg);
-      padding: 36px 28px;
-      transition: var(--transition-smooth);
-    }
-
-    .step:hover {
-      background: var(--bg-alt);
-    }
-
-    .step-num {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      color: var(--light-muted);
-      margin-bottom: 16px;
-    }
-
-    .step-icon {
-      font-size: 24px;
-      margin-bottom: 16px;
-      display: inline-block;
-      color: var(--text);
-      transition: transform 0.3s ease;
-    }
-
-    .step:hover .step-icon {
-      transform: rotate(8deg) scale(1.08);
-    }
-
-    .step h3 {
-      font-size: 16px;
-      font-weight: 400;
-      margin-bottom: 10px;
-    }
-
-    .step p {
-      font-size: 14px;
-      color: var(--muted);
-      line-height: 1.6;
-    }
+    .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+    .step { background: var(--bg); padding: 36px 28px; transition: var(--transition-smooth); }
+    .step:hover { background: var(--bg-alt); }
+    .step-num { font-size: 11px; font-weight: 500; letter-spacing: 0.2em; color: var(--light-muted); margin-bottom: 16px; }
+    .step-icon { font-size: 24px; margin-bottom: 16px; display: inline-block; color: var(--text); transition: transform 0.3s ease; }
+    .step:hover .step-icon { transform: rotate(8deg) scale(1.08); }
+    .step h3 { font-size: 16px; font-weight: 400; margin-bottom: 10px; }
+    .step p { font-size: 14px; color: var(--muted); line-height: 1.6; }
 
     /* ==========================================================================
-       9. CONTACT STRIP
+       9. CONTACT STRIP & FOOTER
        ========================================================================== */
-    .contact-strip {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      margin-top: 40px;
-    }
+    .contact-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 40px; }
+    .contact-item { padding: 20px 0; border-bottom: 1px solid var(--line); display: flex; align-items: flex-start; gap: 16px; }
+    .contact-icon { font-size: 20px; color: var(--text); margin-top: 2px; }
+    .contact-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.16em; color: var(--light-muted); margin-bottom: 4px; }
+    .contact-detail a, .contact-detail span { font-size: 15px; font-weight: 300; line-height: 1.5; display: inline-block; transition: color 0.2s ease; }
+    .contact-detail a:hover { color: var(--light-muted); }
 
-    .contact-item {
-      padding: 20px 0;
-      border-bottom: 1px solid var(--line);
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-    }
+    footer { padding: 32px 6vw; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 20px; align-items: center; flex-wrap: wrap; background: var(--bg); }
+    footer p { font-size: 12px; color: var(--muted); }
+    footer .footer-links a { font-size: 12px; color: var(--muted); margin-left: 24px; transition: color 0.2s ease; text-transform: uppercase; letter-spacing: 0.08em; }
+    footer .footer-links a:hover { color: var(--text); }
 
-    .contact-icon {
-      font-size: 20px;
-      color: var(--text);
-      margin-top: 2px;
-    }
-
-    .contact-label {
-      font-size: 11px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--light-muted);
-      margin-bottom: 4px;
-    }
-
-    .contact-detail a, 
-    .contact-detail span {
-      font-size: 15px;
-      font-weight: 300;
-      line-height: 1.5;
-      display: inline-block;
-      transition: color 0.2s ease;
-    }
-
-    .contact-detail a:hover {
-      color: var(--light-muted);
-    }
-
-    /* ==========================================================================
-       10. FOOTER & EASTER EGG
-       ========================================================================== */
-    footer {
-      padding: 32px 6vw;
-      border-top: 1px solid var(--line);
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      align-items: center;
-      flex-wrap: wrap;
-      background: var(--bg);
-    }
-
-    footer p {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    footer .footer-links a {
-      font-size: 12px;
-      color: var(--muted);
-      margin-left: 24px;
-      transition: color 0.2s ease;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    footer .footer-links a:hover {
-      color: var(--text);
-    }
-
-    .easter-ship {
-      position: fixed;
-      bottom: -80px;
-      left: -120px;
-      font-size: 56px;
-      color: var(--text);
-      opacity: 0;
-      pointer-events: none;
-      z-index: 9999;
-    }
-
+    .easter-ship { position: fixed; bottom: -80px; left: -120px; font-size: 56px; color: var(--text); opacity: 0; pointer-events: none; z-index: 9999; }
     @keyframes spin { to { transform: rotate(360deg); } }
     @keyframes pulse { 0%, 100% { opacity: 0.35; } 50% { opacity: 0.85; } }
 
     /* ==========================================================================
-       11. RESPONSIVE MEDIA QUERIES
+       10. RESPONSIVE MEDIA QUERIES
        ========================================================================== */
-    @media (max-width: 1024px) {
-      .hero { gap: 40px; }
-      .services-shell { gap: 32px; }
-      .about-split { gap: 40px; }
-    }
-
+    @media (max-width: 1024px) { .hero { gap: 40px; } .services-shell { gap: 32px; } .about-split { gap: 40px; } }
     @media (max-width: 960px) {
-      nav { padding: 16px 5vw; }
-      section { padding: 72px 5vw; }
-      .hero {
-        grid-template-columns: 1fr;
-        min-height: auto;
-        padding: 60px 5vw 80px;
-      }
-      .hero-right {
-        order: -1;
-        margin-bottom: 24px;
-      }
+      nav { padding: 16px 5vw; } section { padding: 72px 5vw; }
+      .hero { grid-template-columns: 1fr; min-height: auto; padding: 60px 5vw 80px; }
+      .hero-right { order: -1; margin-bottom: 24px; }
       .services-shell { grid-template-columns: 1fr; }
-      .services-visual {
-        position: relative;
-        top: auto;
-        min-height: 340px;
-      }
+      .services-visual { position: relative; top: auto; min-height: 340px; }
       .about-split { grid-template-columns: 1fr; }
       #particles-js { opacity: 0.25; }
     }
-
-    @media (max-width: 780px) {
-      .nav-links { display: none; }
-    }
-
+    @media (max-width: 780px) { .nav-links { display: none; } }
     @media (max-width: 480px) {
       body { font-weight: 400; }
-      .hero-actions {
-        flex-direction: column;
-        width: 100%;
-      }
-      .hero-actions .btn-dark,
-      .hero-actions .btn-outline {
-        width: 100%;
-        justify-content: center;
-      }
-      .svc.open .svc-body {
-        padding: 4px 8px 24px 16px;
-      }
+      .hero-actions { flex-direction: column; width: 100%; }
+      .hero-actions .btn-dark, .hero-actions .btn-outline { width: 100%; justify-content: center; }
+      .svc.open .svc-body { padding: 4px 8px 24px 16px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header / Navigation Layer -->
+  <!-- Header / Navigation -->
   <nav>
     <div class="nav-left">
       <a href="index.html" aria-label="Go to homepage">
@@ -820,19 +467,19 @@
       <li><a href="#services">Services</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#process">Process</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="contact.html">Support Chat</a></li>
       <li><a href="get-instant-rates.html">Instant Rates</a></li>
     </ul>
-    <a href="contact.html" class="nav-cta"><i class="bi bi-telephone-outbound"></i> Get a Quote</a>
+    <a href="contact.html" class="nav-cta"><i class="bi bi-chat-square-text"></i> Live Support</a>
   </nav>
 
   <!-- Hero Section -->
   <header class="hero">
     <div id="particles-js"></div>
     <div class="hero-left" data-aos="fade-right">
-      <div class="hero-tag"><i class="bi bi-globe2"></i> Multimodal Freight Forwarding</div>
+      <div class="hero-tag"><i class="bi bi-globe2"></i> Advanced Freight Forwarding</div>
       <h1>We Move Anything, Anywhere.</h1>
-      <p class="hero-sub">Shipment coordination with planning discipline, responsive follow-up and practical execution support across ocean, air, ground and warehousing.</p>
+      <p class="hero-sub">Shipment coordination driven by planning discipline, responsive follow-up, and practical execution. We bridge the gap between complex global supply chains and simplified, on-time delivery tailored to your unique cargo requirements.</p>
       <div class="hero-actions">
         <a href="get-instant-rates.html" class="btn-dark"><i class="bi bi-lightning-charge"></i> Instant Rate</a>
         <a href="#services" class="btn-outline"><i class="bi bi-grid"></i> Our Services</a>
@@ -843,9 +490,10 @@
       <div class="logo-orbit-wrapper">
         <div class="logo-orbit-ring"></div>
         <div class="logo-orbit-dot"></div>
-        <picture>
+        <!-- Fixed Logo Centering Wrapper -->
+        <picture class="logo-center-wrapper" id="raivega-logo" tabIndex="0">
           <source srcset="images/rv-icon.svg" type="image/svg+xml">
-          <img src="images/RV LOGO.png" alt="RAIVEGA Logo Interactive Spinner" class="logo-center" id="raivega-logo" tabIndex="0" />
+          <img src="images/RV LOGO.png" alt="RAIVEGA Logo Interactive Spinner" />
         </picture>
       </div>
     </div>
@@ -859,7 +507,7 @@
     </div>
     <div>
       <div class="stat-num">Global</div>
-      <div class="stat-label">Lanes</div>
+      <div class="stat-label">Lanes Covered</div>
     </div>
     <div>
       <div class="stat-num">24/7</div>
@@ -874,12 +522,10 @@
   <!-- Services Grid / Accordion Section -->
   <section id="services">
     <div class="label" data-aos="fade-up"><i class="bi bi-box-seam"></i> Core Services</div>
-    <h2 class="sec-head" data-aos="fade-up" data-aos-delay="80">End-to-end freight solutions.</h2>
-    <p class="sec-sub" data-aos="fade-up" data-aos-delay="120">Ocean, air, ground, customs, warehouse and project movements are arranged in a clean accordion system with a more dynamic visual layer.</p>
+    <h2 class="sec-head" data-aos="fade-up" data-aos-delay="80">End-to-end global freight solutions.</h2>
+    <p class="sec-sub" data-aos="fade-up" data-aos-delay="120">Explore our comprehensive logistics capabilities. Ocean, air, ground, customs, warehousing, and heavy-lift project movements—managed cohesively through a structured and transparent execution system.</p>
     
     <div class="services-shell" data-aos="fade-up" data-aos-delay="160">
-      
-      <!-- Unified Freight Solutions Sticky Panel -->
       <div class="services-visual" aria-hidden="true">
         <div class="blob b1"></div>
         <div class="blob b2"></div>
@@ -890,126 +536,100 @@
         <div class="label-center">
           <i class="bi bi-globe2"></i>
           <h3>Unified Freight Solutions</h3>
-          <p>Seamless end-to-end cargo coordination across air, ocean, and ground networks for reliable, on-time delivery.</p>
+          <p>Seamless, end-to-end cargo coordination across global air, ocean, and ground networks for reliable, on-time delivery.</p>
         </div>
       </div>
       
       <div class="services-list" id="services-accordion">
-        
-        <!-- Accordion Item 1 -->
         <div class="svc">
           <button class="svc-head" aria-expanded="false" aria-controls="svc-body-ocean">
-            <span class="svc-title">
-              <i class="bi bi-water svc-icon"></i>
-              <h3>Ocean Freight</h3>
-            </span>
+            <span class="svc-title"><i class="bi bi-water svc-icon"></i><h3>Ocean Freight</h3></span>
             <i class="bi bi-plus-lg svc-toggle"></i>
           </button>
           <div id="svc-body-ocean" class="svc-body" role="region">
-            <p>FCL, LCL, project cargo, break bulk, bulk, RORO and reefer handling.</p>
+            <p>Comprehensive FCL, LCL, project cargo, break bulk, bulk, RORO, and specialized reefer handling. We leverage global carrier networks to ensure optimal vessel space, competitive transit times, and transparent cost structures.</p>
             <ul>
-              <li>Import and export routing</li>
-              <li>Port and carrier coordination</li>
-              <li>Shipment documentation</li>
+              <li>Global import and export routing optimizations</li>
+              <li>Dedicated port and carrier coordination</li>
+              <li>Complete maritime shipment documentation</li>
             </ul>
           </div>
         </div>
 
-        <!-- Accordion Item 2 -->
         <div class="svc">
           <button class="svc-head" aria-expanded="false" aria-controls="svc-body-air">
-            <span class="svc-title">
-              <i class="bi bi-airplane-engines svc-icon"></i>
-              <h3>Air Freight</h3>
-            </span>
+            <span class="svc-title"><i class="bi bi-airplane-engines svc-icon"></i><h3>Air Freight</h3></span>
             <i class="bi bi-plus-lg svc-toggle"></i>
           </button>
           <div id="svc-body-air" class="svc-body" role="region">
-            <p>Fast-moving air cargo with secure handling and schedule control.</p>
+            <p>Time-critical and fast-moving air cargo solutions designed for secure handling and strict schedule control. From direct priority flights for urgent shipments to cost-effective consolidated routings, we manage the entire lifecycle.</p>
             <ul>
-              <li>Airport coordination</li>
-              <li>Consolidated and direct options</li>
-              <li>Urgent cargo support</li>
+              <li>End-to-end airport coordination and ground handling</li>
+              <li>Strategic consolidated and direct freight options</li>
+              <li>AOG and urgent cargo priority support</li>
             </ul>
           </div>
         </div>
 
-        <!-- Accordion Item 3 -->
         <div class="svc">
           <button class="svc-head" aria-expanded="false" aria-controls="svc-body-ground">
-            <span class="svc-title">
-              <i class="bi bi-truck-front svc-icon"></i>
-              <h3>Ground Freight</h3>
-            </span>
+            <span class="svc-title"><i class="bi bi-truck-front svc-icon"></i><h3>Ground Freight</h3></span>
             <i class="bi bi-plus-lg svc-toggle"></i>
           </button>
           <div id="svc-body-ground" class="svc-body" role="region">
-            <p>Domestic road and rail movement with planning for collection, delivery and inland transfer.</p>
+            <p>Robust domestic and cross-border road and rail movement. We meticulously plan collection, line-haul, and final delivery, offering scalable FTL, LTL, and specialized transport to ensure seamless inland distribution.</p>
             <ul>
-              <li>FTL / LTL movement</li>
-              <li>Last-mile delivery</li>
-              <li>Inland distribution</li>
+              <li>FTL / LTL dedicated and shared movement</li>
+              <li>Precision last-mile and cross-border delivery</li>
+              <li>Seamless port-to-inland distribution</li>
             </ul>
           </div>
         </div>
 
-        <!-- Accordion Item 4 -->
         <div class="svc">
           <button class="svc-head" aria-expanded="false" aria-controls="svc-body-customs">
-            <span class="svc-title">
-              <i class="bi bi-file-earmark-text svc-icon"></i>
-              <h3>Customs Clearance</h3>
-            </span>
+            <span class="svc-title"><i class="bi bi-file-earmark-text svc-icon"></i><h3>Customs Clearance</h3></span>
             <i class="bi bi-plus-lg svc-toggle"></i>
           </button>
           <div id="svc-body-customs" class="svc-body" role="region">
-            <p>Documentation and clearance support focused on accuracy and speed.</p>
+            <p>Navigating international trade compliance with precision. Our localized expertise ensures highly accurate documentation filing, rigorous regulatory adherence, and rapid clearance processing to minimize border delays.</p>
             <ul>
-              <li>Filing assistance</li>
-              <li>Regulatory coordination</li>
-              <li>Delay reduction support</li>
+              <li>High-accuracy tariff and documentation filing</li>
+              <li>Multi-agency regulatory compliance management</li>
+              <li>Proactive delay reduction and duty consultancy</li>
             </ul>
           </div>
         </div>
 
-        <!-- Accordion Item 5 -->
         <div class="svc">
           <button class="svc-head" aria-expanded="false" aria-controls="svc-body-warehousing">
-            <span class="svc-title">
-              <i class="bi bi-buildings svc-icon"></i>
-              <h3>Warehousing</h3>
-            </span>
+            <span class="svc-title"><i class="bi bi-buildings svc-icon"></i><h3>Warehousing</h3></span>
             <i class="bi bi-plus-lg svc-toggle"></i>
           </button>
           <div id="svc-body-warehousing" class="svc-body" role="region">
-            <p>Storage and dispatch readiness aligned with your inventory flow.</p>
+            <p>Strategic storage and inventory management facilities. Our warehousing solutions are fully aligned with your supply chain flow, offering safe long-term storage, dynamic cross-docking, and seamless dispatch readiness.</p>
             <ul>
-              <li>Safe storage</li>
-              <li>Inventory handling</li>
-              <li>Dispatch coordination</li>
+              <li>Secure, scalable short and long-term storage</li>
+              <li>Advanced inventory tracking and stock handling</li>
+              <li>Cross-docking and dispatch coordination</li>
             </ul>
           </div>
         </div>
 
-        <!-- Accordion Item 6 -->
         <div class="svc">
           <button class="svc-head" aria-expanded="false" aria-controls="svc-body-project">
-            <span class="svc-title">
-              <i class="bi bi-gear-wide-connected svc-icon"></i>
-              <h3>Project Cargo</h3>
-            </span>
+            <span class="svc-title"><i class="bi bi-gear-wide-connected svc-icon"></i><h3>Project Cargo</h3></span>
             <i class="bi bi-plus-lg svc-toggle"></i>
           </button>
           <div id="svc-body-project" class="svc-body" role="region">
-            <p>Heavy-lift and oversized cargo with route planning and execution control.</p>
+            <p>End-to-end engineering and execution control for heavy-lift and out-of-gauge shipments. We conduct detailed route surveys, arrange specialized handling equipment, and safely transport oversized industrial assets.</p>
             <ul>
-              <li>Out-of-gauge movement</li>
-              <li>Engineering support</li>
-              <li>Special handling</li>
+              <li>Out-of-gauge and heavy-lift movement strategies</li>
+              <li>Detailed civil engineering and route survey support</li>
+              <li>Multi-agency permit and escort handling</li>
             </ul>
           </div>
         </div>
-
       </div>
     </div>
   </section>
@@ -1019,33 +639,33 @@
     <div class="label" data-aos="fade-up"><i class="bi bi-info-circle"></i> About RAIVEGA</div>
     <div class="about-split">
       <div data-aos="fade-right">
-        <h2 class="sec-head">Built for practical freight execution.</h2>
-        <p>RAIVEGA is a multimodal freight forwarding company centred on disciplined planning, responsive coordination and hands-on execution.</p>
-        <p>It works across ocean, air, road, rail, customs and warehousing with a focus on predictable movement and transparent follow-through.</p>
-        <p>The public pages highlight clear communication, tailored logistics support and shipment handling across diverse cargo types.</p>
+        <h2 class="sec-head">Engineered for practical freight execution.</h2>
+        <p>RAIVEGA is a highly specialized multimodal freight forwarding company built entirely around disciplined planning, hyper-responsive coordination, and hands-on operational execution.</p>
+        <p>We orchestrate global supply chains across ocean, air, road, rail, customs, and warehousing infrastructure. Our methodology is rooted in predictable movement patterns and fully transparent, milestone-driven follow-through.</p>
+        <p>Whether managing routine containerized volume or engineering multi-million dollar oversized industrial transports, our focus remains exactly the same: clear communication, tailored logistics support, and uncompromising cargo integrity.</p>
       </div>
       <div data-aos="fade-left">
-        <div class="label"><i class="bi bi-check2-circle"></i> Principles</div>
+        <div class="label"><i class="bi bi-check2-circle"></i> Core Operating Principles</div>
         <div class="pillars">
           <div class="pillar">
             <div class="pillar-icon"><i class="bi bi-calendar2-check"></i></div>
             <h4>Planning Discipline</h4>
-            <p>Routes, modes, timelines and documentation are defined before movement begins.</p>
+            <p>Routes, modes, timelines, and documentation are strictly defined and audited before any physical movement begins, eliminating guesswork.</p>
           </div>
           <div class="pillar">
             <div class="pillar-icon"><i class="bi bi-chat-dots"></i></div>
             <h4>Responsive Follow-up</h4>
-            <p>Proactive updates and timely responses through the shipment lifecycle.</p>
+            <p>Proactive milestone updates and timely, human responses throughout the entire shipment lifecycle. You are never left in the dark.</p>
           </div>
           <div class="pillar">
             <div class="pillar-icon"><i class="bi bi-shield-check"></i></div>
             <h4>Compliance Focus</h4>
-            <p>Accurate paperwork and regulatory adherence across borders and cargo types.</p>
+            <p>Unyielding dedication to accurate paperwork, customs tariffs, and regulatory adherence across international borders and cargo types.</p>
           </div>
           <div class="pillar">
             <div class="pillar-icon"><i class="bi bi-lightning-charge"></i></div>
             <h4>Practical Execution</h4>
-            <p>On-ground coordination and real-time problem solving for complex movements.</p>
+            <p>Hands-on, on-ground coordination and real-time problem solving to overcome logistical bottlenecks during complex multimodal movements.</p>
           </div>
         </div>
       </div>
@@ -1054,47 +674,47 @@
 
   <!-- Process Steps Section -->
   <section id="process">
-    <div class="label" data-aos="fade-up"><i class="bi bi-arrow-repeat"></i> Process</div>
-    <h2 class="sec-head" data-aos="fade-up" data-aos-delay="80">A clear path from planning to delivery.</h2>
+    <div class="label" data-aos="fade-up"><i class="bi bi-arrow-repeat"></i> The RAIVEGA Process</div>
+    <h2 class="sec-head" data-aos="fade-up" data-aos-delay="80">A definitive path from planning to delivery.</h2>
     <div class="process-grid" data-aos="fade-up" data-aos-delay="140">
       <div class="step">
         <div class="step-num">01</div>
         <div class="step-icon"><i class="bi bi-clipboard2-check"></i></div>
         <h3>Requirement Review</h3>
-        <p>Shipment details, special handling needs and timing are recorded precisely.</p>
+        <p>Deep-dive analysis of your shipment parameters, dimensional specifications, special handling nuances, and delivery timelines.</p>
       </div>
       <div class="step">
         <div class="step-num">02</div>
         <div class="step-icon"><i class="bi bi-map"></i></div>
         <h3>Routing &amp; Planning</h3>
-        <p>Mode selection, schedule planning and documentation path are defined.</p>
+        <p>Strategic mode selection, optimal schedule mapping, cost assessment, and rigorous documentation pathway definition.</p>
       </div>
       <div class="step">
         <div class="step-num">03</div>
         <div class="step-icon"><i class="bi bi-send"></i></div>
-        <h3>Execution</h3>
-        <p>Pickup, main-leg movement, customs and delivery are coordinated end to end.</p>
+        <h3>Execution Control</h3>
+        <p>Origin pickup, main-leg carrier loading, border customs clearance, and final destination delivery are actively coordinated end to end.</p>
       </div>
       <div class="step">
         <div class="step-num">04</div>
         <div class="step-icon"><i class="bi bi-pin-map"></i></div>
-        <h3>Tracking</h3>
-        <p>Milestone-based updates are shared at the important movement points.</p>
+        <h3>Milestone Tracking</h3>
+        <p>Transparent, milestone-based status updates are shared proactively at every critical supply-chain intersection.</p>
       </div>
       <div class="step">
         <div class="step-num">05</div>
         <div class="step-icon"><i class="bi bi-check2-all"></i></div>
         <h3>Delivery &amp; Closure</h3>
-        <p>Delivery confirmation and documentation handover complete the cycle.</p>
+        <p>Secure proof of delivery confirmation, final invoicing, and complete documentation handover conclude the shipment cycle.</p>
       </div>
     </div>
   </section>
 
-  <!-- Contact/Communication Split Strip -->
+  <!-- Contact Transition Section (Replaced by Bot Page Linking) -->
   <section id="contact">
-    <div class="label" data-aos="fade-up"><i class="bi bi-person-lines-fill"></i> Contact</div>
-    <h2 class="sec-head" data-aos="fade-up" data-aos-delay="80">Connect with the RAIVEGA team.</h2>
-    <p class="sec-sub" data-aos="fade-up" data-aos-delay="120">For rates, shipment planning or project coordination, contact us by call, WhatsApp or email.</p>
+    <div class="label" data-aos="fade-up"><i class="bi bi-headset"></i> Support & Solutions</div>
+    <h2 class="sec-head" data-aos="fade-up" data-aos-delay="80">Connect directly with the RAIVEGA operations team.</h2>
+    <p class="sec-sub" data-aos="fade-up" data-aos-delay="120">For custom lane rates, complex shipment planning, or active project coordination, initiate a live support session or reach out via our direct channels.</p>
     
     <div class="contact-strip" data-aos="fade-up" data-aos-delay="160">
       <div class="contact-item">
@@ -1114,97 +734,65 @@
       <div class="contact-item">
         <div class="contact-icon"><i class="bi bi-envelope-at"></i></div>
         <div class="contact-detail">
-          <div class="contact-label">Email</div>
+          <div class="contact-label">Corporate Email</div>
           <a href="mailto:mgt@raivega.in">mgt@raivega.in</a>
         </div>
       </div>
       <div class="contact-item">
         <div class="contact-icon"><i class="bi bi-geo-alt"></i></div>
         <div class="contact-detail">
-          <div class="contact-label">Location</div>
+          <div class="contact-label">Headquarters</div>
           <span>Ludhiana, Punjab, India</span>
         </div>
       </div>
     </div>
     
     <div style="margin-top:40px;" data-aos="fade-up" data-aos-delay="220">
-      <a href="contact.html" class="btn-dark"><i class="bi bi-ui-checks-grid"></i> Contact Form</a>
-      <a href="get-instant-rates.html" class="btn-outline" style="margin-left:8px;"><i class="bi bi-calculator"></i> Instant Rate</a>
+      <a href="contact.html" class="btn-dark"><i class="bi bi-chat-dots"></i> Open Support Chat</a>
+      <a href="get-instant-rates.html" class="btn-outline" style="margin-left:8px;"><i class="bi bi-calculator"></i> Instant Rate Engine</a>
     </div>
   </section>
 
-  <!-- Interactive Hidden Element Animation Asset -->
   <div class="easter-ship" id="easterShip"><i class="bi bi-ship"></i></div>
 
-  <!-- Page Footer -->
   <footer>
     <p>© 2026 RAIVEGA. All rights reserved.</p>
     <div class="footer-links">
       <a href="#services">Services</a>
       <a href="#about">About</a>
       <a href="#process">Process</a>
-      <a href="#contact">Contact</a>
+      <a href="contact.html">Support</a>
       <a href="get-instant-rates.html">Instant Rates</a>
     </div>
   </footer>
 
-  <!-- Initialization & Interactive Logic Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script>
     (function () {
       'use strict';
-
-      // ==========================================================================
-      // 1. THIRD-PARTY INITIALIZATIONS
-      // ==========================================================================
       function initPlugins() {
-        AOS.init({
-          once: true,
-          duration: 700,
-          easing: "ease-out-cubic"
-        });
-
+        AOS.init({ once: true, duration: 700, easing: "ease-out-cubic" });
         if (typeof particlesJS !== 'undefined') {
           particlesJS("particles-js", {
-            particles: {
-              number: { value: 34, density: { enable: true, value_area: 800 } },
-              color: { value: "#dcdcdc" },
-              shape: { type: "circle" },
-              opacity: { value: 0.45 },
-              size: { value: 3, random: true },
-              line_linked: { enable: true, distance: 150, color: "#e3e3e3", opacity: 0.35, width: 1 },
-              move: { enable: true, speed: 1.1, direction: "none", out_mode: "out" }
-            },
-            interactivity: {
-              detect_on: "canvas",
-              events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: false }, resize: true },
-              modes: { repulse: { distance: 120, duration: 0.4 } }
-            },
+            particles: { number: { value: 34, density: { enable: true, value_area: 800 } }, color: { value: "#dcdcdc" }, shape: { type: "circle" }, opacity: { value: 0.45 }, size: { value: 3, random: true }, line_linked: { enable: true, distance: 150, color: "#e3e3e3", opacity: 0.35, width: 1 }, move: { enable: true, speed: 1.1, direction: "none", out_mode: "out" } },
+            interactivity: { detect_on: "canvas", events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: false }, resize: true }, modes: { repulse: { distance: 120, duration: 0.4 } } },
             retina_detect: true
           });
         }
       }
 
-      // ==========================================================================
-      // 2. ACCORDION LOGIC & ACCESSIBILITY
-      // ==========================================================================
       function initAccordions() {
         const accordionContainer = document.getElementById('services-accordion');
         if (!accordionContainer) return;
-
         const items = accordionContainer.querySelectorAll('.svc');
-
         items.forEach((item) => {
           const header = item.querySelector('.svc-head');
-          
           header.addEventListener('click', () => {
             const isCurrentlyOpen = item.classList.contains('open');
-
             items.forEach((el) => {
               el.classList.remove('open');
               el.querySelector('.svc-head').setAttribute('aria-expanded', 'false');
             });
-
             if (!isCurrentlyOpen) {
               item.classList.add('open');
               header.setAttribute('aria-expanded', 'true');
@@ -1213,9 +801,6 @@
         });
       }
 
-      // ==========================================================================
-      // 3. INTERACTION HANDLERS & NAVIGATION UTILS
-      // ==========================================================================
       function initGlobalInteractions() {
         const logo = document.getElementById("raivega-logo");
         const ship = document.getElementById("easterShip");
@@ -1223,107 +808,56 @@
 
         if (logo && typeof gsap !== 'undefined') {
           const triggerLogoSpin = () => {
+            // Apply transformOrigin mathematically to ensure flawless centering
             gsap.fromTo(logo, 
               { rotationY: 0 }, 
-              { rotationY: 1080, duration: 3, ease: "power2.inOut" }
+              { rotationY: 1080, duration: 3, ease: "power2.inOut", transformOrigin: "50% 50%" }
             );
           };
           logo.addEventListener("mouseenter", triggerLogoSpin);
-          logo.addEventListener("keydown", (e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              triggerLogoSpin();
-            }
-          });
+          logo.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); triggerLogoSpin(); }});
         }
 
         function launchShip() {
           if (!ship || typeof gsap === 'undefined') return;
           ship.style.opacity = "1";
-          gsap.fromTo(ship, 
-            { x: -200, y: 40 }, 
-            { x: window.innerWidth + 200, y: -40, duration: 6, ease: "power1.inOut", onComplete: () => ship.style.opacity = "0" }
-          );
-
+          gsap.fromTo(ship, { x: -200, y: 40 }, { x: window.innerWidth + 200, y: -40, duration: 6, ease: "power1.inOut", onComplete: () => ship.style.opacity = "0" });
           if (typeof Swal !== 'undefined') {
-            Swal.fire({
-              title: "Coordination channel opened",
-              text: "Share your next lane and we will respond with routing options.",
-              icon: "info",
-              confirmButtonText: "Contact Team",
-              confirmButtonColor: "#111111",
-              showCancelButton: true,
-              cancelButtonText: "Close"
-            }).then((r) => {
+            Swal.fire({ title: "Coordination channel opened", text: "Share your next lane and we will respond with routing options.", icon: "info", confirmButtonText: "Open Support", confirmButtonColor: "#111111", showCancelButton: true, cancelButtonText: "Close" }).then((r) => {
               if (r.isConfirmed) window.location.href = "contact.html";
             });
           }
         }
 
-        if (surpriseBtn) {
-          surpriseBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            launchShip();
-          });
-        }
-
+        if (surpriseBtn) { surpriseBtn.addEventListener("click", (e) => { e.preventDefault(); launchShip(); }); }
         let secretBuffer = "";
         window.addEventListener("keydown", (e) => {
           secretBuffer += e.key.toLowerCase();
-          if (secretBuffer.endsWith("rai")) {
-            launchShip();
-            secretBuffer = "";
-          }
+          if (secretBuffer.endsWith("rai")) { launchShip(); secretBuffer = ""; }
           if (secretBuffer.length > 3) secretBuffer = secretBuffer.slice(-3);
         });
       }
 
-      // ==========================================================================
-      // 4. ACTIVE LINK SCROLL SPY LOGIC
-      // ==========================================================================
       function initScrollSpy() {
         const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
         const sections = Array.from(navLinks).map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
-
         if (!sections.length) return;
-
         const handleScroll = () => {
           let currentSectionId = "";
           const scrollPosition = window.scrollY + 200;
-
-          sections.forEach(section => {
-            if (scrollPosition >= section.offsetTop) {
-              currentSectionId = section.getAttribute('id');
-            }
-          });
-
+          sections.forEach(section => { if (scrollPosition >= section.offsetTop) currentSectionId = section.getAttribute('id'); });
           navLinks.forEach(link => {
             link.classList.remove('active');
-            if (link.getAttribute('href') === `#${currentSectionId}`) {
-              link.classList.add('active');
-            }
+            if (link.getAttribute('href') === `#${currentSectionId}`) link.classList.add('active');
           });
         };
-
         let isThrottled = false;
         window.addEventListener('scroll', () => {
-          if (!isThrottled) {
-            window.requestAnimationFrame(() => {
-              handleScroll();
-              isThrottled = false;
-            });
-            isThrottled = true;
-          }
+          if (!isThrottled) { window.requestAnimationFrame(() => { handleScroll(); isThrottled = false; }); isThrottled = true; }
         });
       }
 
-      document.addEventListener("DOMContentLoaded", () => {
-        initPlugins();
-        initAccordions();
-        initGlobalInteractions();
-        initScrollSpy();
-      });
-
+      document.addEventListener("DOMContentLoaded", () => { initPlugins(); initAccordions(); initGlobalInteractions(); initScrollSpy(); });
     })();
   </script>
 </body>
