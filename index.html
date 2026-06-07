@@ -22,8 +22,8 @@
   <meta name="instant-rates-search" content="POL, POD, port of loading, port of discharge, freight rate, container rate, extra term, local charges, shipping terms, cargo inquiry, origin, destination, trade lane, swifty-pi.vercel.app/user" />
 
   <link rel="canonical" href="https://www.raivega.in/" />
-  <link rel="icon" type="image/png" href="images/RV LOGO.png" />
-  <link rel="shortcut icon" href="images/RV LOGO.png" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='white' stroke='%2317355b' stroke-width='3'/%3E%3Cpath d='M32 8L36.5 20.5L49 25L36.5 29.5L32 42L27.5 29.5L15 25L27.5 20.5L32 8Z' fill='none' stroke='%2317355b' stroke-width='2.3' stroke-linejoin='round'/%3E%3Ccircle cx='32' cy='25' r='4.3' fill='%23e5b42a' stroke='%2317355b' stroke-width='1.2'/%3E%3C/svg%3E" />
+  <link rel="shortcut icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='white' stroke='%2317355b' stroke-width='3'/%3E%3Cpath d='M32 8L36.5 20.5L49 25L36.5 29.5L32 42L27.5 29.5L15 25L27.5 20.5L32 8Z' fill='none' stroke='%2317355b' stroke-width='2.3' stroke-linejoin='round'/%3E%3Ccircle cx='32' cy='25' r='4.3' fill='%23e5b42a' stroke='%2317355b' stroke-width='1.2'/%3E%3C/svg%3E" />
   <link rel="apple-touch-icon" href="images/RV LOGO.png" />
 
   <!-- Fonts & Assets -->
@@ -120,6 +120,8 @@
       --radius-md: 22px;
       --transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
       --font-stack: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      --brand-blue: #17355b;
+      --brand-gold: #e5b42a;
     }
 
     * {
@@ -219,7 +221,7 @@
       height: 56px;
       border: 1.2px solid rgba(17, 17, 17, 0.22);
       border-radius: 50%;
-      background:e5b42a ;
+      background: rgba(229, 180, 42, 0.08);
       backdrop-filter: blur(.2px);
       -webkit-backdrop-filter: blur(3px);
     }
@@ -333,12 +335,24 @@
       justify-content: center;
     }
 
+    .nav-brand-mark {
+      position: relative;
+      width: 136px;
+      height: 94px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
     .nav-brand a {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       width: 94px;
       height: 58px;
+      position: relative;
+      z-index: 2;
+      margin-top: 2px;
     }
 
     .nav-logo {
@@ -352,6 +366,34 @@
     .nav-brand:hover .nav-logo {
       transform: scale(1.04);
     }
+
+    .nav-curve-wrap {
+      position: absolute;
+      left: 50%;
+      top: -24px;
+      width: 132px;
+      height: 132px;
+      transform: translateX(-50%);
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    .nav-ring-circle {
+      fill: none;
+      stroke: rgba(23, 53, 91, 0.14);
+      stroke-width: 1.2;
+    }
+
+    .nav-curve-text {
+      font-family: var(--font-stack);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+    }
+
+    .brand-blue { color: var(--brand-blue); }
+    .brand-gold { color: var(--brand-gold); }
 
     .nav-link-btn {
       font-size: 11px;
@@ -533,7 +575,7 @@
 
     .hero-blueprint {
       position: absolute;
-      left: -6%;
+      top: 2%;
       bottom: 2%;
       width: clamp(620px, 82vw, 980px);
       max-width: none;
@@ -582,6 +624,25 @@
       pointer-events: none;
     }
 
+    .hero-brandline {
+      display: block;
+      margin: 0 0 18px;
+      font-size: clamp(42px, 6.6vw, 82px);
+      font-weight: 300;
+      line-height: 0.92;
+      letter-spacing: -0.08em;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-brandline .blue {
+      color: var(--brand-blue);
+    }
+
+    .hero-brandline .gold {
+      color: var(--brand-gold);
+    }
+
     .hero-tag {
       display: inline-flex;
       align-items: center;
@@ -597,6 +658,8 @@
       text-transform: uppercase;
       color: var(--muted);
       box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+      position: relative;
+      z-index: 2;
     }
 
     .hero h1 {
@@ -1218,6 +1281,10 @@
       .hero-sub {
         font-size: 15px;
       }
+
+      .hero-brandline {
+        font-size: clamp(34px, 8vw, 64px);
+      }
     }
 
     @media (max-width: 780px) {
@@ -1278,6 +1345,27 @@
         height: 50px;
       }
 
+      .nav-brand-mark {
+        width: 118px;
+        height: 84px;
+      }
+
+      .nav-brand a {
+        width: 84px;
+        height: 54px;
+      }
+
+      .nav-curve-wrap {
+        width: 116px;
+        height: 116px;
+        top: -20px;
+      }
+
+      .nav-curve-text {
+        font-size: 9.5px;
+        letter-spacing: 2.7px;
+      }
+
       .hero-copy {
         padding: 42px 5vw 58px;
       }
@@ -1325,12 +1413,26 @@
       </div>
 
       <div class="nav-brand">
-        <a href="index.html" aria-label="Go to homepage">
-          <picture>
-            <source srcset="images/rv-icon.svg" type="image/svg+xml">
-            <img src="images/RV LOGO.png" alt="RAIVEGA" class="nav-logo" />
-          </picture>
-        </a>
+        <div class="nav-brand-mark">
+          <svg class="nav-curve-wrap" viewBox="0 0 140 140" aria-hidden="true">
+            <defs>
+              <path id="navCurvePath" d="M 24 72 A 46 46 0 0 1 116 72" />
+            </defs>
+            <circle class="nav-ring-circle" cx="70" cy="70" r="48"></circle>
+            <text class="nav-curve-text">
+              <textPath href="#navCurvePath" startOffset="50%" text-anchor="middle">
+                <tspan fill="#17355b">RAI</tspan><tspan fill="#e5b42a">V</tspan><tspan fill="#17355b">EGA</tspan>
+              </textPath>
+            </text>
+          </svg>
+
+          <a href="index.html" aria-label="Go to homepage">
+            <picture>
+              <source srcset="images/rv-icon.svg" type="image/svg+xml" />
+              <img src="images/RV LOGO.png" alt="RAIVEGA" class="nav-logo" />
+            </picture>
+          </a>
+        </div>
       </div>
 
       <div class="nav-right">
@@ -1360,6 +1462,9 @@
 
       <div class="hero-copy" data-aos="fade-left">
         <div class="hero-copy-inner">
+          <div class="hero-brandline">
+            <span class="blue">RAI</span><span class="gold">V</span><span class="blue">EGA</span>
+          </div>
           <div class="hero-tag"><i class="bi bi-globe2"></i> Advanced Freight Forwarding</div>
           <h1>We Move Anything, Anywhere.</h1>
           <p class="hero-sub">
@@ -1530,6 +1635,7 @@
       <div class="section-panel">
         <div class="label-section" data-aos="fade-up"><i class="bi bi-arrow-repeat"></i> The RAIVEGA Process</div>
         <h2 class="sec-head" data-aos="fade-up" data-aos-delay="80">A definitive path from planning to delivery.</h2>
+
         <div class="process-grid" data-aos="fade-up" data-aos-delay="140">
           <div class="step"><div class="step-num">01</div><div class="step-icon"><i class="bi bi-clipboard2-check"></i></div><h3>Requirement Review</h3><p>Deep-dive analysis of your shipment parameters, dimensional specifications, special handling nuances, and delivery timelines.</p></div>
           <div class="step"><div class="step-num">02</div><div class="step-icon"><i class="bi bi-map"></i></div><h3>Routing &amp; Planning</h3><p>Strategic mode selection, optimal schedule mapping, cost assessment, and rigorous documentation pathway definition.</p></div>
@@ -1544,9 +1650,7 @@
       <div class="section-panel">
         <div class="label-section" data-aos="fade-up"><i class="bi bi-headset"></i> Contact & Quotes</div>
         <h2 class="sec-head" data-aos="fade-up" data-aos-delay="80">Connect directly with the RAIVEGA operations team.</h2>
-        <p class="sec-sub" data-aos="fade-up" data-aos-delay="120">
-          For custom lane rates, shipment planning, or active project coordination, reach out through our direct channels and get a practical response from the team.
-        </p>
+        <p class="sec-sub" data-aos="fade-up" data-aos-delay="120">For custom lane rates, shipment planning, or active project coordination, reach out through our direct channels and get a practical response from the team.</p>
 
         <div class="contact-strip" data-aos="fade-up" data-aos-delay="160">
           <div class="contact-item"><div class="contact-icon"><i class="bi bi-telephone-forward"></i></div><div class="contact-detail"><div class="contact-label">Call or WhatsApp</div><a href="https://wa.me/919915521506" target="_blank" rel="noopener">091 9915521506 — akrai@raivega.in</a></div></div>
@@ -1575,18 +1679,13 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-
   <script>
     (function () {
       'use strict';
 
       function initAOS() {
         if (typeof AOS !== 'undefined') {
-          AOS.init({
-            once: true,
-            duration: 750,
-            easing: 'ease-out-cubic'
-          });
+          AOS.init({ once: true, duration: 750, easing: 'ease-out-cubic' });
         }
       }
 
@@ -1696,7 +1795,6 @@
         });
 
         const hoverTargets = document.querySelectorAll('a, button, .svc-head, .nav-brand a, .nav-link-btn');
-
         hoverTargets.forEach((el) => {
           el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
           el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
@@ -1728,21 +1826,13 @@
     };
 
     const SLABS = [
-      { min: 0, max: 50, add: 50 },
-      { min: 50, max: 250, add: 75 },
-      { min: 250, max: 740, add: 97 },
-      { min: 740, max: 1000, add: 108 },
-      { min: 1000, max: 1500, add: 125 },
-      { min: 1500, max: 2000, add: 150 },
-      { min: 2000, max: 3000, add: 175 },
-      { min: 3000, max: 4500, add: 225 },
-      { min: 4500, max: 6000, add: 300 },
-      { min: 6000, max: Infinity, add: 350 }
+      { min: 0, max: 50, add: 50 }, { min: 50, max: 250, add: 75 }, { min: 250, max: 740, add: 97 }, { min: 740, max: 1000, add: 108 },
+      { min: 1000, max: 1500, add: 125 }, { min: 1500, max: 2000, add: 150 }, { min: 2000, max: 3000, add: 175 }, { min: 3000, max: 4500, add: 225 },
+      { min: 4500, max: 6000, add: 300 }, { min: 6000, max: Infinity, add: 350 }
     ];
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-
     const track = document.getElementById("tickerTrack");
     const ticker = document.getElementById("rateTicker");
     const statusBox = document.getElementById("tickerStatus");
@@ -1818,13 +1908,10 @@
     function shortPortCode(text) {
       const clean = alphaOnly(text);
       if (!clean) return "---";
-
       const words = clean.split(" ").filter(Boolean);
       if (words.length === 1) return words[0].slice(0, 3).padEnd(3, "X");
-
       const initials = words.map(w => w[0]).join("").slice(0, 3);
       if (initials.length === 3) return initials;
-
       const merged = words.join("");
       return (initials + merged).slice(0, 3).padEnd(3, "X");
     }
@@ -1843,12 +1930,9 @@
 
     function historyValueFromSimpleArray(arr) {
       if (!Array.isArray(arr) || !arr.length) return 0;
-      const values = arr.map(v =>
-        typeof v === "number" || typeof v === "string"
-          ? num(v)
-          : num(v?.value ?? v?.rate ?? v?.amount)
-      ).filter(Boolean);
-
+      const values = arr
+        .map(v => typeof v === "number" || typeof v === "string" ? num(v) : num(v?.value ?? v?.rate ?? v?.amount))
+        .filter(Boolean);
       if (values.length >= 2) return values[values.length - 2];
       if (values.length === 1) return values[0];
       return 0;
@@ -1856,7 +1940,6 @@
 
     function historyValueFromObjectArray(arr, type) {
       if (!Array.isArray(arr) || !arr.length) return 0;
-
       const normalized = arr.map(item => ({
         t: toDateValue(item?.updatedAt || item?.createdAt || item?.date || item?.ts)?.getTime() || 0,
         v20: candidateNumber(item, ["dv20","rate20","offer20","twenty","value20","price20"]),
@@ -1864,13 +1947,9 @@
       })).filter(x => x.v20 || x.v40);
 
       if (!normalized.length) return 0;
-
       normalized.sort((a,b) => a.t - b.t);
 
-      if (normalized.length >= 2) {
-        return type === "20" ? normalized[normalized.length - 2].v20 : normalized[normalized.length - 2].v40;
-      }
-
+      if (normalized.length >= 2) return type === "20" ? normalized[normalized.length - 2].v20 : normalized[normalized.length - 2].v40;
       return type === "20" ? normalized[0].v20 : normalized[0].v40;
     }
 
@@ -1918,17 +1997,7 @@
       const prev20 = publishedRate(previousRate(r, "20"));
       const prev40 = publishedRate(previousRate(r, "40"));
 
-      return `
-        <div class="ticker-item">
-          <span class="route">${esc(routeCode(r))}</span>
-          <span class="sep">-</span>
-          <span class="label">20DV</span>
-          <span class="price">${esc(formatCurrency(current20))}</span>${arrowMarkup(current20, prev20)}
-          <span class="sep">/</span>
-          <span class="label">40HC</span>
-          <span class="price">${esc(formatCurrency(current40))}</span>${arrowMarkup(current40, prev40)}
-        </div>
-      `;
+      return `<div class="ticker-item"><span class="route">${esc(routeCode(r))}</span><span class="sep">-</span><span class="label">20DV</span><span class="price">${esc(formatCurrency(current20))}</span>${arrowMarkup(current20, prev20)}<span class="sep">/</span><span class="label">40HC</span><span class="price">${esc(formatCurrency(current40))}</span>${arrowMarkup(current40, prev40)}</div>`;
     }
 
     function renderTicker() {
@@ -1952,13 +2021,10 @@
     function animate(now) {
       const dt = now - previousTime;
       previousTime = now;
-
       currentSpeed += (targetSpeed - currentSpeed) * 0.08;
       pos -= currentSpeed * dt * 0.06;
-
       const loopWidth = track.scrollWidth / 2;
       if (loopWidth > 0 && Math.abs(pos) >= loopWidth) pos = 0;
-
       track.style.transform = `translateX(${pos}px)`;
       requestAnimationFrame(animate);
     }
@@ -1968,30 +2034,21 @@
       requestAnimationFrame(animate);
     }
 
-    ticker.addEventListener("mouseenter", () => {
-      targetSpeed = 0.03;
-    });
-
-    ticker.addEventListener("mouseleave", () => {
-      targetSpeed = 0.72;
-    });
+    ticker.addEventListener("mouseenter", () => { targetSpeed = 0.03; });
+    ticker.addEventListener("mouseleave", () => { targetSpeed = 0.72; });
 
     showStatus("LOADING LIVE RATES...");
 
-    onSnapshot(
-      collection(db, "rates"),
-      (snapshot) => {
-        liveRows = [];
-        snapshot.forEach((doc) => {
-          liveRows.push({ id: doc.id, ...doc.data() });
-        });
-        renderTicker();
-      },
-      () => {
-        track.innerHTML = "";
-        showStatus("FAILED TO LOAD LIVE RATES");
-      }
-    );
+    onSnapshot(collection(db, "rates"), (snapshot) => {
+      liveRows = [];
+      snapshot.forEach((doc) => {
+        liveRows.push({ id: doc.id, ...doc.data() });
+      });
+      renderTicker();
+    }, () => {
+      track.innerHTML = "";
+      showStatus("FAILED TO LOAD LIVE RATES");
+    });
   </script>
 </body>
 </html>
