@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RAIVEGA — e.services Portal</title>
+
+  <!-- SEO -->
+  <meta name="description" content="RAIVEGA customer e-services login portal for shipment visibility, coordination, and logistics insights." />
+  <meta name="keywords" content="RAIVEGA, e-services, customer portal, freight, logistics, tracking, shipping" />
+  <meta name="author" content="RAIVEGA" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="application-name" content="RAIVEGA" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="language" content="English" />
+  <meta name="geo.region" content="IN" />
+  <meta name="geo.placename" content="India" />
+  <meta name="ICBM" content="28.6139, 77.2090" />
+  <meta name="geo.position" content="28.6139;77.2090" />
+
+  <!-- Canonical & Icons -->
+  <link rel="canonical" href="https://www.raivega.in/eservices.html" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='white' stroke='%2317355b' stroke-width='3'/%3E%3Cpath d='M32 8L36.5 20.5L49 25L36.5 29.5L32 42L27.5 29.5L15 25L27.5 20.5L32 8Z' fill='none' stroke='%2317355b' stroke-width='2.3' stroke-linejoin='round'/%3E%3Ccircle cx='32' cy='25' r='4.3' fill='%23e5b42a' stroke='%2317355b' stroke-width='1.2'/%3E%3C/svg%3E" />
+  <link rel="shortcut icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='white' stroke='%2317355b' stroke-width='3'/%3E%3Cpath d='M32 8L36.5 20.5L49 25L36.5 29.5L32 42L27.5 29.5L15 25L27.5 20.5L32 8Z' fill='none' stroke='%2317355b' stroke-width='2.3' stroke-linejoin='round'/%3E%3Ccircle cx='32' cy='25' r='4.3' fill='%23e5b42a' stroke='%2317355b' stroke-width='1.2'/%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="images/RV LOGO.png" />
+
+  <!-- Fonts & Assets -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="RAIVEGA" />
+  <meta property="og:title" content="RAIVEGA — e.services Portal" />
+  <meta property="og:description" content="Customer login portal for RAIVEGA multimodal freight forwarding and logistics coordination." />
+  <meta property="og:url" content="https://www.raivega.in/eservices.html" />
+  <meta property="og:image" content="https://www.raivega.in/images/RV%20LOGO.png" />
+  <meta property="og:image:alt" content="RAIVEGA logo" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="RAIVEGA — e.services Portal" />
+  <meta name="twitter:description" content="Customer login portal for shipment visibility, coordination, and logistics insights." />
+  <meta name="twitter:image" content="https://www.raivega.in/images/RV%20LOGO.png" />
+
+  <style>
+    :root {
+      --text: #111111;
+      --muted: #5a5a5a;
+      --light-muted: #8e8e8e;
+      --line: rgba(17, 17, 17, 0.09);
+      --line-strong: rgba(17, 17, 17, 0.16);
+      --bg-soft: rgba(255, 255, 255, 0.88);
+      --bg-card: rgba(255, 255, 255, 0.74);
+      --shadow-soft: 0 14px 40px rgba(0, 0, 0, 0.04);
+      --shadow-card: 0 24px 60px rgba(0, 0, 0, 0.05);
+      --radius-lg: 28px;
+      --radius-md: 22px;
+      --transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --font-stack: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      --brand-blue: #17355b;
+      --brand-gold: #e5b42a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 120px;
+    }
+
+    body {
+      font-family: var(--font-stack);
+      font-weight: 300;
+      color: var(--text);
+      background: linear-gradient(180deg, #ffffff 0%, #fbfbfb 55%, #ffffff 100%);
+      line-height: 1.75;
+      letter-spacing: -0.01em;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      cursor: none;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 10% 14%, rgba(17,17,17,0.025), transparent 20%),
+        radial-gradient(circle at 85% 18%, rgba(17,17,17,0.018), transparent 24%),
+        radial-gradient(circle at 18% 85%, rgba(17,17,17,0.018), transparent 24%),
+        radial-gradient(circle at 75% 80%, rgba(17,17,17,0.015), transparent 24%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    a, button, input, textarea, select, label, [role="button"] {
+      cursor: none !important;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    /* Custom cursor: logo + ring */
+    .cursor-logo,
+    .cursor-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition:
+        opacity 0.25s ease,
+        width 0.25s ease,
+        height 0.25s ease,
+        border-color 0.25s ease,
+        background-color 0.25s ease,
+        transform 0.2s ease;
+    }
+
+    .cursor-logo {
+      width: 26px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.12));
+    }
+
+    .cursor-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      opacity: 0.78;
+    }
+
+    .cursor-ring {
+      width: 56px;
+      height: 56px;
+      border: 1.2px solid rgba(17, 17, 17, 0.22);
+      border-radius: 50%;
+      background: rgba(229, 180, 42, 0.08);
+      backdrop-filter: blur(.2px);
+      -webkit-backdrop-filter: blur(3px);
+    }
+
+    .cursor-visible .cursor-logo,
+    .cursor-visible .cursor-ring {
+      opacity: 1;
+    }
+
+    .cursor-hover .cursor-logo {
+      width: 32px;
+      height: 32px;
+    }
+
+    .cursor-hover .cursor-ring {
+      width: 78px;
+      height: 78px;
+      border-color: rgba(17, 17, 17, 0.34);
+      background: rgba(17, 17, 17, 0.03);
+    }
+
+    .cursor-down .cursor-logo {
+      width: 22px;
+      height: 22px;
+    }
+
+    .cursor-down .cursor-ring {
+      width: 46px;
+      height: 46px;
+    }
+
+    .site-shell {
+      position: relative;
+      z-index: 2;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1200;
+      min-height: 86px;
+      padding: 14px 5vw;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .nav-left,
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      min-width: 0;
+    }
+
+    .nav-left { justify-content: flex-start; }
+    .nav-right { justify-content: flex-end; }
+
+    .nav-menu {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-menu a {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      position: relative;
+      padding: 6px 0;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+
+    .nav-menu a:hover,
+    .nav-menu a.active {
+      color: var(--text);
+    }
+
+    .nav-menu a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 1px;
+      background: var(--text);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-menu a:hover::after,
+    .nav-menu a.active::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .nav-brand {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-brand-mark {
+      position: relative;
+      width: 136px;
+      height: 94px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .nav-brand a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 94px;
+      height: 58px;
+      position: relative;
+      z-index: 2;
+      margin-top: 2px;
+    }
+
+    .nav-logo {
+      height: 58px;
+      width: auto;
+      object-fit: contain;
+      transition: transform 0.45s ease;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.04));
+    }
+
+    .nav-brand:hover .nav-logo {
+      transform: scale(1.04);
+    }
+
+    .nav-curve-wrap {
+      position: absolute;
+      left: 50%;
+      top: -24px;
+      width: 132px;
+      height: 132px;
+      transform: translateX(-50%);
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    .nav-ring-circle {
+      fill: none;
+      stroke-width: 1.2;
+    }
+
+    .nav-curve-text {
+      font-family: var(--font-stack);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+    }
+
+    .nav-link-btn {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 12px 20px;
+      border: 1px solid rgba(17,17,17,0.12);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.78);
+      color: var(--text);
+      transition: var(--transition);
+      white-space: nowrap;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+    }
+
+    .nav-link-btn:hover {
+      border-color: rgba(17,17,17,0.3);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 18px rgba(0,0,0,0.05);
+    }
+
+    section {
+      position: relative;
+      padding: 100px 6vw;
+      border-top: 1px solid var(--line);
+      background: transparent;
+    }
+
+    .section-panel {
+      background: var(--bg-soft);
+      border: 1px solid rgba(17,17,17,0.08);
+      border-radius: var(--radius-lg);
+      padding: 38px;
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .label-section {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 22px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .label-section i {
+      font-size: 16px;
+    }
+
+    .sec-head {
+      font-size: clamp(30px, 3.8vw, 46px);
+      font-weight: 200;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      max-width: 720px;
+      margin-bottom: 18px;
+      color: var(--text);
+    }
+
+    .sec-sub {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 700px;
+      margin-bottom: 22px;
+      line-height: 1.8;
+    }
+
+    .btn-dark,
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 15px 28px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: var(--transition);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+      border: 1px solid transparent;
+    }
+
+    .btn-dark {
+      background: #111111;
+      border-color: #111111;
+      color: #ffffff;
+    }
+
+    .btn-dark:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 30px rgba(17,17,17,0.14);
+    }
+
+    .btn-outline {
+      background: rgba(255,255,255,0.85);
+      border-color: rgba(17,17,17,0.12);
+      color: var(--text);
+    }
+
+    .btn-outline:hover {
+      transform: translateY(-2px);
+      border-color: rgba(17,17,17,0.25);
+      box-shadow: 0 16px 28px rgba(0,0,0,0.06);
+    }
+
+    /* e.services page layout */
+    .eservices-hero {
+      padding: 100px 6vw 80px;
+    }
+
+    .eservices-panel {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .eservices-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 28px;
+      margin-top: 28px;
+    }
+
+    .login-form,
+    .blog-panel {
+      background: rgba(255,255,255,0.72);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 28px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .login-form h2 {
+      font-size: 24px;
+      font-weight: 300;
+      margin-bottom: 10px;
+    }
+
+    .form-row {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .form-row label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .form-row input {
+      width: 100%;
+      padding: 15px 16px;
+      border: 1px solid var(--line-strong);
+      border-radius: 14px;
+      background: #fff;
+      font: inherit;
+      color: var(--text);
+      outline: none;
+    }
+
+    .form-row input:focus {
+      border-color: rgba(23,53,91,.35);
+      box-shadow: 0 0 0 4px rgba(23,53,91,.06);
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .auth-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .auth-links a,
+    .blog-links a {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .auth-links a:hover,
+    .blog-links a:hover {
+      color: var(--text);
+    }
+
+    .blog-title {
+      font-size: 24px;
+      font-weight: 300;
+      line-height: 1.2;
+      margin-top: 6px;
+    }
+
+    .blog-sub {
+      margin-top: 12px;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 14px;
+    }
+
+    .blog-links {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .blog-links a {
+      padding: 14px 16px;
+      border: 1px solid var(--line-strong);
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    footer {
+      padding: 32px 6vw;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      background: rgba(255,255,255,0.76);
+      position: relative;
+      z-index: 2;
+    }
+
+    footer p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    @media (max-width: 960px) {
+      body {
+        cursor: auto;
+      }
+
+      a, button, input, textarea, select, label, [role="button"] {
+        cursor: auto !important;
+      }
+
+      .cursor-logo,
+      .cursor-ring {
+        display: none !important;
+      }
+
+      nav {
+        padding: 14px 4vw;
+      }
+
+      section,
+      footer {
+        padding-left: 4vw;
+        padding-right: 4vw;
+      }
+
+      .eservices-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      nav {
+        min-height: 76px;
+        grid-template-columns: 1fr auto 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- custom cursor elements -->
+  <div class="cursor-logo" id="cursorLogo" aria-hidden="true">
+    <img src="images/RV LOGO.png" alt="" />
+  </div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+  <div class="site-shell">
+    <!-- HEADER / NAV -->
+    <nav>
+      <div class="nav-left">
+        <ul class="nav-menu">
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="eservices.html">e.services</a></li>
+          <li><a href="index.html#about">About</a></li>
+        </ul>
+      </div>
+
+      <div class="nav-brand">
+        <div class="nav-brand-mark">
+          <svg class="nav-curve-wrap" viewBox="0 0 140 140" aria-hidden="true">
+            <defs>
+              <path id="navCurvePath" d="M 24 72 A 46 46 0 0 1 116 72" />
+            </defs>
+            <circle class="nav-ring-circle" cx="70" cy="70" r="48"></circle>
+            <text class="nav-curve-text">
+              <textPath href="#navCurvePath" startOffset="50%" text-anchor="middle">
+                <tspan fill="#17355b">RAI</tspan><tspan fill="#e5b42a">V</tspan><tspan fill="#17355b">EGA</tspan>
+              </textPath>
+            </text>
+          </svg>
+
+          <a href="index.html" aria-label="Go to homepage">
+            <picture>
+              <source srcset="images/rv-icon.svg" type="image/svg+xml" />
+              <img src="images/RV LOGO.png" alt="RAIVEGA" class="nav-logo" />
+            </picture>
+          </a>
+        </div>
+      </div>
+
+      <div class="nav-right">
+        <ul class="nav-menu">
+          <li><a href="index.html#process">Process</a></li>
+        </ul>
+        <a href="get-instant-rates.html" class="nav-link-btn">Instant Rates</a>
+        <a href="eservices.html" class="nav-link-btn">e.services</a>
+      </div>
+    </nav>
+
+    <!-- MAIN CONTENT: CUSTOMER LOGIN + BLOGS -->
+    <main>
+      <section class="eservices-hero">
+        <div class="section-panel eservices-panel" data-aos="fade-up">
+          <div class="label-section">
+            <i class="bi bi-person-badge"></i>
+            Customer Login Portal
+          </div>
+          <h1 class="sec-head">Sign in to access your RAIVEGA e-services account.</h1>
+          <p class="sec-sub">
+            Use your user ID and password to log in. You can also sign up, recover credentials, and explore blog pages from the same portal.
+          </p>
+
+          <div class="eservices-grid">
+            <!-- Login form -->
+            <form class="login-form" action="#" method="post">
+              <h2>Sign in</h2>
+
+              <div class="form-row">
+                <label for="userId">User ID</label>
+                <input id="userId" name="userId" type="text" placeholder="Enter your user ID" />
+              </div>
+
+              <div class="form-row">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" placeholder="Enter your password" />
+              </div>
+
+              <div class="form-row">
+                <label for="cell">Cell</label>
+                <input id="cell" name="cell" type="tel" placeholder="Enter your mobile number" />
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn-dark">
+                  <i class="bi bi-box-arrow-in-right"></i>
+                  Sign In
+                </button>
+                <a href="#signup" class="btn-outline">
+                  <i class="bi bi-person-plus"></i>
+                  Sign Up
+                </a>
+              </div>
+
+              <div class="auth-links">
+                <a href="#forgot-user">Forget User Name</a>
+                <a href="#forgot-password">Forget Password</a>
+              </div>
+            </form>
+
+            <!-- Blogs panel -->
+            <div class="blog-panel" data-aos="fade-up" data-aos-delay="120">
+              <div class="label-section">
+                <i class="bi bi-journal-text"></i>
+                Blogs
+              </div>
+              <h2 class="blog-title">Explore the latest pages and updates.</h2>
+              <p class="blog-sub">
+                Choose from the available blog pages below to read company updates, logistics insights, and service information.
+              </p>
+              <div class="blog-links">
+                <!-- Adjust these links to match your actual blog URLs / pages folder -->
+                <a href="pages/blog.html">Blog</a>
+                <a href="pages/blog-1.html">Blog 1</a>
+                <a href="pages/blog-2.html">Blog 2</a>
+                <a href="pages/blog-3.html">Blog 3</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>© 2026 RAIVEGA. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="index.html#services">Services</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#process">Process</a>
+        <a href="index.html#contact">Contact</a>
+        <a href="get-instant-rates.html">Instant Rates</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- AOS -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      function initAOS() {
+        if (typeof AOS !== 'undefined') {
+          AOS.init({ once: true, duration: 750, easing: 'ease-out-cubic' });
+        }
+      }
+
+      function initLogoCursor() {
+        if (window.matchMedia('(max-width: 960px)').matches) return;
+
+        const logo = document.getElementById('cursorLogo');
+        const ring = document.getElementById('cursorRing');
+        if (!logo || !ring) return;
+
+        const state = {
+          mouseX: window.innerWidth / 2,
+          mouseY: window.innerHeight / 2,
+          ringX: window.innerWidth / 2,
+          ringY: window.innerHeight / 2,
+          visible: false
+        };
+
+        function showCursor() {
+          if (!state.visible) {
+            state.visible = true;
+            document.body.classList.add('cursor-visible');
+          }
+        }
+
+        function moveLogo(x, y) {
+          logo.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+        }
+
+        function animateRing() {
+          state.ringX += (state.mouseX - state.ringX) * 0.12;
+          state.ringY += (state.mouseY - state.ringY) * 0.12;
+          ring.style.transform = `translate(${state.ringX}px, ${state.ringY}px) translate(-50%, -50%)`;
+          requestAnimationFrame(animateRing);
+        }
+
+        window.addEventListener('mousemove', (e) => {
+          state.mouseX = e.clientX;
+          state.mouseY = e.clientY;
+          moveLogo(state.mouseX, state.mouseY);
+          showCursor();
+        }, { passive: true });
+
+        window.addEventListener('mouseenter', showCursor);
+
+        document.addEventListener('mouseleave', () => {
+          document.body.classList.remove('cursor-visible');
+          state.visible = false;
+        });
+
+        document.addEventListener('mousedown', () => {
+          document.body.classList.add('cursor-down');
+        });
+
+        document.addEventListener('mouseup', () => {
+          document.body.classList.remove('cursor-down');
+        });
+
+        const hoverTargets = document.querySelectorAll('a, button, .nav-brand a, .nav-link-btn');
+        hoverTargets.forEach((el) => {
+          el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+          el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+        });
+
+        animateRing();
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        initAOS();
+        initLogoCursor();
+      });
+    })();
+  </script>
+</body>
+</html>
